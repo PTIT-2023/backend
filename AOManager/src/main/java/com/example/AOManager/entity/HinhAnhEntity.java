@@ -9,8 +9,16 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.validator.constraints.NotBlank;
 
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "HINHANH")
 public class HinhAnhEntity {
@@ -18,49 +26,13 @@ public class HinhAnhEntity {
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "IDHA")
-    private Integer iDHA;
+    private Integer idHA;
 	
     @Column(name = "DUONGDAN")
-    @NotBlank(message = "Đường dẫn không được bỏ trống!")
     private String duongDan;
     
     @ManyToOne
     @JoinColumn(name = "MASVC")
     private SinhVatCanhEntity maSVC;
-
-	public HinhAnhEntity() {
-		super();
-	}
-
-	public HinhAnhEntity(Integer iDHA, String duongDan, SinhVatCanhEntity maSVC) {
-		super();
-		this.iDHA = iDHA;
-		this.duongDan = duongDan;
-		this.maSVC = maSVC;
-	}
-
-	public Integer getIDHA() {
-		return iDHA;
-	}
-
-	public void setMaHA(Integer maHA) {
-		this.iDHA = maHA;
-	}
-
-	public String getDuongDan() {
-		return duongDan;
-	}
-
-	public void setDuongDan(String duongDan) {
-		this.duongDan = duongDan;
-	}
-
-	public SinhVatCanhEntity getMaSVC() {
-		return maSVC;
-	}
-
-	public void setMaSVC(SinhVatCanhEntity maSVC) {
-		this.maSVC = maSVC;
-	}
 	
 }

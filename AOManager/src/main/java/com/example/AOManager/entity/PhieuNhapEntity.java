@@ -17,8 +17,16 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "PHIEUNHAP")
 public class PhieuNhapEntity {
@@ -43,59 +51,5 @@ public class PhieuNhapEntity {
     
     @OneToMany(cascade = CascadeType.REFRESH, mappedBy = "maPN")
     private List<CT_PNEntity> cT_PNList;
-
-	public PhieuNhapEntity() {
-		super();
-	}
-
-	public PhieuNhapEntity(Integer maPN, Date ngayTao, NhanVienEntity maNV, PhieuDatEntity maPD,
-			List<CT_PNEntity> cT_PNList) {
-		super();
-		this.maPN = maPN;
-		this.ngayTao = ngayTao;
-		this.maNV = maNV;
-		this.maPD = maPD;
-		this.cT_PNList = cT_PNList;
-	}
-
-	public Integer getMaPN() {
-		return maPN;
-	}
-
-	public void setMaPN(Integer maPN) {
-		this.maPN = maPN;
-	}
-
-	public Date getNgayTao() {
-		return ngayTao;
-	}
-
-	public void setNgayTao(Date ngayTao) {
-		this.ngayTao = ngayTao;
-	}
-
-	public NhanVienEntity getMaNV() {
-		return maNV;
-	}
-
-	public void setMaNV(NhanVienEntity maNV) {
-		this.maNV = maNV;
-	}
-
-	public PhieuDatEntity getMaPD() {
-		return maPD;
-	}
-
-	public void setMaPD(PhieuDatEntity maPD) {
-		this.maPD = maPD;
-	}
-
-	public List<CT_PNEntity> getcT_PNList() {
-		return cT_PNList;
-	}
-
-	public void setcT_PNList(List<CT_PNEntity> cT_PNList) {
-		this.cT_PNList = cT_PNList;
-	}
 
 }

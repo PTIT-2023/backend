@@ -17,8 +17,16 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "PHIEUDAT")
 public class PhieuDatEntity {
@@ -49,77 +57,5 @@ public class PhieuDatEntity {
     
     @OneToMany(cascade = CascadeType.REFRESH, mappedBy = "maPD")
     private List<CT_PDEntity> cT_PDList;
-
-	public PhieuDatEntity() {
-		super();
-	}
-
-	public PhieuDatEntity(Integer maPD, Date ngayDat, String maPN, PhieuNhapEntity phieuNhap, NhaCungCapEntity maNCC,
-			NhanVienEntity maNV, List<CT_PDEntity> cT_PDList) {
-		super();
-		this.maPD = maPD;
-		this.ngayDat = ngayDat;
-		this.maPN = maPN;
-		this.phieuNhap = phieuNhap;
-		this.maNCC = maNCC;
-		this.maNV = maNV;
-		this.cT_PDList = cT_PDList;
-	}
-
-	public Integer getMaPD() {
-		return maPD;
-	}
-
-	public void setMaPD(Integer maPD) {
-		this.maPD = maPD;
-	}
-
-	public Date getNgayDat() {
-		return ngayDat;
-	}
-
-	public void setNgayDat(Date ngayDat) {
-		this.ngayDat = ngayDat;
-	}
-
-	public String getMaPN() {
-		return maPN;
-	}
-
-	public void setMaPN(String maPN) {
-		this.maPN = maPN;
-	}
-
-	public PhieuNhapEntity getPhieuNhap() {
-		return phieuNhap;
-	}
-
-	public void setPhieuNhap(PhieuNhapEntity phieuNhap) {
-		this.phieuNhap = phieuNhap;
-	}
-
-	public NhaCungCapEntity getMaNCC() {
-		return maNCC;
-	}
-
-	public void setMaNCC(NhaCungCapEntity maNCC) {
-		this.maNCC = maNCC;
-	}
-
-	public NhanVienEntity getMaNV() {
-		return maNV;
-	}
-
-	public void setMaNV(NhanVienEntity maNV) {
-		this.maNV = maNV;
-	}
-
-	public List<CT_PDEntity> getcT_PDList() {
-		return cT_PDList;
-	}
-
-	public void setcT_PDList(List<CT_PDEntity> cT_PDList) {
-		this.cT_PDList = cT_PDList;
-	}
     
 }

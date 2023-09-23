@@ -1,5 +1,10 @@
 package com.example.AOManager.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -9,6 +14,10 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "TRANGTHAITK")
 public class TrangThaiTKEntity {
@@ -22,46 +31,5 @@ public class TrangThaiTKEntity {
 	
 	@OneToMany(cascade = CascadeType.REFRESH, mappedBy = "maTT")
 	private List<TaiKhoanEntity> taiKhoan;
-
-	public TrangThaiTKEntity() {
-		super();
-	}
-	
-	public TrangThaiTKEntity(String maTT, String tenTT) {
-		super();
-		this.maTT = maTT;
-		this.tenTT = tenTT;
-	}
-
-	public TrangThaiTKEntity(String maTT, String tenTT, List<TaiKhoanEntity> taiKhoan) {
-		super();
-		this.maTT = maTT;
-		this.tenTT = tenTT;
-		this.taiKhoan = taiKhoan;
-	}
-
-	public String getmaTT() {
-		return maTT;
-	}
-
-	public void setmaTT(String maTT) {
-		this.maTT = maTT;
-	}
-
-	public String getTenTT() {
-		return tenTT;
-	}
-
-	public void setTenTT(String tenTT) {
-		this.tenTT = tenTT;
-	}
-
-	public List<TaiKhoanEntity> getTaiKhoan() {
-		return taiKhoan;
-	}
-
-	public void setTaiKhoan(List<TaiKhoanEntity> taiKhoan) {
-		this.taiKhoan = taiKhoan;
-	}
 	
 }

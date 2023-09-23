@@ -16,8 +16,16 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "THAYDOIGIA")
 public class ThayDoiGiaEntity {
@@ -25,16 +33,13 @@ public class ThayDoiGiaEntity {
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
-    private Integer iD;
+    private Integer id;
 	
     @Column(name = "NGAYAPDUNG")
     @Temporal(TemporalType.DATE)
-    @NotNull(message = "Ngày áp dụng không được bỏ trống!")
     private Date ngayApDung;
     
     @Column(name = "GIA")
-    @NotNull(message = "Giá không được bỏ trống!")
-    @Min(value = 1000, message = "Giá không được nhỏ hơn 1000VND!")
     private int gia;
     
     @ManyToOne
@@ -43,61 +48,7 @@ public class ThayDoiGiaEntity {
     
     @ManyToOne
     @JoinColumn(name = "MASVC")
-    @NotNull(message = "Sinh vật cảnh không được bỏ trống!")
     private SinhVatCanhEntity maSVC;
-
-	public ThayDoiGiaEntity() {
-		super();
-	}
-
-	public ThayDoiGiaEntity(Integer iD, Date ngayApDung, int gia, NhanVienEntity maNV, SinhVatCanhEntity maSVC) {
-		super();
-		this.iD = iD;
-		this.ngayApDung = ngayApDung;
-		this.gia = gia;
-		this.maNV = maNV;
-		this.maSVC = maSVC;
-	}
-
-	public Integer getiD() {
-		return iD;
-	}
-
-	public void setiD(Integer iD) {
-		this.iD = iD;
-	}
-
-	public Date getNgayApDung() {
-		return ngayApDung;
-	}
-
-	public void setNgayApDung(Date ngayApDung) {
-		this.ngayApDung = ngayApDung;
-	}
-
-	public int getGia() {
-		return gia;
-	}
-
-	public void setGia(int gia) {
-		this.gia = gia;
-	}
-
-	public NhanVienEntity getMaNV() {
-		return maNV;
-	}
-
-	public void setMaNV(NhanVienEntity maNV) {
-		this.maNV = maNV;
-	}
-
-	public SinhVatCanhEntity getMaSVC() {
-		return maSVC;
-	}
-
-	public void setMaSVC(SinhVatCanhEntity maSVC) {
-		this.maSVC = maSVC;
-	}
 	
 	public String getGiaVN() {
 		// TODO Auto-generated method stub

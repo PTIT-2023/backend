@@ -15,8 +15,16 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "KHUYENMAI")
 public class KhuyenMaiEntity {
@@ -45,68 +53,5 @@ public class KhuyenMaiEntity {
     
     @OneToMany(cascade = CascadeType.REFRESH, mappedBy = "maKM")
     private List<CT_KMEntity> cT_KMList;
-
-	public KhuyenMaiEntity() {
-		super();
-	}
-
-	public KhuyenMaiEntity(Integer maKM, String moTa, Date ngayBD, Date ngayKT, NhanVienEntity maNV,
-			List<CT_KMEntity> cT_KMList) {
-		super();
-		this.maKM = maKM;
-		this.moTa = moTa;
-		this.ngayBD = ngayBD;
-		this.ngayKT = ngayKT;
-		this.maNV = maNV;
-		this.cT_KMList = cT_KMList;
-	}
-
-	public Integer getMaKM() {
-		return maKM;
-	}
-
-	public void setMaKM(Integer maKM) {
-		this.maKM = maKM;
-	}
-
-	public String getMoTa() {
-		return moTa;
-	}
-
-	public void setMoTa(String moTa) {
-		this.moTa = moTa;
-	}
-
-	public Date getNgayBD() {
-		return ngayBD;
-	}
-
-	public void setNgayBD(Date ngayBD) {
-		this.ngayBD = ngayBD;
-	}
-
-	public Date getNgayKT() {
-		return ngayKT;
-	}
-
-	public void setNgayKT(Date ngayKT) {
-		this.ngayKT = ngayKT;
-	}
-
-	public NhanVienEntity getMaNV() {
-		return maNV;
-	}
-
-	public void setMaNV(NhanVienEntity maNV) {
-		this.maNV = maNV;
-	}
-
-	public List<CT_KMEntity> getcT_KMList() {
-		return cT_KMList;
-	}
-
-	public void setcT_KMList(List<CT_KMEntity> cT_KMList) {
-		this.cT_KMList = cT_KMList;
-	}
     
 }
