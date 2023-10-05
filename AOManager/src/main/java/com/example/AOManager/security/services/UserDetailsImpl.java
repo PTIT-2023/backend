@@ -1,7 +1,6 @@
 package com.example.AOManager.security.services;
 
-import com.example.AOManager.entity.TaiKhoanEntity;
-import com.example.AOManager.entity.TaiKhoanEntity;
+import com.example.AOManager.entity.EmployeeEntity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -13,27 +12,25 @@ import java.util.Objects;
 
 public class UserDetailsImpl implements UserDetails {
     private static final long serialVersionUID = 1L;
-    private String maTK;
+    private String email;
     @JsonIgnore
-    private String matKhau;
+    private String password;
 
     private Collection<? extends GrantedAuthority> authorities;
 
-    public UserDetailsImpl(String maTK, String matKhau, Collection<? extends GrantedAuthority> authorities) {
-        this.maTK = maTK;
-        this.matKhau = matKhau;
+    public UserDetailsImpl(String email, String password, Collection<? extends GrantedAuthority> authorities) {
+        this.email = email;
+        this.password = password;
         this.authorities = authorities;
     }
 
-    public static UserDetailsImpl build(TaiKhoanEntity user) {
-
+    public static UserDetailsImpl build(EmployeeEntity employee) {
         Collection<GrantedAuthority> authorities = new ArrayList<>();
 
-        GrantedAuthority t =   new SimpleGrantedAuthority(user.getMaQuyen().getTenQuyen().toString());
+        GrantedAuthority t =   new SimpleGrantedAuthority(employee.getRoleId().getName().toString());
         authorities.add(t);
 
-        return new UserDetailsImpl(user.getMaTK(), user.getMatKhau(), authorities);
-
+        return new UserDetailsImpl(employee.getEmail(), employee.getPassword(), authorities);
     }
 
     @Override
@@ -43,12 +40,12 @@ public class UserDetailsImpl implements UserDetails {
 
     @Override
     public String getPassword() {
-        return matKhau;
+        return password;
     }
 
     @Override
     public String getUsername() {
-        return maTK;
+        return email;
     }
 
     @Override
@@ -76,6 +73,6 @@ public class UserDetailsImpl implements UserDetails {
         if (this == obj) return true;
         if (obj == null || getClass() != obj.getClass()) return false;
         UserDetailsImpl user = (UserDetailsImpl) obj;
-        return Objects.equals(maTK, user.maTK);
+        return Objects.equals(email, user.email);
     }
 }

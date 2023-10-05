@@ -1,9 +1,7 @@
 package com.example.AOManager.security.services;
 
-import com.example.AOManager.entity.TaiKhoanEntity;
-import com.example.AOManager.repository.TaiKhoanRepository;
-import com.example.AOManager.entity.TaiKhoanEntity;
-import com.example.AOManager.repository.TaiKhoanRepository;
+import com.example.AOManager.entity.EmployeeEntity;
+import com.example.AOManager.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -14,14 +12,14 @@ import javax.transaction.Transactional;
 
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
-    @Autowired
-    TaiKhoanRepository taiKhoanRepository;
 
+    @Autowired
+    EmployeeRepository employeeRepository;
     @Override
     @Transactional
-    public UserDetails loadUserByUsername(String maTK) throws UsernameNotFoundException {
-        TaiKhoanEntity taiKhoan = taiKhoanRepository.findByMaTK(maTK)
-                .orElseThrow(() -> new UsernameNotFoundException("User Not Found with user name" + maTK));
-        return UserDetailsImpl.build(taiKhoan);
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        EmployeeEntity employee = employeeRepository.findByEmail(email)
+                .orElseThrow(() -> new UsernameNotFoundException("User Not Found with email" + email));
+        return UserDetailsImpl.build(employee);
     }
 }
