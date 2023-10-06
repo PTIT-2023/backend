@@ -1,14 +1,8 @@
-# Sử dụng hình ảnh cơ sở chứa Java 11
-FROM openjdk:11-jre-slim
+FROM openjdk:11
 
-# Tạo thư mục /app trong hình ảnh và sử dụng nó làm thư mục làm việc
-WORKDIR /app
+COPY build\libs/AOManager-0.0.1-SNAPSHOT.jar /app.jar
 
-# Thiết lập biến môi trường
-ENV JAVA_OPTS=""
+CMD ["java", "-jar", "/app.jar"]
 
-# Mở cổng 8080
 EXPOSE 8080
-
-# Khởi chạy ứng dụng Spring Boot
-ENTRYPOINT ["java", "-jar", "app.jar"]
+ENV PORT 8080
