@@ -15,3 +15,8 @@ EXPOSE 8080
 
 # Khởi chạy ứng dụng Spring Boot
 ENTRYPOINT ["java", "-jar", "app.jar"]
+
+# Cấu hình biến môi trường
+ENV SPRING_DATASOURCE_URL=jdbc:postgresql://dpg-ckg4se8l3its73dig5pg-a.singapore-postgres.render.com:5432/aomanager
+ENV SPRING_DATASOURCE_USERNAME=aomanager_user
+ENV SPRING_DATASOURCE_PASSWORD=TEeNGWhSc3tgrAqaCfzyEiLtq6hWqNYp
