@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.List;
 import java.util.UUID;
 
 @Getter
@@ -14,16 +13,17 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "role")
-public class RoleEntity {
+@Table(name = "user_role")
+public class UserRoleEntity {
     @Id
     @Basic(optional = false)
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     private UUID id;
-    @Basic(optional = false)
-    @Column(name = "name")
-    private String name;
-    @OneToMany(cascade = CascadeType.REFRESH, mappedBy = "roleId")
-    private List<UserEntity> employeeList;
+    @JoinColumn(name = "role_id", referencedColumnName = "id")
+    @ManyToOne(optional = false)
+    private RoleEntity roleId;
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    @ManyToOne(optional = false)
+    private UserEntity userId;
 }

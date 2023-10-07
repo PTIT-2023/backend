@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class CustomerSignupRequest {
+public class UserSignupRequest {
     private String email;
     private String password;
     private String firstName;
@@ -18,4 +18,5 @@ public class CustomerSignupRequest {
     private String gender;
     private String address;
     private String phone;
+    private String roleId;
 }

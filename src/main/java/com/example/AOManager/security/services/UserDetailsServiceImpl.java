@@ -1,7 +1,7 @@
 package com.example.AOManager.security.services;
 
-import com.example.AOManager.entity.CustomerEntity;
-import com.example.AOManager.repository.CustomerRepository;
+import com.example.AOManager.entity.UserEntity;
+import com.example.AOManager.repository.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -11,15 +11,14 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 
 @Service
-public class CustomerDetailsServiceImpl implements UserDetailsService {
-
+public class UserDetailsServiceImpl implements UserDetailsService {
     @Autowired
-    CustomerRepository customerRepository;
+    UsersRepository userRepository;
     @Override
     @Transactional
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        CustomerEntity customer = customerRepository.findByEmail(email)
+        UserEntity user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new UsernameNotFoundException("User Not Found with email" + email));
-        return CustomerDetailsImpl.build(customer);
+        return UserDetailsImpl.build(user);
     }
 }

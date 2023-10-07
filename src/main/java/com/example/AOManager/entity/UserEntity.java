@@ -1,5 +1,4 @@
 package com.example.AOManager.entity;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,8 +13,8 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "customer")
-public class CustomerEntity {
+@Table(name = "users")
+public class UserEntity {
     @Id
     @Basic(optional = false)
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -48,8 +47,27 @@ public class CustomerEntity {
     @Basic(optional = false)
     @Column(name = "status")
     private Boolean status;
+    @Basic(optional = false)
+    @Column(name = "role_id")
+    private String roleId;
+    @OneToMany(cascade = CascadeType.REFRESH, mappedBy = "employeeId")
+    private List<OrderSupplierEntity> orderSupplierList;
     @OneToMany(cascade = CascadeType.REFRESH, mappedBy = "customerId")
     private List<CartDetailEntity> cartDetailList;
-    @OneToMany(cascade = CascadeType.REFRESH, mappedBy = "customerId")
+    @OneToMany(cascade = CascadeType.REFRESH, mappedBy = "employeeId")
+    private List<PriceDetailEntity> priceDetailList;
+    @OneToMany(cascade = CascadeType.REFRESH, mappedBy = "userId")
+    private List<UserRoleEntity> userRoleList;
+    @OneToMany(mappedBy = "approveEmployeeId")
     private List<OrderCustomerEntity> orderCustomerList;
+    @OneToMany(mappedBy = "deliveryEmployeeId")
+    private List<OrderCustomerEntity> orderCustomerList1;
+    @OneToMany(mappedBy = "cancelEmployeeId")
+    private List<OrderCustomerEntity> orderCustomerList2;
+    @OneToMany(cascade = CascadeType.REFRESH, mappedBy = "customerId")
+    private List<OrderCustomerEntity> orderCustomerList3;
+    @OneToMany(cascade = CascadeType.REFRESH, mappedBy = "employeeId")
+    private List<DeductionEntity> deductionList;
+    @OneToMany(cascade = CascadeType.REFRESH, mappedBy = "employeeId")
+    private List<ImportFormEntity> importFormList;
 }

@@ -43,16 +43,16 @@ public class OrderCustomerEntity {
     private List<CartDetailEntity> cartDetailList;
     @JoinColumn(name = "customer_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    private CustomerEntity customerId;
+    private UserEntity customerId;
     @JoinColumn(name = "approve_employee_id", referencedColumnName = "id")
     @ManyToOne
-    private EmployeeEntity approveEmployeeId;
+    private UserEntity approveEmployeeId;
     @JoinColumn(name = "delivery_employee_id", referencedColumnName = "id")
     @ManyToOne
-    private EmployeeEntity deliveryEmployeeId;
+    private UserEntity deliveryEmployeeId;
     @JoinColumn(name = "cancel_employee_id", referencedColumnName = "id")
     @ManyToOne
-    private EmployeeEntity cancelEmployeeId;
+    private UserEntity cancelEmployeeId;
     @JoinColumn(name = "order_status_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private OrderStatusEntity orderStatusId;

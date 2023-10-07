@@ -30,7 +30,7 @@ public class DeductionEntity {
     private String reason;
     @JoinColumn(name = "employee_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    private EmployeeEntity employeeId;
+    private UserEntity employeeId;
     @JoinColumn(name = "product_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private ProductEntity productId;

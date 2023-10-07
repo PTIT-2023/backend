@@ -27,7 +27,7 @@ public class ImportFormEntity {
     private List<ImportDetailEntity> importDetailList;
     @JoinColumn(name = "employee_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    private EmployeeEntity employeeId;
+    private UserEntity employeeId;
     @JoinColumn(name = "order_supplier_id", referencedColumnName = "id")
     @OneToOne(optional = false)
     private OrderSupplierEntity orderSupplierId;

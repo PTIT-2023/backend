@@ -23,13 +23,13 @@ public class CartDetailEntity {
     @Basic(optional = false)
     @Column(name = "price")
     private Long price;
-    @JoinColumn(name = "customer_id", referencedColumnName = "id")
+    @JoinColumn(name = "order_customer_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    private CustomerEntity customerId;
+    private OrderCustomerEntity orderCustomerId;
     @JoinColumn(name = "product_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private ProductEntity productId;
-    @JoinColumn(name = "order_customer_id", referencedColumnName = "id")
-    @ManyToOne
-    private OrderCustomerEntity orderCustomerId;
+    @JoinColumn(name = "customer_id", referencedColumnName = "id")
+    @ManyToOne(optional = false)
+    private UserEntity customerId;
 }

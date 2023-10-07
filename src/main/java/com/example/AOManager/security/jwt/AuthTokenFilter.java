@@ -1,6 +1,6 @@
 package com.example.AOManager.security.jwt;
 
-import com.example.AOManager.security.services.EmployeeDetailsServiceImpl;
+import com.example.AOManager.security.services.UserDetailsServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +22,7 @@ public class AuthTokenFilter extends OncePerRequestFilter {
     private JwtUtils jwtUtils;
 
     @Autowired
-    private EmployeeDetailsServiceImpl userDetailsService;
+    private UserDetailsServiceImpl userDetailsService;
 
     private static final Logger logger = LoggerFactory.getLogger(AuthTokenFilter.class);
 
