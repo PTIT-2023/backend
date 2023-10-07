@@ -1,6 +1,6 @@
 package com.example.AOManager.security.jwt;
 
-import com.example.AOManager.security.services.UserDetailsImpl;
+import com.example.AOManager.security.services.EmployeeDetailsImpl;
 import io.jsonwebtoken.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,7 +21,7 @@ public class JwtUtils {
     private int jwtExpirationMs;
 
     public String generateJwtToken(Authentication authentication) {
-        UserDetailsImpl userPrincipal = (UserDetailsImpl) authentication.getPrincipal();
+        EmployeeDetailsImpl userPrincipal = (EmployeeDetailsImpl) authentication.getPrincipal();
         return Jwts.builder()
                 .setSubject(userPrincipal.getUsername())
                 .setIssuedAt(new Date())

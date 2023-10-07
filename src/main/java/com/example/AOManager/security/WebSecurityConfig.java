@@ -2,7 +2,7 @@ package com.example.AOManager.security;
 
 import com.example.AOManager.security.jwt.AuthEntryPointJwt;
 import com.example.AOManager.security.jwt.AuthTokenFilter;
-import com.example.AOManager.security.services.UserDetailsServiceImpl;
+import com.example.AOManager.security.services.EmployeeDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -23,7 +23,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    UserDetailsServiceImpl userDetailsService;
+    EmployeeDetailsServiceImpl userDetailsService;
 
     @Autowired
     private AuthEntryPointJwt unAuthEntryPointJwt;

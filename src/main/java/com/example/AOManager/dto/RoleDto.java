@@ -1,0 +1,26 @@
+package com.example.AOManager.dto;
+
+import com.example.AOManager.entity.RoleEntity;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.io.Serializable;
+import java.util.UUID;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class RoleDto implements Serializable {
+    private String id;
+    private String name;
+
+    public RoleDto(RoleEntity roleEntity) {
+        this.id = roleEntity.getId().toString();
+        this.name = roleEntity.getName();
+    }
+
+    public RoleEntity toEntity(RoleDto roleDto) {
+        return new RoleEntity(UUID.fromString(roleDto.getId()), roleDto.getName(), null);
+    }
+}
