@@ -12,12 +12,12 @@ import java.util.List;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping("/api/employee")
+@RequestMapping("/api/employees")
 public class EmployeeController {
     @Autowired
     UsersService usersService;
 
-    @GetMapping("/get-list")
+    @GetMapping
     public ApiResponse<?> getEmployeeList(@RequestParam String roleId, @RequestParam int page, @RequestParam int limit) {
         List<UsersDto> managerList;
         try {

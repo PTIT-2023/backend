@@ -6,6 +6,10 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -24,14 +28,10 @@ public class ProductEntity {
     @Basic(optional = false)
     @Column(name = "name")
     private String name;
-    @Basic(optional = false)
-    @Column(name = "price")
-    private Long price;
     @Column(name = "description")
     private String description;
     @Column(name = "habitat")
     private String habitat;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "temperature")
     private Double temperature;
     @Column(name = "ph")
@@ -68,4 +68,29 @@ public class ProductEntity {
     private List<PriceDetailEntity> priceDetailList;
     @OneToMany(cascade = CascadeType.REFRESH, mappedBy = "productId")
     private List<DeductionEntity> deductionList;
+
+    public List<String> getImageListString() {
+        List<String> imageListString = new ArrayList<>();
+        for(ProductImageEntity productImageEntity : productImageList) {
+            imageListString.add(productImageEntity.getUrl());
+        }
+        return imageListString;
+    }
+
+    public long getCurrentPrice() {
+        List<PriceDetailEntity> priceDetailList = this.priceDetailList;
+        long currentDate = new Date().getTime();
+        long min = 100000000;
+        int vt = -1;
+        for(int i = 0; i < priceDetailList.size(); i++){
+            long getDiff = currentDate - priceDetailList.get(i).getApplyDate();
+            long getDaysDiff = getDiff / (24 * 60 * 60 * 1000);
+            if(getDaysDiff >= 0 && getDaysDiff < min){
+                min = getDaysDiff;
+                vt = i;
+            }
+        }
+        if((priceDetailList.size() > 0) && (vt >= 0)) return priceDetailList.get(vt).getPrice();
+        return 0;
+    }
 }

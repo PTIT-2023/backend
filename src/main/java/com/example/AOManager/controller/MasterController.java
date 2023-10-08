@@ -30,7 +30,7 @@ public class MasterController {
     @Autowired
     OrderStatusService orderStatusService;
 
-    @GetMapping("/role")
+    @GetMapping("/roles")
     public ApiResponse<?> getAllRole() {
         List<RoleDto> roleList;
         try {
@@ -41,7 +41,7 @@ public class MasterController {
         return new ApiResponse<>(HttpStatus.OK.value(), "Get all roles successfully", roleList);
     }
 
-    @GetMapping("/category")
+    @GetMapping("/categories")
     public ApiResponse<?> getAllCategories() {
         List<CategoryDto> categoryList;
         try {

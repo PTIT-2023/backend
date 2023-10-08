@@ -6,18 +6,19 @@ import com.example.AOManager.repository.UsersRepository;
 import com.example.AOManager.service.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping("/api/manager")
+@RequestMapping("/api/managers")
 public class ManagerController {
     @Autowired
     UsersService usersService;
 
-    @GetMapping("/get-list")
+    @GetMapping
     public ApiResponse<?> getManagerList(@RequestParam String roleId, @RequestParam int page, @RequestParam int limit) {
         List<UsersDto> managerList;
         try {
