@@ -24,6 +24,6 @@ public class RoleEntity {
     @Basic(optional = false)
     @Column(name = "name")
     private String name;
-    @OneToMany(cascade = CascadeType.REFRESH, mappedBy = "roleId")
-    private List<UsersEntity> employeeList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "roleId")
+    private List<UserRoleEntity> userRoleList;
 }
