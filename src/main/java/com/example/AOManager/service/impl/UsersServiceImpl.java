@@ -1,5 +1,8 @@
 package com.example.AOManager.service.impl;
 
+import com.example.AOManager.dto.RoleDto;
+import com.example.AOManager.dto.UsersDto;
+import com.example.AOManager.entity.RoleEntity;
 import com.example.AOManager.entity.UsersEntity;
 import com.example.AOManager.payload.request.ChangePasswordRequest;
 import com.example.AOManager.repository.UserRoleRepository;
@@ -9,7 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public class UsersServiceImpl implements UsersService {
@@ -35,5 +40,11 @@ public class UsersServiceImpl implements UsersService {
         catch (Exception e) {
             return 2; // thất bại
         }
+    }
+
+    @Override
+    public List<UsersDto> getUsersList(String roleId, int page, int limit) {
+        List<UsersEntity> managerList = this.usersRepository.getUsersList(UUID.fromString(roleId), page - 1, limit);
+        return managerList.stream().map(UsersDto::new).collect(Collectors.toList());
     }
 }
