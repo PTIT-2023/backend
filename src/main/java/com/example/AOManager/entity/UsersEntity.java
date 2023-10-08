@@ -14,7 +14,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @Entity
 @Table(name = "users")
-public class UserEntity {
+public class UsersEntity {
     @Id
     @Basic(optional = false)
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -47,9 +47,6 @@ public class UserEntity {
     @Basic(optional = false)
     @Column(name = "status")
     private Boolean status;
-    @Basic(optional = false)
-    @Column(name = "role_id")
-    private String roleId;
     @OneToMany(cascade = CascadeType.REFRESH, mappedBy = "employeeId")
     private List<OrderSupplierEntity> orderSupplierList;
     @OneToMany(cascade = CascadeType.REFRESH, mappedBy = "customerId")

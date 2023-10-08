@@ -1,8 +1,9 @@
 package com.example.AOManager.controller;
 
 import com.example.AOManager.entity.RoleEntity;
-import com.example.AOManager.entity.UserEntity;
+import com.example.AOManager.entity.UsersEntity;
 import com.example.AOManager.entity.UserRoleEntity;
+import com.example.AOManager.payload.request.ChangePasswordRequest;
 import com.example.AOManager.payload.request.LoginRequest;
 import com.example.AOManager.payload.request.UserSignupRequest;
 import com.example.AOManager.payload.response.ApiResponse;
@@ -81,7 +82,7 @@ public class AuthController {
         if(this.usersRepository.existsByEmail(signupRequest.getEmail())) {
             return new ApiResponse<>(HttpStatus.BAD_REQUEST.value(), "Email has already been used", null);
         }
-        UserEntity user = new UserEntity();
+        UsersEntity user = new UsersEntity();
         user.setEmail(signupRequest.getEmail());
         user.setPassword(encoder.encode(signupRequest.getPassword()));
         user.setFirstName(signupRequest.getFirstName());
@@ -91,10 +92,9 @@ public class AuthController {
         user.setAddress(signupRequest.getAddress());
         user.setPhone(signupRequest.getPhone());
         user.setStatus(true);
-        user.setRoleId(signupRequest.getRoleId());
         try {
             this.usersRepository.save(user);
-            UserEntity userRegistry = this.usersRepository.findByEmail(signupRequest.getEmail()).get();
+            UsersEntity userRegistry = this.usersRepository.findByEmail(signupRequest.getEmail()).get();
             RoleEntity roleRegistry = this.roleRepository.findById(UUID.fromString(signupRequest.getRoleId())).get();
             UserRoleEntity userRole = new UserRoleEntity();
             userRole.setUserId(userRegistry);
@@ -106,4 +106,18 @@ public class AuthController {
         return new ApiResponse<>(HttpStatus.CREATED.value(), "Regist successfully", null);
     }
 
+    @PutMapping("/change-password")
+    ApiResponse<?> changePasswordCustomer(@Valid @RequestBody ChangePasswordRequest changePasswordRequest) {
+        int result = this.usersService.changePassword(changePasswordRequest);
+        if(1 == result) {
+            return new ApiResponse<>(HttpStatus.OK.value(), "Change password successfully", null);
+        }
+        if(2 == result) {
+            return new ApiResponse<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), "Faild to change password", null);
+        }
+        if(3 == result){
+            return new ApiResponse<>(HttpStatus.BAD_REQUEST.value(), "The old password is false", null);
+        }
+        return new ApiResponse<>(HttpStatus.BAD_REQUEST.value(), "The new password does not match", null);
+    }
 }

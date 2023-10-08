@@ -1,6 +1,6 @@
 package com.example.AOManager.security.services;
 
-import com.example.AOManager.entity.UserEntity;
+import com.example.AOManager.entity.UsersEntity;
 import com.example.AOManager.repository.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -17,7 +17,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Override
     @Transactional
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        UserEntity user = userRepository.findByEmail(email)
+        UsersEntity user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new UsernameNotFoundException("User Not Found with email" + email));
         return UserDetailsImpl.build(user);
     }

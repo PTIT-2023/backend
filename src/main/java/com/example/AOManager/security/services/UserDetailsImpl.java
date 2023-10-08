@@ -1,6 +1,6 @@
 package com.example.AOManager.security.services;
 
-import com.example.AOManager.entity.UserEntity;
+import com.example.AOManager.entity.UsersEntity;
 import com.example.AOManager.entity.UserRoleEntity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;
@@ -25,7 +25,7 @@ public class UserDetailsImpl implements UserDetails {
         this.authorities = authorities;
     }
 
-    public static UserDetailsImpl build(UserEntity user) {
+    public static UserDetailsImpl build(UsersEntity user) {
         Collection<GrantedAuthority> authorities = new ArrayList<>();
         for (UserRoleEntity userRole :user.getUserRoleList()) {
             GrantedAuthority role = new SimpleGrantedAuthority(userRole.getRoleId().getName());

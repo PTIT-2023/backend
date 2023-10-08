@@ -35,7 +35,7 @@ public class OrderSupplierEntity {
     private List<OrderSupplierDetailEntity> orderSupplierDetailList;
     @JoinColumn(name = "employee_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    private UserEntity employeeId;
+    private UsersEntity employeeId;
     @OneToOne(cascade = CascadeType.REFRESH, mappedBy = "orderSupplierId")
     private ImportFormEntity importForm;
 }

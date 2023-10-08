@@ -25,5 +25,5 @@ public class RoleEntity {
     @Column(name = "name")
     private String name;
     @OneToMany(cascade = CascadeType.REFRESH, mappedBy = "roleId")
-    private List<UserEntity> employeeList;
+    private List<UsersEntity> employeeList;
 }

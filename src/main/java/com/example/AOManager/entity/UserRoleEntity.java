@@ -25,5 +25,5 @@ public class UserRoleEntity {
     private RoleEntity roleId;
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    private UserEntity userId;
+    private UsersEntity userId;
 }
