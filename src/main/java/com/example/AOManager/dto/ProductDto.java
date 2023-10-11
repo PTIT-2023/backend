@@ -37,18 +37,18 @@ public class ProductDto {
         this.name = productEntity.getName();
         this.description = productEntity.getDescription();
         this.habitat = productEntity.getHabitat();
-//        this.temperature = productEntity.getTemperature();
-//        this.ph = productEntity.getPh();
-//        this.position = productEntity.getPosition();
-//        this.reproductionMethod = productEntity.getReproductionMethod();
-//        this.foodType = productEntity.getFoodType();
-//        this.maxSize = productEntity.getMaxSize();
-//        this.inventoryQuantity = productEntity.getInventoryQuantity();
-//        this.soldQuantity = productEntity.getSoldQuantity();
-//        this.status = productEntity.getStatus();
-//        this.categoryId = productEntity.getCategoryId().getId().toString();
-//        this.categoryName = productEntity.getCategoryId().getName();
-//        this.imageList = productEntity.getImageListString();
-//        this.price = productEntity.getCurrentPrice();
+        this.temperature = productEntity.getTemperature();
+        this.ph = productEntity.getPh();
+        this.position = productEntity.getPosition();
+        this.reproductionMethod = productEntity.getReproductionMethod();
+        this.foodType = productEntity.getFoodType();
+        this.maxSize = productEntity.getMaxSize();
+        this.inventoryQuantity = productEntity.getInventoryQuantity();
+        this.soldQuantity = productEntity.getSoldQuantity();
+        this.status = productEntity.getStatus();
+        this.categoryId = productEntity.getCategoryId().getId().toString();
+        this.categoryName = productEntity.getCategoryId().getName();
+        this.imageList = productEntity.getImageListString();
+        this.price = productEntity.getCurrentPrice();
     }
 }
