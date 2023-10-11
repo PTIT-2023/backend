@@ -1,5 +1,6 @@
 package com.example.AOManager.common;
 
+import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -17,5 +18,14 @@ public class CheckString {
     public static boolean isEmail(String string) {
         Matcher matcher = pattern.matcher(string);
         return matcher.matches();
+    }
+
+    public static boolean isValidUUID(String uuidString) {
+        try {
+            UUID uuid = UUID.fromString(uuidString);
+            return true; // Nếu không có ngoại lệ, chuỗi là UUID hợp lệ
+        } catch (IllegalArgumentException e) {
+            return false; // Nếu có ngoại lệ, chuỗi không phải là UUID hợp lệ
+        }
     }
 }

@@ -1,5 +1,6 @@
 package com.example.AOManager.service.impl;
 
+import com.example.AOManager.common.CheckString;
 import com.example.AOManager.dto.ProductDto;
 import com.example.AOManager.dto.UsersDto;
 import com.example.AOManager.entity.ProductEntity;
@@ -19,8 +20,13 @@ public class ProductServiceImpl implements ProductService {
     ProductRepository productRepository;
 
     @Override
-    public List<ProductDto> getProductsList(String categoryId, String orderByPrice) {
-        List<ProductEntity> productsList = this.productRepository.getProductsList(UUID.fromString(categoryId), orderByPrice);
+    public List<ProductDto> getProductsList(String categoryId) {
+        List<ProductEntity> productsList;
+        if(CheckString.isValidUUID(categoryId)) {
+            productsList = this.productRepository.getProductsListWithCategory(UUID.fromString(categoryId));
+        } else {
+            productsList = this.productRepository.getProductsList();
+        }
         return productsList.stream().map(ProductDto::new).collect(Collectors.toList());
     }
 }

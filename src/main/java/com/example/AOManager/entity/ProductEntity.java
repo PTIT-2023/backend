@@ -80,17 +80,21 @@ public class ProductEntity {
     public long getCurrentPrice() {
         List<PriceDetailEntity> priceDetailList = this.priceDetailList;
         long currentDate = new Date().getTime();
-        long min = 100000000;
-        int vt = -1;
-        for(int i = 0; i < priceDetailList.size(); i++){
-            long getDiff = currentDate - priceDetailList.get(i).getApplyDate();
-            long getDaysDiff = getDiff / (24 * 60 * 60 * 1000);
-            if(getDaysDiff >= 0 && getDaysDiff < min){
-                min = getDaysDiff;
-                vt = i;
+
+        long minDiff = Long.MAX_VALUE;
+        long currentPrice = 0;
+
+        for (PriceDetailEntity priceDetail : priceDetailList) {
+            long priceApplyDate = priceDetail.getApplyDate();
+            if (priceApplyDate <= currentDate) {
+                long diff = currentDate - priceApplyDate;
+                if (diff < minDiff) {
+                    minDiff = diff;
+                    currentPrice = priceDetail.getPrice();
+                }
             }
         }
-        if((priceDetailList.size() > 0) && (vt >= 0)) return priceDetailList.get(vt).getPrice();
-        return 0;
+
+        return currentPrice;
     }
 }
