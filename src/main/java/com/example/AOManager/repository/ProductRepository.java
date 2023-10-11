@@ -15,11 +15,15 @@ public interface ProductRepository extends JpaRepository<ProductEntity, UUID> {
     @Query(value = "SELECT p.* \n" +
             "FROM product p \n" +
             "INNER JOIN category c ON p.category_id = c.id \n" +
-            "WHERE (:categoryId IS NULL OR c.id = :categoryId)", nativeQuery = true)
-    List<ProductEntity> getProductsListWithCategory(UUID categoryId);
+            "WHERE (:categoryId IS NULL OR c.id = :categoryId) \n" +
+            "LIMIT :limit\n" +
+            "OFFSET :page", nativeQuery = true)
+    List<ProductEntity> getProductsListWithCategory(UUID categoryId, int page, int limit);
 
     @Query(value = "SELECT p.* \n" +
             "FROM product p \n" +
-            "INNER JOIN category c ON p.category_id = c.id", nativeQuery = true)
-    List<ProductEntity> getProductsList();
+            "INNER JOIN category c ON p.category_id = c.id \n" +
+            "LIMIT :limit\n" +
+            "OFFSET :page", nativeQuery = true)
+    List<ProductEntity> getProductsList(int page, int limit);
 }

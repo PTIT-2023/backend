@@ -19,10 +19,10 @@ public class ProductController {
     ProductService productService;
 
     @GetMapping
-    public ApiResponse<?> getProductsList(@RequestParam String categoryId, @RequestParam String orderByPrice) {
+    public ApiResponse<?> getProductsList(@RequestParam String categoryId, @RequestParam String orderByPrice, @RequestParam int page, @RequestParam int limit) {
         List<ProductDto> productsList;
         try {
-            productsList = this.productService.getProductsList(categoryId);
+            productsList = this.productService.getProductsList(categoryId, page, limit);
             if(orderByPrice.equals("ASC") && productsList.size() > 0) {
                 productsList.sort(Comparator.comparingLong(ProductDto::getPrice));
             } else if(orderByPrice.equals("DESC") && productsList.size() > 0)  {

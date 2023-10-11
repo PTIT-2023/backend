@@ -20,12 +20,12 @@ public class ProductServiceImpl implements ProductService {
     ProductRepository productRepository;
 
     @Override
-    public List<ProductDto> getProductsList(String categoryId) {
+    public List<ProductDto> getProductsList(String categoryId, int page, int limit) {
         List<ProductEntity> productsList;
         if(CheckString.isValidUUID(categoryId)) {
-            productsList = this.productRepository.getProductsListWithCategory(UUID.fromString(categoryId));
+            productsList = this.productRepository.getProductsListWithCategory(UUID.fromString(categoryId), page - 1, limit);
         } else {
-            productsList = this.productRepository.getProductsList();
+            productsList = this.productRepository.getProductsList(page - 1, limit);
         }
         return productsList.stream().map(ProductDto::new).collect(Collectors.toList());
     }
