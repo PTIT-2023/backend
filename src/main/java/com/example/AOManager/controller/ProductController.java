@@ -1,11 +1,11 @@
 package com.example.AOManager.controller;
 
 import com.example.AOManager.dto.ProductDto;
-import com.example.AOManager.dto.UsersDto;
 import com.example.AOManager.payload.response.ApiResponse;
 import com.example.AOManager.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Comparator;
@@ -17,6 +17,9 @@ import java.util.List;
 public class ProductController {
     @Autowired
     ProductService productService;
+
+    @GetMapping("/{id}")
+    public ApiResponse<?> getProduct(@PathVariable String id) {return this.productService.getProduct(id);}
 
     @GetMapping
     public ApiResponse<?> getProductsList(@RequestParam String categoryId, @RequestParam String orderByPrice, @RequestParam int page, @RequestParam int limit) {
@@ -34,4 +37,13 @@ public class ProductController {
         }
         return new ApiResponse<>(HttpStatus.OK.value(), "Get products list successfully", productsList);
     }
+
+    @PostMapping
+    public ApiResponse<?> createProduct(@Validated @RequestBody ProductDto productDto) {return this.productService.createProduct(productDto);}
+
+    @PutMapping()
+    public ApiResponse<?> updateProduct(@Validated @RequestBody ProductDto productDto) {return this.productService.updateProduct(productDto);}
+
+    @DeleteMapping("/{id}")
+    public ApiResponse<?> deleteProduct(@PathVariable String id) {return this.productService.deleteProduct(id);}
 }

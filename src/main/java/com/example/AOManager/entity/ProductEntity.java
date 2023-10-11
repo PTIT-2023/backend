@@ -44,10 +44,8 @@ public class ProductEntity {
     private String foodType;
     @Column(name = "max_size")
     private Double maxSize;
-    @Basic(optional = false)
     @Column(name = "inventory_quantity")
     private Integer inventoryQuantity;
-    @Basic(optional = false)
     @Column(name = "sold_quantity")
     private Integer soldQuantity;
     @Basic(optional = false)

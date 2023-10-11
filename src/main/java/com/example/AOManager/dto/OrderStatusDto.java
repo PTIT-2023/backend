@@ -19,7 +19,7 @@ public class OrderStatusDto {
         this.name = orderStatusEntity.getName();
     }
 
-    public OrderStatusEntity toEntity(OrderStatusDto orderStatusDto) {
-        return new OrderStatusEntity(UUID.fromString(orderStatusDto.getId()), orderStatusDto.getName(), null);
+    public OrderStatusEntity toEntity() {
+        return new OrderStatusEntity(UUID.fromString(this.getId()), this.getName(), null);
     }
 }

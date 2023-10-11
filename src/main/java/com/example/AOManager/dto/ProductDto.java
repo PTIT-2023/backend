@@ -1,12 +1,11 @@
 package com.example.AOManager.dto;
 
+import com.example.AOManager.common.CheckString;
 import com.example.AOManager.entity.ProductEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
 import java.util.List;
 import java.util.UUID;
 
@@ -50,5 +49,25 @@ public class ProductDto {
         this.categoryName = productEntity.getCategoryId().getName();
         this.imageList = productEntity.getImageListString();
         this.price = productEntity.getCurrentPrice();
+    }
+
+    public ProductEntity toEntity() {
+        ProductEntity productEntity = new ProductEntity();
+        if(!CheckString.stringIsNullOrEmpty(this.getId())) {
+            productEntity.setId(UUID.fromString(this.getId()));
+        }
+        productEntity.setDescription(this.getDescription());
+        productEntity.setFoodType(this.getFoodType());
+        productEntity.setHabitat(this.getHabitat());
+        productEntity.setMaxSize(this.getMaxSize());
+        productEntity.setName(this.getName());
+        productEntity.setPh(this.getPh());
+        productEntity.setPosition(this.getPosition());
+        productEntity.setReproductionMethod(this.getReproductionMethod());
+        productEntity.setStatus(this.isStatus());
+        productEntity.setTemperature(this.getTemperature());
+        productEntity.setInventoryQuantity(this.inventoryQuantity);
+        productEntity.setSoldQuantity(this.soldQuantity);
+        return productEntity;
     }
 }

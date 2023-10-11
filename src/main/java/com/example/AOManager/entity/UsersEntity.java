@@ -20,6 +20,8 @@ public class UsersEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     private UUID id;
+    @Column(name = "avatar")
+    private String avatar;
     @Basic(optional = false)
     @Column(name = "email")
     private String email;

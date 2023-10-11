@@ -20,7 +20,7 @@ public class RoleDto implements Serializable {
         this.name = roleEntity.getName();
     }
 
-    public RoleEntity toEntity(RoleDto roleDto) {
-        return new RoleEntity(UUID.fromString(roleDto.getId()), roleDto.getName(), null);
+    public RoleEntity toEntity() {
+        return new RoleEntity(UUID.fromString(this.getId()), this.getName(), null);
     }
 }

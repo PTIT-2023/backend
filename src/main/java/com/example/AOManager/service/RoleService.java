@@ -1,9 +1,9 @@
 package com.example.AOManager.service;
 
-import com.example.AOManager.dto.RoleDto;
+import com.example.AOManager.payload.response.ApiResponse;
 
 import java.util.List;
 
 public interface RoleService {
-    List<RoleDto> getAllRoles();
+    ApiResponse<?> getAllRoles();
 }

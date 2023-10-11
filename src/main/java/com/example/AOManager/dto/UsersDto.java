@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class UsersDto {
     private String id;
+    private String avatar;
     private String email;
     private String firstName;
     private String lastName;
@@ -21,6 +22,7 @@ public class UsersDto {
 
     public UsersDto(UsersEntity usersEntity) {
         this.id = usersEntity.getId().toString();
+        this.avatar = usersEntity.getAvatar();
         this.email = usersEntity.getEmail();
         this.firstName = usersEntity.getFirstName();
         this.lastName = usersEntity.getLastName();

@@ -19,7 +19,7 @@ public class CategoryDto {
         this.name = categoryEntity.getName();
     }
 
-    public CategoryEntity toEntity(CategoryDto categoryDto) {
-        return new CategoryEntity(UUID.fromString(categoryDto.getId()), categoryDto.getName(), null);
+    public CategoryEntity toEntity() {
+        return new CategoryEntity(UUID.fromString(this.getId()), this.getName(), null);
     }
 }

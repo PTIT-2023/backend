@@ -1,10 +1,9 @@
 package com.example.AOManager.service;
 
-import com.example.AOManager.dto.CategoryDto;
-import com.example.AOManager.dto.OrderStatusDto;
+import com.example.AOManager.payload.response.ApiResponse;
 
 import java.util.List;
 
 public interface OrderStatusService {
-    List<OrderStatusDto> getAllOrderStatus();
+    ApiResponse<?> getAllOrderStatus();
 }
