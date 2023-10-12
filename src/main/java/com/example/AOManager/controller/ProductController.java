@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Comparator;
 import java.util.List;
 
+import static com.example.AOManager.common.Message.*;
+
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/api/products")
@@ -33,9 +35,9 @@ public class ProductController {
             }
         } catch (Exception e) {
             System.out.println(e);
-            return new ApiResponse<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), "Failed to get products list", null);
+            return new ApiResponse<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), MSG_GET_PRODUCTS_lIST_FAIL, null);
         }
-        return new ApiResponse<>(HttpStatus.OK.value(), "Get products list successfully", productsList);
+        return new ApiResponse<>(HttpStatus.OK.value(), MSG_GET_PRODUCTS_lIST_SUCCESS, productsList);
     }
 
     @PostMapping

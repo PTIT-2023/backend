@@ -29,8 +29,9 @@ public class OrderSupplierEntity {
     @Basic(optional = false)
     @Column(name = "delivery_date")
     private Long deliveryDate;
-    @Column(name = "import_id")
-    private String importId;
+    @Basic(optional = false)
+    @Column(name = "status")
+    private String status;
     @OneToMany(cascade = CascadeType.REFRESH, mappedBy = "orderSupplierId")
     private List<OrderSupplierDetailEntity> orderSupplierDetailList;
     @JoinColumn(name = "employee_id", referencedColumnName = "id")

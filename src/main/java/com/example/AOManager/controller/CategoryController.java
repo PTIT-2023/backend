@@ -15,6 +15,9 @@ public class CategoryController {
     @GetMapping("/{id}")
     public ApiResponse<?> getCategory(@PathVariable String id) {return this.categoryService.getCategory(id);}
 
+    @GetMapping
+    public ApiResponse<?> getAllCategoriesList() {return this.categoryService.getAllCategoriesList();}
+
     @PostMapping("/{name}")
     public ApiResponse<?> createCategory(@PathVariable String name) {return this.categoryService.createCategory(name);}
 

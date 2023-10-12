@@ -36,4 +36,11 @@ public final class Message {
     public static final String MSG_GET_EMPLOYEE_LIST_SUCCESS = "Lấy danh sách nhân viên thành công!";
     public static final String MSG_GET_MANAGER_LIST_FAIL = "Lấy danh sách quản lý thất bại!";
     public static final String MSG_GET_MANAGER_LIST_SUCCESS = "Lấy danh sách quản lý thành công!";
+    public static final String MSG_GET_PRODUCTS_lIST_FAIL = "Lấy danh sách sản phẩm thành công!";
+    public static final String MSG_GET_PRODUCTS_lIST_SUCCESS = "Lấy danh sách sản phẩm thất bại!";
+    public static final String MSG_GET_ORDER_SUPPLIER_FAIL = "Lấy đơn hàng thất bại!";
+    public static final String MSG_GET_ORDER_SUPPLIER_SUCCESS = "Lấy đơn hàng thành công!";
+
+    public static final String MSG_GET_ORDER_SUPPLIER_LIST_FAIL = "Lấy danh sách đơn hàng thất bại!";
+    public static final String MSG_GET_ORDER_SUPPLIER_LIST_SUCCESS = "Lấy danh sách đơn hàng thành công!";
 }

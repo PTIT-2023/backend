@@ -1,6 +1,7 @@
 package com.example.AOManager.service.impl;
 
 import com.example.AOManager.common.CheckString;
+import com.example.AOManager.dto.CategoryDisplayDto;
 import com.example.AOManager.dto.CategoryDto;
 import com.example.AOManager.entity.CategoryEntity;
 import com.example.AOManager.payload.response.ApiResponse;
@@ -22,7 +23,7 @@ public class CategoryServiceImpl implements CategoryService {
     CategoryRepository categoryRepository;
 
     @Override
-    public ApiResponse<?> getAllCategories() {
+    public ApiResponse<?> getAllCategoriesMaster() {
         List<CategoryDto> categoryDtoList;
         try {
             List<CategoryEntity> categoryList = this.categoryRepository.findAll();
@@ -33,6 +34,22 @@ public class CategoryServiceImpl implements CategoryService {
         }
         return new ApiResponse<>(HttpStatus.OK.value(), MSG_GET_CATEGORIES_SUCCESS, categoryDtoList);
 
+    }
+
+    @Override
+    public ApiResponse<?> getAllCategoriesList() {
+        List<CategoryDisplayDto> categoryDtoList;
+        try {
+            List<CategoryEntity> categoryList = this.categoryRepository.findAll();
+            categoryDtoList = categoryList.stream().map(CategoryDisplayDto::new).collect(Collectors.toList());
+            for (CategoryDisplayDto categoryDto : categoryDtoList) {
+                categoryDto.setProductCount(this.categoryRepository.getProductCount(UUID.fromString(categoryDto.getId())));
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+            return new ApiResponse<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), MSG_GET_CATEGORIES_FAIL, null);
+        }
+        return new ApiResponse<>(HttpStatus.OK.value(), MSG_GET_CATEGORIES_SUCCESS, categoryDtoList);
     }
 
     @Override

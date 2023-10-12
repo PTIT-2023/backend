@@ -5,7 +5,8 @@ import com.example.AOManager.payload.response.ApiResponse;
 import java.util.List;
 
 public interface CategoryService {
-    ApiResponse<?> getAllCategories();
+    ApiResponse<?> getAllCategoriesMaster();
+    ApiResponse<?> getAllCategoriesList();
 
     ApiResponse<?> getCategory(String id);
 

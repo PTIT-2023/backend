@@ -1,18 +1,23 @@
 package com.example.AOManager.dto;
 
 import com.example.AOManager.entity.CategoryEntity;
+import com.example.AOManager.repository.CategoryRepository;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.UUID;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CategoryDto {
+public class CategoryDisplayDto {
     private String id;
     private String name;
+    private int productCount;
 
-    public CategoryDto(CategoryEntity categoryEntity) {
+    public CategoryDisplayDto(CategoryEntity categoryEntity) {
         this.id = categoryEntity.getId().toString();
         this.name = categoryEntity.getName();
     }

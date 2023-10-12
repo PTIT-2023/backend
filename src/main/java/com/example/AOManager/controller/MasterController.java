@@ -28,7 +28,7 @@ public class MasterController {
     public ApiResponse<?> getAllRole() {return this.roleService.getAllRoles();}
 
     @GetMapping("/categories")
-    public ApiResponse<?> getAllCategories() {return this.categoryService.getAllCategories();}
+    public ApiResponse<?> getAllCategoriesMaster() {return this.categoryService.getAllCategoriesMaster();}
 
     @GetMapping("/order-status")
     public ApiResponse<?> getAllOrderStatus() {return this.orderStatusService.getAllOrderStatus();}
