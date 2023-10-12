@@ -12,6 +12,8 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static com.example.AOManager.common.Message.*;
+
 @Service
 public class OrderStatusServiceImpl implements OrderStatusService {
     @Autowired
@@ -24,8 +26,9 @@ public class OrderStatusServiceImpl implements OrderStatusService {
             List<OrderStatusEntity> orderStatusList = this.orderStatusRepository.findAll();
             orderStatusDtoList = orderStatusList.stream().map(OrderStatusDto::new).collect(Collectors.toList());
         } catch (Exception e) {
-            return new ApiResponse<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), "Failed to get all order_status", null);
+            System.out.println(e);
+            return new ApiResponse<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), MSG_GET_ORDER_STATUS_LIST_FAIL, null);
         }
-        return new ApiResponse<>(HttpStatus.OK.value(), "Get all order_status successfully", orderStatusDtoList);
+        return new ApiResponse<>(HttpStatus.OK.value(), MSG_GET_ORDER_STATUS_LIST_SUCCESS, orderStatusDtoList);
     }
 }

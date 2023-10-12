@@ -16,6 +16,8 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+import static com.example.AOManager.common.Message.*;
+
 @Service
 public class UsersServiceImpl implements UsersService {
     @Autowired
@@ -27,21 +29,22 @@ public class UsersServiceImpl implements UsersService {
     PasswordEncoder encoder;
 
     @Override
-    public int changePassword(ChangePasswordRequest changePasswordRequest) {
+    public ApiResponse<?> changePassword(ChangePasswordRequest changePasswordRequest) {
         UsersEntity user = this.usersRepository.findById(UUID.fromString(changePasswordRequest.getId())).get();
         if(!encoder.matches(changePasswordRequest.getOldPassword(), user.getPassword())) {
-            return 3; // mật khẩu cũ không khớp
+            return new ApiResponse<>(HttpStatus.BAD_REQUEST.value(), MSG_OLD_PASSWORD_NOT_TRUE, null); // mật khẩu cũ không khớp
         }
         if(!changePasswordRequest.getNewPassword().equals(changePasswordRequest.getNewPasswordConfirm())){
-            return 4; // Mật khẩu mới xác nhận lại không khớp
+            return new ApiResponse<>(HttpStatus.BAD_REQUEST.value(), MSG_NEW_PASSWORD_NOT_MATCH, null); // Mật khẩu mới xác nhận lại không khớp
         }
         user.setPassword(encoder.encode(changePasswordRequest.getNewPassword()));
         try {
             this.usersRepository.save(user);
-            return 1; // thành công
+            return new ApiResponse<>(HttpStatus.OK.value(), MSG_CHANGE_PASSWORD_SUCCESS, null); // thành công
         }
         catch (Exception e) {
-            return 2; // thất bại
+            System.out.println(e);
+            return new ApiResponse<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), MSG_CHANGE_PASSWORD_FAIL, null); // thất bại
         }
     }
 
@@ -57,9 +60,10 @@ public class UsersServiceImpl implements UsersService {
         try {
             managerList = this.usersService.getUsersList(roleId, page, limit);
         } catch (Exception e) {
-            return new ApiResponse<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), "Failed to get customer list", null);
+            System.out.println(e);
+            return new ApiResponse<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), MSG_GET_CUSTOMER_LIST_FAIL, null);
         }
-        return new ApiResponse<>(HttpStatus.OK.value(), "Get customer list successfully", managerList);
+        return new ApiResponse<>(HttpStatus.OK.value(), MSG_GET_CUSTOMER_LIST_SUCCESS, managerList);
     }
 
     @Override
@@ -68,9 +72,10 @@ public class UsersServiceImpl implements UsersService {
         try {
             employeeList = this.usersService.getUsersList(roleId, page, limit);
         } catch (Exception e) {
-            return new ApiResponse<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), "Failed to get employee list", null);
+            System.out.println(e);
+            return new ApiResponse<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), MSG_GET_EMPLOYEE_LIST_FAIL, null);
         }
-        return new ApiResponse<>(HttpStatus.OK.value(), "Get employee list successfully", employeeList);
+        return new ApiResponse<>(HttpStatus.OK.value(), MSG_GET_EMPLOYEE_LIST_SUCCESS, employeeList);
     }
 
     @Override
@@ -79,8 +84,9 @@ public class UsersServiceImpl implements UsersService {
         try {
             managerList = this.usersService.getUsersList(roleId, page, limit);
         } catch (Exception e) {
-            return new ApiResponse<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), "Failed to get manager list", null);
+            System.out.println(e);
+            return new ApiResponse<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), MSG_GET_MANAGER_LIST_FAIL, null);
         }
-        return new ApiResponse<>(HttpStatus.OK.value(), "Get manager list successfully", managerList);
+        return new ApiResponse<>(HttpStatus.OK.value(), MSG_GET_MANAGER_LIST_SUCCESS, managerList);
     }
 }

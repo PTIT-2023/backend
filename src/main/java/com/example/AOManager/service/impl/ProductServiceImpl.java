@@ -17,6 +17,8 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+import static com.example.AOManager.common.Message.*;
+
 @Service
 public class ProductServiceImpl implements ProductService {
     @Autowired
@@ -42,21 +44,21 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public ApiResponse<?> getProduct(String id) {
         if(CheckString.stringIsNullOrEmpty(id)) {
-            return new ApiResponse<>(HttpStatus.BAD_REQUEST.value(), "Bad request", null);
+            return new ApiResponse<>(HttpStatus.BAD_REQUEST.value(), MSG_BAD_REQUEST, null);
         }
         ProductDto productDto;
         try {
             productDto = new ProductDto(this.productRepository.findById(UUID.fromString(id)).get());
         } catch (Exception e) {
-            return new ApiResponse<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), "Faild to get product", null);
+            return new ApiResponse<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), MSG_GET_PRODUCT_FAIL, null);
         }
-        return new ApiResponse<>(HttpStatus.OK.value(), "Get product successfully", productDto);
+        return new ApiResponse<>(HttpStatus.OK.value(), MSG_GET_PRODUCT_SUCCESS, productDto);
     }
 
     @Override
     public ApiResponse<?> createProduct(ProductDto productDto) {
         if(null == productDto) {
-            return new ApiResponse<>(HttpStatus.BAD_REQUEST.value(), "Bad request", null);
+            return new ApiResponse<>(HttpStatus.BAD_REQUEST.value(), MSG_BAD_REQUEST, null);
         }
         ProductEntity productEntity = productDto.toEntity();
         productEntity.setCategoryId(this.categoryRepository.findById(UUID.fromString(productDto.getCategoryId())).get());
@@ -70,27 +72,27 @@ public class ProductServiceImpl implements ProductService {
                     this.productImageRepository.save(productImageEntity);
                 } catch (Exception e) {
                     System.out.println(e);
-                    return new ApiResponse<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), "Faild to add picture for product", null);
+                    return new ApiResponse<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), MSG_ADD_PICTURE_PRODUCT_FAIL, null);
                 }
             }
         } catch (Exception e) {
             System.out.println(e);
-            return new ApiResponse<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), "Faild to create product", null);
+            return new ApiResponse<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), MSG_CREATE_FAIL, null);
         }
-        return new ApiResponse<>(HttpStatus.CREATED.value(), "Create product successfully", null);
+        return new ApiResponse<>(HttpStatus.CREATED.value(), MSG_CREATE_SUCCESS, null);
     }
 
     @Override
     public ApiResponse<?> updateProduct(ProductDto productDto) {
         if(null == productDto) {
-            return new ApiResponse<>(HttpStatus.BAD_REQUEST.value(), "Bad request", null);
+            return new ApiResponse<>(HttpStatus.BAD_REQUEST.value(), MSG_BAD_REQUEST, null);
         }
         try {
             ProductEntity productEntityBef;
             try {
                 productEntityBef = this.productRepository.findById(UUID.fromString(productDto.getId())).get();
             } catch (Exception e) {
-                return new ApiResponse<>(HttpStatus.NOT_FOUND.value(), "Not found product with this id", null);
+                return new ApiResponse<>(HttpStatus.NOT_FOUND.value(), MSG_NOT_FOUND_PRODUCT_BY_ID, null);
             }
             ProductEntity productEntityAft = productDto.toEntity();
             productEntityAft.setCategoryId(this.categoryRepository.findById(UUID.fromString(productDto.getCategoryId())).get());
@@ -106,20 +108,20 @@ public class ProductServiceImpl implements ProductService {
                     this.productImageRepository.save(productImageEntity);
                 } catch (Exception e) {
                     System.out.println(e);
-                    return new ApiResponse<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), "Faild to update picture for product", null);
+                    return new ApiResponse<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), MSG_UPDATE_PICTURE_PRODUCT_FAIL, null);
                 }
             }
         } catch (Exception e) {
             System.out.println(e);
-            return new ApiResponse<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), "Faild to update", null);
+            return new ApiResponse<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), MSG_UPDATE_FAIL, null);
         }
-        return new ApiResponse<>(HttpStatus.OK.value(), "Updated", null);
+        return new ApiResponse<>(HttpStatus.OK.value(), MSG_UPDATE_SUCCESS, null);
     }
 
     @Override
     public ApiResponse<?> deleteProduct(String id) {
         if(CheckString.stringIsNullOrEmpty(id)) {
-            return new ApiResponse<>(HttpStatus.BAD_REQUEST.value(), "Bad request", null);
+            return new ApiResponse<>(HttpStatus.BAD_REQUEST.value(), MSG_BAD_REQUEST, null);
         }
         try {
             ProductEntity productEntity;
@@ -127,13 +129,13 @@ public class ProductServiceImpl implements ProductService {
                 productEntity = this.productRepository.findById(UUID.fromString(id)).get();
             } catch (Exception e) {
                 System.out.println(e);
-                return new ApiResponse<>(HttpStatus.NOT_FOUND.value(), "Not found product with this id", null);
+                return new ApiResponse<>(HttpStatus.NOT_FOUND.value(), MSG_NOT_FOUND_PRODUCT_BY_ID, null);
             }
             this.productRepository.delete(productEntity);
         } catch (Exception e) {
             System.out.println(e);
-            return new ApiResponse<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), "Faild to delete", null);
+            return new ApiResponse<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), MSG_DELETE_FAIL, null);
         }
-        return new ApiResponse<>(HttpStatus.OK.value(), "Deleted", null);
+        return new ApiResponse<>(HttpStatus.OK.value(), MSG_DELETE_SUCCESS, null);
     }
 }

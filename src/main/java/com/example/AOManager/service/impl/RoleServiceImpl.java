@@ -12,6 +12,8 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static com.example.AOManager.common.Message.*;
+
 @Service
 public class RoleServiceImpl implements RoleService {
     @Autowired
@@ -24,8 +26,9 @@ public class RoleServiceImpl implements RoleService {
             List<RoleEntity> roleList = this.roleRepository.findAll();
             roleListDto = roleList.stream().map(RoleDto::new).collect(Collectors.toList());
         } catch (Exception e) {
-            return new ApiResponse<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), "Failed to get all roles", null);
+            System.out.println(e);
+            return new ApiResponse<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), MSG_GET_ROLE_LIST_FAIL, null);
         }
-        return new ApiResponse<>(HttpStatus.OK.value(), "Get all roles successfully", roleListDto);
+        return new ApiResponse<>(HttpStatus.OK.value(), MSG_GET_ROLE_LIST_SUCCESS, roleListDto);
     }
 }

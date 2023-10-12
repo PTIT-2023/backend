@@ -14,6 +14,8 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+import static com.example.AOManager.common.Message.*;
+
 @Service
 public class CategoryServiceImpl implements CategoryService {
     @Autowired
@@ -26,77 +28,84 @@ public class CategoryServiceImpl implements CategoryService {
             List<CategoryEntity> categoryList = this.categoryRepository.findAll();
             categoryDtoList = categoryList.stream().map(CategoryDto::new).collect(Collectors.toList());
         } catch (Exception e) {
-            return new ApiResponse<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), "Failed to get all categories", null);
+            System.out.println(e);
+            return new ApiResponse<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), MSG_GET_CATEGORIES_FAIL, null);
         }
-        return new ApiResponse<>(HttpStatus.OK.value(), "Get all categories successfully", categoryDtoList);
+        return new ApiResponse<>(HttpStatus.OK.value(), MSG_GET_CATEGORIES_SUCCESS, categoryDtoList);
 
     }
 
     @Override
     public ApiResponse<?> getCategory(String id) {
         if(CheckString.stringIsNullOrEmpty(id)) {
-            return new ApiResponse<>(HttpStatus.BAD_REQUEST.value(), "Bad request", null);
+            return new ApiResponse<>(HttpStatus.BAD_REQUEST.value(), MSG_BAD_REQUEST, null);
         }
         CategoryDto categoryDto;
         try {
             categoryDto = new CategoryDto(this.categoryRepository.findById(UUID.fromString(id)).get());
         } catch (Exception e) {
-            return new ApiResponse<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), "Faild to get category", null);
+            System.out.println(e);
+            return new ApiResponse<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), MSG_GET_CATEGORY_FAIL, null);
         }
-        return new ApiResponse<>(HttpStatus.OK.value(), "Get category successfully", categoryDto);
+        return new ApiResponse<>(HttpStatus.OK.value(), MSG_GET_CATEGORY_SUCCESS, categoryDto);
     }
 
     @Override
     public ApiResponse<?> createCategory(String name) {
         if(CheckString.stringIsNullOrEmpty(name)) {
-            return new ApiResponse<>(HttpStatus.BAD_REQUEST.value(), "Bad request", null);
+            return new ApiResponse<>(HttpStatus.BAD_REQUEST.value(), MSG_BAD_REQUEST, null);
         }
         CategoryEntity categoryEntity = new CategoryEntity();
         categoryEntity.setName(name);
         try {
             this.categoryRepository.save(categoryEntity);
         } catch (Exception e) {
-            return new ApiResponse<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), "Faild to create", null);
+            System.out.println(e);
+            return new ApiResponse<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), MSG_CREATE_FAIL, null);
         }
-        return new ApiResponse<>(HttpStatus.CREATED.value(), "Created", null);
+        return new ApiResponse<>(HttpStatus.CREATED.value(), MSG_CREATE_SUCCESS, null);
     }
 
     @Override
     public ApiResponse<?> updateCategory(String id, String name) {
         if(CheckString.stringIsNullOrEmpty(id) || CheckString.stringIsNullOrEmpty(name)) {
-            return new ApiResponse<>(HttpStatus.BAD_REQUEST.value(), "Bad request", null);
+            return new ApiResponse<>(HttpStatus.BAD_REQUEST.value(), MSG_BAD_REQUEST, null);
         }
         try {
             CategoryEntity categoryEntityBef;
             try {
                 categoryEntityBef = this.categoryRepository.findById(UUID.fromString(id)).get();
             } catch (Exception e) {
-                return new ApiResponse<>(HttpStatus.NOT_FOUND.value(), "Not found category with this id", null);
+                System.out.println(e);
+                return new ApiResponse<>(HttpStatus.NOT_FOUND.value(), MSG_NOT_FOUND_CATEGORY_BY_ID, null);
             }
             CategoryEntity categoryEntityAft = new CategoryEntity(UUID.fromString(id), name, categoryEntityBef.getProductList());
             this.categoryRepository.save(categoryEntityAft);
         } catch (Exception e) {
-            return new ApiResponse<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), "Faild to update", null);
+            System.out.println(e);
+            return new ApiResponse<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), MSG_UPDATE_FAIL, null);
         }
-        return new ApiResponse<>(HttpStatus.OK.value(), "Updated", null);
+        return new ApiResponse<>(HttpStatus.OK.value(), MSG_UPDATE_SUCCESS, null);
     }
 
     @Override
     public ApiResponse<?> deleteCategory(String id) {
         if(CheckString.stringIsNullOrEmpty(id)) {
-            return new ApiResponse<>(HttpStatus.BAD_REQUEST.value(), "Bad request", null);
+            return new ApiResponse<>(HttpStatus.BAD_REQUEST.value(), MSG_BAD_REQUEST, null);
         }
         try {
             CategoryEntity categoryEntity;
             try {
                 categoryEntity = this.categoryRepository.findById(UUID.fromString(id)).get();
             } catch (Exception e) {
-                return new ApiResponse<>(HttpStatus.NOT_FOUND.value(), "Not found category with this id", null);
+                System.out.println(e);
+                return new ApiResponse<>(HttpStatus.NOT_FOUND.value(), MSG_NOT_FOUND_CATEGORY_BY_ID, null);
             }
             this.categoryRepository.delete(categoryEntity);
         } catch (Exception e) {
-            return new ApiResponse<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), "Faild to delete", null);
+            System.out.println(e);
+            return new ApiResponse<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), MSG_DELETE_FAIL, null);
         }
-        return new ApiResponse<>(HttpStatus.OK.value(), "Deleted", null);
+        return new ApiResponse<>(HttpStatus.OK.value(), MSG_DELETE_SUCCESS, null);
     }
 }

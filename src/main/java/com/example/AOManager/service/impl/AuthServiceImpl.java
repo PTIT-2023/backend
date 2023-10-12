@@ -31,6 +31,7 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 import static com.example.AOManager.common.CheckString.stringIsNullOrEmpty;
+import static com.example.AOManager.common.Message.*;
 
 @Service
 public class AuthServiceImpl implements AuthService {
@@ -59,7 +60,7 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public ApiResponse sigin(LoginRequest loginRequest) {
         if (stringIsNullOrEmpty(loginRequest.getEmail()) || stringIsNullOrEmpty(loginRequest.getPassword())) {
-            return new ApiResponse(HttpStatus.BAD_REQUEST.value(), "bad request", null);
+            return new ApiResponse(HttpStatus.BAD_REQUEST.value(), MSG_BAD_REQUEST, null);
         }
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword())
@@ -71,13 +72,13 @@ public class AuthServiceImpl implements AuthService {
         List<String> roles = employeeDetails.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.toList());
-        return new ApiResponse(HttpStatus.OK.value(), "signin successfully", new JwtResponse(jwt, employeeDetails.getUsername(), roles));
+        return new ApiResponse(HttpStatus.OK.value(), MSG_LOGIN_SUCCESS, new JwtResponse(jwt, employeeDetails.getUsername(), roles));
     }
 
     @Override
     public ApiResponse<?> signup(UserSignupRequest signupRequest) {
         if(this.usersRepository.existsByEmail(signupRequest.getEmail())) {
-            return new ApiResponse<>(HttpStatus.BAD_REQUEST.value(), "Email has already been used", null);
+            return new ApiResponse<>(HttpStatus.BAD_REQUEST.value(), MSG_EMAIL_EXIST, null);
         }
         UsersEntity user = new UsersEntity();
         user.setEmail(signupRequest.getEmail());
@@ -98,23 +99,14 @@ public class AuthServiceImpl implements AuthService {
             userRole.setRoleId(roleRegistry);
             this.userRoleRepository.save(userRole);
         } catch (Exception e) {
-            return new ApiResponse<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), "Faild to regist", null);
+            System.out.println(e);
+            return new ApiResponse<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), MSG_REGISTRY_FAIL, null);
         }
-        return new ApiResponse<>(HttpStatus.CREATED.value(), "Regist successfully", null);
+        return new ApiResponse<>(HttpStatus.CREATED.value(), MSG_REGISTRY_SUCCESS, null);
     }
 
     @Override
     public ApiResponse<?> changePassword(ChangePasswordRequest changePasswordRequest) {
-        int result = this.usersService.changePassword(changePasswordRequest);
-        if(1 == result) {
-            return new ApiResponse<>(HttpStatus.OK.value(), "Change password successfully", null);
-        }
-        if(2 == result) {
-            return new ApiResponse<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), "Faild to change password", null);
-        }
-        if(3 == result){
-            return new ApiResponse<>(HttpStatus.BAD_REQUEST.value(), "The old password is false", null);
-        }
-        return new ApiResponse<>(HttpStatus.BAD_REQUEST.value(), "The new password does not match", null);
+        return this.usersService.changePassword(changePasswordRequest);
     }
 }

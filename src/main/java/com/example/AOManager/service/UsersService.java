@@ -7,7 +7,7 @@ import com.example.AOManager.payload.response.ApiResponse;
 import java.util.List;
 
 public interface UsersService {
-    int changePassword(ChangePasswordRequest changePasswordRequest);
+    ApiResponse<?> changePassword(ChangePasswordRequest changePasswordRequest);
 
     List<UsersDto> getUsersList(String roleId, int page, int limit);
 
