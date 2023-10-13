@@ -3,7 +3,7 @@ package com.example.AOManager.service.impl;
 import com.example.AOManager.dto.UsersDto;
 import com.example.AOManager.entity.UsersEntity;
 import com.example.AOManager.payload.request.ChangePasswordRequest;
-import com.example.AOManager.payload.response.ApiResponse;
+import com.example.AOManager.response.ApiResponse;
 import com.example.AOManager.repository.UsersRepository;
 import com.example.AOManager.service.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -4,7 +4,7 @@ import com.example.AOManager.common.CheckString;
 import com.example.AOManager.dto.ProductDto;
 import com.example.AOManager.entity.ProductEntity;
 import com.example.AOManager.entity.ProductImageEntity;
-import com.example.AOManager.payload.response.ApiResponse;
+import com.example.AOManager.response.ApiResponse;
 import com.example.AOManager.repository.CategoryRepository;
 import com.example.AOManager.repository.ProductImageRepository;
 import com.example.AOManager.repository.ProductRepository;

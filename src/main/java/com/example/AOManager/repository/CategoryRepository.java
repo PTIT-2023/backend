@@ -10,11 +10,4 @@ import java.util.UUID;
 
 public interface CategoryRepository extends JpaRepository<CategoryEntity, UUID> {
     Optional<CategoryEntity> findById(UUID id);
-
-    @Transactional
-    @Query(value = "SELECT COUNT(p.id)\n" +
-            "FROM category c\n" +
-            "LEFT JOIN product p ON c.id = p.category_id \n" +
-            "WHERE c.id = :id", nativeQuery = true)
-    int getProductCount(UUID id);
 }

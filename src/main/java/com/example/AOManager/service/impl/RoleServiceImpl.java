@@ -2,7 +2,7 @@ package com.example.AOManager.service.impl;
 
 import com.example.AOManager.dto.RoleDto;
 import com.example.AOManager.entity.RoleEntity;
-import com.example.AOManager.payload.response.ApiResponse;
+import com.example.AOManager.response.ApiResponse;
 import com.example.AOManager.repository.RoleRepository;
 import com.example.AOManager.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;

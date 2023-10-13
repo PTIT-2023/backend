@@ -4,7 +4,7 @@ import com.example.AOManager.common.CheckString;
 import com.example.AOManager.dto.CategoryDisplayDto;
 import com.example.AOManager.dto.CategoryDto;
 import com.example.AOManager.entity.CategoryEntity;
-import com.example.AOManager.payload.response.ApiResponse;
+import com.example.AOManager.response.ApiResponse;
 import com.example.AOManager.repository.CategoryRepository;
 import com.example.AOManager.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,9 +42,6 @@ public class CategoryServiceImpl implements CategoryService {
         try {
             List<CategoryEntity> categoryList = this.categoryRepository.findAll();
             categoryDtoList = categoryList.stream().map(CategoryDisplayDto::new).collect(Collectors.toList());
-            for (CategoryDisplayDto categoryDto : categoryDtoList) {
-                categoryDto.setProductCount(this.categoryRepository.getProductCount(UUID.fromString(categoryDto.getId())));
-            }
         } catch (Exception e) {
             System.out.println(e);
             return new ApiResponse<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), MSG_GET_CATEGORIES_FAIL, null);

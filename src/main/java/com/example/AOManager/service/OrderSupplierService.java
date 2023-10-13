@@ -1,9 +1,14 @@
 package com.example.AOManager.service;
 
-import com.example.AOManager.payload.response.ApiResponse;
+import com.example.AOManager.request.CreateOrderSupplierRequest;
+import com.example.AOManager.response.ApiResponse;
 
 public interface OrderSupplierService {
-    ApiResponse<?> getgetOrderSupplier(String id);
+    ApiResponse<?> getOrderSupplier(String id);
 
     ApiResponse<?> getOrderSupplierList(String status, int page, int limit);
+
+    ApiResponse<?> cancelOrderSupplier(String id);
+
+    ApiResponse<?> createOrderSupplier(CreateOrderSupplierRequest createOrderSupplierRequest);
 }

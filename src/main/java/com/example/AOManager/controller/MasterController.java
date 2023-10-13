@@ -1,6 +1,6 @@
 package com.example.AOManager.controller;
 
-import com.example.AOManager.payload.response.ApiResponse;
+import com.example.AOManager.response.ApiResponse;
 import com.example.AOManager.service.CategoryService;
 import com.example.AOManager.service.OrderStatusService;
 import com.example.AOManager.service.RoleService;

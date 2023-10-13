@@ -1,8 +1,10 @@
 package com.example.AOManager.controller;
 
-import com.example.AOManager.payload.response.ApiResponse;
+import com.example.AOManager.request.CreateOrderSupplierRequest;
+import com.example.AOManager.response.ApiResponse;
 import com.example.AOManager.service.OrderSupplierService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -13,8 +15,14 @@ public class OrderSupplierController {
     OrderSupplierService orderSupplierService;
 
     @GetMapping("/{id}")
-    public ApiResponse<?> getOrderSupplier(@PathVariable String id) {return this.orderSupplierService.getgetOrderSupplier(id);}
+    public ApiResponse<?> getOrderSupplier(@PathVariable String id) {return this.orderSupplierService.getOrderSupplier(id);}
 
     @GetMapping
     public ApiResponse<?> getOrderSupplierList(@RequestParam String status, @RequestParam int page, @RequestParam int limit) {return this.orderSupplierService.getOrderSupplierList(status, page, limit);}
+
+    @PostMapping
+    public ApiResponse<?> createOrderSupplier(@Validated @RequestBody CreateOrderSupplierRequest createOrderSupplierRequest) {return this.orderSupplierService.createOrderSupplier(createOrderSupplierRequest);}
+
+    @PutMapping("/{id}")
+    public ApiResponse<?> cancelOrderSupplier(@PathVariable String id) {return this.orderSupplierService.cancelOrderSupplier(id);}
 }

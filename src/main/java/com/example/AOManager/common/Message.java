@@ -40,7 +40,15 @@ public final class Message {
     public static final String MSG_GET_PRODUCTS_lIST_SUCCESS = "Lấy danh sách sản phẩm thất bại!";
     public static final String MSG_GET_ORDER_SUPPLIER_FAIL = "Lấy đơn hàng thất bại!";
     public static final String MSG_GET_ORDER_SUPPLIER_SUCCESS = "Lấy đơn hàng thành công!";
-
     public static final String MSG_GET_ORDER_SUPPLIER_LIST_FAIL = "Lấy danh sách đơn hàng thất bại!";
     public static final String MSG_GET_ORDER_SUPPLIER_LIST_SUCCESS = "Lấy danh sách đơn hàng thành công!";
+    public static final String MSG_NOT_FOUND_ORDER_SUPPLIER_BY_ID = "Không tìm thấy đơn đặt hàng nào tương ứng với ID này!";
+    public static final String MSG_CANCEL_ORDER_SUPPLIER_FAIL = "Huỷ đơn đặt hàng thất bại!";
+    public static final String MSG_CANCEL_ORDER_SUPPLIER_SUCCESS = "Huỷ đơn đặt hàng thành công!";
+    public static final String MSG_CREATE_ORDER_SUPPLIER_FAIL = "Lập đơn đặt hàng thất bại!";
+    public static final String MSG_CREATE_ORDER_SUPPLIER_SUCCESS = "Lập đơn đặt hàng thành công!";
+    public static final String MSG_ADD_PRODUCT_FOR_ORDER_SUPPLIER_FAIL = "Xảy ra lỗi trong lúc thêm sản phẩm cho đơn đặt hàng!";
+    public static final String MSG_CREATE_IMPORT_FORM_SUCCESS = "Nhập hàng thành công!";
+    public static final String MSG_CREATE_IMPORT_FORM_FAIL = "Nhập hàng thất bại!";
+    public static final String MSG_ADD_PRODUCT_FOR_IMPORT_FROM_FAIL = "Xảy ra lỗi trong lúc nhập hàng!";
 }

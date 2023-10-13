@@ -3,7 +3,7 @@ package com.example.AOManager.controller;
 import com.example.AOManager.payload.request.ChangePasswordRequest;
 import com.example.AOManager.payload.request.LoginRequest;
 import com.example.AOManager.payload.request.UserSignupRequest;
-import com.example.AOManager.payload.response.ApiResponse;
+import com.example.AOManager.response.ApiResponse;
 import com.example.AOManager.service.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;

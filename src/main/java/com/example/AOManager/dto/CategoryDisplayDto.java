@@ -20,5 +20,6 @@ public class CategoryDisplayDto {
     public CategoryDisplayDto(CategoryEntity categoryEntity) {
         this.id = categoryEntity.getId().toString();
         this.name = categoryEntity.getName();
+        this.productCount = categoryEntity.getProductList().size();
     }
 }

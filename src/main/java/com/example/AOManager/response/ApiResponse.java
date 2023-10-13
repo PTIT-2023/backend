@@ -1,4 +1,4 @@
-package com.example.AOManager.payload.response;
+package com.example.AOManager.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

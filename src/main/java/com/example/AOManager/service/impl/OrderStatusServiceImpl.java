@@ -2,7 +2,7 @@ package com.example.AOManager.service.impl;
 
 import com.example.AOManager.dto.OrderStatusDto;
 import com.example.AOManager.entity.OrderStatusEntity;
-import com.example.AOManager.payload.response.ApiResponse;
+import com.example.AOManager.response.ApiResponse;
 import com.example.AOManager.repository.OrderStatusRepository;
 import com.example.AOManager.service.OrderStatusService;
 import org.springframework.beans.factory.annotation.Autowired;

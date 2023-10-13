@@ -1,7 +1,7 @@
 package com.example.AOManager.controller;
 
 import com.example.AOManager.dto.ProductDto;
-import com.example.AOManager.payload.response.ApiResponse;
+import com.example.AOManager.response.ApiResponse;
 import com.example.AOManager.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

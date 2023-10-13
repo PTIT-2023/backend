@@ -2,7 +2,7 @@ package com.example.AOManager.service;
 
 import com.example.AOManager.dto.UsersDto;
 import com.example.AOManager.payload.request.ChangePasswordRequest;
-import com.example.AOManager.payload.response.ApiResponse;
+import com.example.AOManager.response.ApiResponse;
 
 import java.util.List;
 
