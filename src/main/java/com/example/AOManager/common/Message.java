@@ -51,4 +51,8 @@ public final class Message {
     public static final String MSG_CREATE_IMPORT_FORM_SUCCESS = "Nhập hàng thành công!";
     public static final String MSG_CREATE_IMPORT_FORM_FAIL = "Nhập hàng thất bại!";
     public static final String MSG_ADD_PRODUCT_FOR_IMPORT_FROM_FAIL = "Xảy ra lỗi trong lúc nhập hàng!";
+    public static final String MSG_GET_IMPORT_FORM_FAIL = "Lấy phiếu nhập thất bại";
+    public static final String MSG_GET_IMPORT_FORM_SUCCESS = "Lấy phiếu nhập thành công!";
+    public static final String MSG_GET_IMPORT_FORM_LIST_FAIL = "Lấy danh sách phiếu nhập thất bại!";
+    public static final String MSG_GET_IMPORT_FORM_LIST_SUCCESS = "Lấy danh sách phiếu nhập thành công!";
 }

@@ -61,6 +61,7 @@ public class ProductServiceImpl implements ProductService {
             return new ApiResponse<>(HttpStatus.BAD_REQUEST.value(), MSG_BAD_REQUEST, null);
         }
         ProductEntity productEntity = productDto.toEntity();
+        productEntity.setStatus(false);
         productEntity.setCategoryId(this.categoryRepository.findById(UUID.fromString(productDto.getCategoryId())).get());
         try {
             ProductEntity productEntityCreate = this.productRepository.save(productEntity);

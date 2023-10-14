@@ -47,7 +47,7 @@ public class OrderSupplierServiceImpl implements OrderSupplierService {
 
     @Override
     public ApiResponse<?> getOrderSupplier(String id) {
-        if (CheckString.stringIsNullOrEmpty(id)) {
+        if (CheckString.stringIsNullOrEmpty(id) || !CheckString.isValidUUID(id)) {
             return new ApiResponse<>(HttpStatus.BAD_REQUEST.value(), MSG_BAD_REQUEST, null);
         }
         OrderSupplierEntity orderSupplierEntity;
@@ -60,7 +60,7 @@ public class OrderSupplierServiceImpl implements OrderSupplierService {
             orderSupplierDisplayDto.setStatus(this.getStatusName(orderSupplierEntity.getStatus()));
             orderSupplierDisplayDto.setOrderDate(orderSupplierEntity.getOrderDate());
             orderSupplierDisplayDto.setDeliverydate(orderSupplierEntity.getDeliveryDate());
-            orderSupplierDisplayDto.setEmployee(orderSupplierEntity.getEmployeeId().getLastName() + " " + orderSupplierEntity.getEmployeeId().getFirstName());
+            orderSupplierDisplayDto.setEmployeeName(orderSupplierEntity.getEmployeeId().getLastName() + " " + orderSupplierEntity.getEmployeeId().getFirstName());
             List<OrderSupplierDisplayDto.Product> productList = new ArrayList<>();
             for (OrderSupplierDetailEntity orderSupplierDetailEntity : orderSupplierEntity.getOrderSupplierDetailList()) {
                 OrderSupplierDisplayDto.Product product = new OrderSupplierDisplayDto.Product();
@@ -100,7 +100,7 @@ public class OrderSupplierServiceImpl implements OrderSupplierService {
                 orderSupplierDisplayDto.setOrderDate(orderSupplierEntity.getOrderDate());
                 orderSupplierDisplayDto.setDeliverydate(orderSupplierEntity.getDeliveryDate());
                 orderSupplierDisplayDto.setStatus(orderSupplierEntity.getStatus());
-                orderSupplierDisplayDto.setEmployee(orderSupplierEntity.getEmployeeId().getLastName() + " " + orderSupplierEntity.getEmployeeId().getFirstName());
+                orderSupplierDisplayDto.setEmployeeName(orderSupplierEntity.getEmployeeId().getLastName() + " " + orderSupplierEntity.getEmployeeId().getFirstName());
                 orderSupplierDisplayDto.setProductsList(null);
                 orderSupplierDisplayDto.setTotalPriceOrder(0);
                 orderSupplierDisplayDtoList.add(orderSupplierDisplayDto);
@@ -151,6 +151,7 @@ public class OrderSupplierServiceImpl implements OrderSupplierService {
         try {
             OrderSupplierEntity orderSupplierEntity;
             try {
+
                 orderSupplierEntity = this.orderSupplierRepository.findById(UUID.fromString(id)).get();
             } catch (Exception e) {
                 System.out.println(e);

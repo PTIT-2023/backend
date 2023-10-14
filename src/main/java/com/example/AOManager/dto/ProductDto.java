@@ -64,7 +64,6 @@ public class ProductDto {
         productEntity.setPh(this.getPh());
         productEntity.setPosition(this.getPosition());
         productEntity.setReproductionMethod(this.getReproductionMethod());
-        productEntity.setStatus(this.isStatus());
         productEntity.setTemperature(this.getTemperature());
         productEntity.setInventoryQuantity(this.inventoryQuantity);
         productEntity.setSoldQuantity(this.soldQuantity);

@@ -5,4 +5,8 @@ import com.example.AOManager.response.ApiResponse;
 
 public interface ImportFormService {
     ApiResponse<?> createImportForm(CreateImportFormRequest createImportFormRequest);
+
+    ApiResponse<?> getImportForm(String id);
+
+    ApiResponse<?> getImportFormList(int page, int limit);
 }
