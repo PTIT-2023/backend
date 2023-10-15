@@ -45,18 +45,17 @@ public class UsersServiceImpl implements UsersService {
     @Override
     public ApiResponse<?> changePassword(ChangePasswordRequest changePasswordRequest) {
         UsersEntity user = this.usersRepository.findById(UUID.fromString(changePasswordRequest.getId())).get();
-        if(!encoder.matches(changePasswordRequest.getOldPassword(), user.getPassword())) {
+        if (!encoder.matches(changePasswordRequest.getOldPassword(), user.getPassword())) {
             return new ApiResponse<>(HttpStatus.BAD_REQUEST.value(), MSG_OLD_PASSWORD_NOT_TRUE, null); // mật khẩu cũ không khớp
         }
-        if(!changePasswordRequest.getNewPassword().equals(changePasswordRequest.getNewPasswordConfirm())){
+        if (!changePasswordRequest.getNewPassword().equals(changePasswordRequest.getNewPasswordConfirm())) {
             return new ApiResponse<>(HttpStatus.BAD_REQUEST.value(), MSG_NEW_PASSWORD_NOT_MATCH, null); // Mật khẩu mới xác nhận lại không khớp
         }
         user.setPassword(encoder.encode(changePasswordRequest.getNewPassword()));
         try {
             this.usersRepository.save(user);
             return new ApiResponse<>(HttpStatus.OK.value(), MSG_CHANGE_PASSWORD_SUCCESS, null); // thành công
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.println(e);
             return new ApiResponse<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), MSG_CHANGE_PASSWORD_FAIL, null); // thất bại
         }
@@ -85,8 +84,8 @@ public class UsersServiceImpl implements UsersService {
     public ApiResponse<?> getCustomerList(String roleId, int page, int limit) {
         try {
             long totalResult = this.userRoleRepository.findByRoleId_Id(UUID.fromString(roleId)).get().size();
-            int totalPage = (int) Math.ceil((float)totalResult/limit);
-            if(page > totalPage) {
+            int totalPage = (int) Math.ceil((float) totalResult / limit);
+            if (page > totalPage) {
                 return new ApiResponse<>(HttpStatus.BAD_REQUEST.value(), MSG_BAD_REQUEST, null);
             }
             List<UsersDto> managerList = this.usersService.getUsersList(roleId, page, limit);
@@ -101,8 +100,8 @@ public class UsersServiceImpl implements UsersService {
     public ApiResponse<?> getEmployeeList(String roleId, int page, int limit) {
         try {
             long totalResult = this.userRoleRepository.findByRoleId_Id(UUID.fromString(roleId)).get().size();
-            int totalPage = (int) Math.ceil((float)totalResult/limit);
-            if(page > totalPage) {
+            int totalPage = (int) Math.ceil((float) totalResult / limit);
+            if (page > totalPage) {
                 return new ApiResponse<>(HttpStatus.BAD_REQUEST.value(), MSG_BAD_REQUEST, null);
             }
             List<UsersDto> employeeList = this.usersService.getUsersList(roleId, page, limit);
@@ -117,8 +116,8 @@ public class UsersServiceImpl implements UsersService {
     public ApiResponse<?> getManagerList(String roleId, int page, int limit) {
         try {
             long totalResult = this.userRoleRepository.findByRoleId_Id(UUID.fromString(roleId)).get().size();
-            int totalPage = (int) Math.ceil((float)totalResult/limit);
-            if(page > totalPage) {
+            int totalPage = (int) Math.ceil((float) totalResult / limit);
+            if (page > totalPage) {
                 return new ApiResponse<>(HttpStatus.BAD_REQUEST.value(), MSG_BAD_REQUEST, null);
             }
             List<UsersDto> managerList = this.usersService.getUsersList(roleId, page, limit);
@@ -131,10 +130,15 @@ public class UsersServiceImpl implements UsersService {
 
     @Override
     public ApiResponse<?> createUser(UserRequest createUserRequest, String role) {
+        if (this.usersRepository.existsByEmail(createUserRequest.getEmail())) {
+            return new ApiResponse<>(HttpStatus.BAD_REQUEST.value(), MSG_EMAIL_EXIST, null);
+        }
         try {
             createUserRequest.setStatus(true);
             createUserRequest.setPassword(this.encoder.encode(createUserRequest.getPassword()));
             UsersEntity usersEntity = createUserRequest.toEntity();
+            usersEntity.setEmail(createUserRequest.getEmail());
+            usersEntity.setPassword(createUserRequest.getPassword());
             UsersEntity usersEntityCreated = this.usersRepository.save(usersEntity);
             UserRoleEntity userRoleEntity = new UserRoleEntity();
             userRoleEntity.setUserId(usersEntityCreated);
@@ -149,14 +153,26 @@ public class UsersServiceImpl implements UsersService {
 
     @Override
     public ApiResponse<?> updateUser(UserRequest updateUserRequest) {
-//        try {
-//            UsersEntity usersEntity = updateUserRequest.toEntity();
-//            usersEntity.setId(UUID.fromString(updateUserRequest.getId()));
-//            return new ApiResponse<>(HttpStatus.OK.value(), MSG_UPDATE_USER_SUCCESS, null);
-//        } catch (Exception e) {
-//            System.out.println(e);
-//            return new ApiResponse<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), MSG_UPDATE_USER_FAIL, null);
-//        }
-        return null;
+        try {
+            UsersEntity usersEntityFind;
+            try {
+                usersEntityFind = this.usersRepository.findById(UUID.fromString(updateUserRequest.getId())).get();
+            } catch (Exception e) {
+                System.out.println(e);
+                return new ApiResponse<>(HttpStatus.NOT_FOUND.value(), MSG_NOT_FOUND_BY_ID, null);
+            }
+            UsersEntity usersEntity = updateUserRequest.toEntity();
+            usersEntity.setId(UUID.fromString(updateUserRequest.getId()));
+            usersEntity.setEmail(usersEntityFind.getEmail());
+            usersEntity.setPassword(usersEntityFind.getPassword());
+            this.usersRepository.save(usersEntity);
+            UserRoleEntity userRoleEntity = this.userRoleRepository.findByUserId_Id(UUID.fromString(updateUserRequest.getId())).get();
+            userRoleEntity.setRoleId(this.roleRepository.findById(UUID.fromString(updateUserRequest.getRoleId())).get());
+            this.userRoleRepository.save(userRoleEntity);
+            return new ApiResponse<>(HttpStatus.OK.value(), MSG_UPDATE_USER_SUCCESS, null);
+        } catch (Exception e) {
+            System.out.println(e);
+            return new ApiResponse<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), MSG_UPDATE_USER_FAIL, null);
+        }
     }
 }

@@ -56,7 +56,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public List<ProductDto> getProductsList(String categoryId, int page, int limit) {
         List<ProductEntity> productsList;
-        if(CheckString.isValidUUID(categoryId)) {
+        if (CheckString.isValidUUID(categoryId)) {
             productsList = this.productRepository.getProductsListWithCategory(UUID.fromString(categoryId), page - 1, limit);
         } else {
             productsList = this.productRepository.getProductsList(page - 1, limit);
@@ -66,7 +66,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public ApiResponse<?> getProduct(String id) {
-        if(CheckString.stringIsNullOrEmpty(id) || !CheckString.isValidUUID(id)) {
+        if (CheckString.stringIsNullOrEmpty(id) || !CheckString.isValidUUID(id)) {
             return new ApiResponse<>(HttpStatus.BAD_REQUEST.value(), MSG_BAD_REQUEST, null);
         }
         try {
@@ -79,7 +79,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public ApiResponse<?> createProduct(ProductDto productDto) {
-        if(null == productDto) {
+        if (null == productDto) {
             return new ApiResponse<>(HttpStatus.BAD_REQUEST.value(), MSG_BAD_REQUEST, null);
         }
         ProductEntity productEntity = productDto.toEntity();
@@ -87,7 +87,7 @@ public class ProductServiceImpl implements ProductService {
         productEntity.setCategoryId(this.categoryRepository.findById(UUID.fromString(productDto.getCategoryId())).get());
         try {
             ProductEntity productEntityCreate = this.productRepository.save(productEntity);
-            for(String productImage : productDto.getImageList()) {
+            for (String productImage : productDto.getImageList()) {
                 ProductImageEntity productImageEntity = new ProductImageEntity();
                 productImageEntity.setUrl(productImage);
                 productImageEntity.setProductId(productEntityCreate);
@@ -107,14 +107,14 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public ApiResponse<?> updateProduct(ProductDto productDto) {
-        if(null == productDto) {
+        if (null == productDto) {
             return new ApiResponse<>(HttpStatus.BAD_REQUEST.value(), MSG_BAD_REQUEST, null);
         }
         try {
             try {
                 this.productRepository.findById(UUID.fromString(productDto.getId())).get();
             } catch (Exception e) {
-                return new ApiResponse<>(HttpStatus.NOT_FOUND.value(), MSG_NOT_FOUND_PRODUCT_BY_ID, null);
+                return new ApiResponse<>(HttpStatus.NOT_FOUND.value(), MSG_NOT_FOUND_BY_ID, null);
             }
             ProductEntity productEntityAft = productDto.toEntity();
             productEntityAft.setCategoryId(this.categoryRepository.findById(UUID.fromString(productDto.getCategoryId())).get());
@@ -122,7 +122,7 @@ public class ProductServiceImpl implements ProductService {
             List<ProductImageEntity> listDelete = this.productImageRepository.findByProductId_Id(productEntityUpdate.getId()).get();
             this.productImageRepository.deleteAll(listDelete);
             System.out.println(listDelete);
-            for(String productImage : productDto.getImageList()) {
+            for (String productImage : productDto.getImageList()) {
                 ProductImageEntity productImageEntity = new ProductImageEntity();
                 productImageEntity.setUrl(productImage);
                 productImageEntity.setProductId(productEntityUpdate);
@@ -142,7 +142,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public ApiResponse<?> deleteProduct(String id) {
-        if(CheckString.stringIsNullOrEmpty(id) || !CheckString.isValidUUID(id)) {
+        if (CheckString.stringIsNullOrEmpty(id) || !CheckString.isValidUUID(id)) {
             return new ApiResponse<>(HttpStatus.BAD_REQUEST.value(), MSG_BAD_REQUEST, null);
         }
         ProductEntity productEntity;
@@ -150,7 +150,7 @@ public class ProductServiceImpl implements ProductService {
             productEntity = this.productRepository.findById(UUID.fromString(id)).get();
         } catch (Exception e) {
             System.out.println(e);
-            return new ApiResponse<>(HttpStatus.NOT_FOUND.value(), MSG_NOT_FOUND_PRODUCT_BY_ID, null);
+            return new ApiResponse<>(HttpStatus.NOT_FOUND.value(), MSG_NOT_FOUND_BY_ID, null);
         }
         if (this.importDetailRepository.existsByProductId_Id(productEntity.getId())) {
             productEntity.setStatus(false);

@@ -20,6 +20,7 @@ public class UserRequest {
     private String address;
     private String phone;
     private boolean status;
+    private String roleId;
 
     public UserRequest(UsersEntity usersEntity) {
         this.id = usersEntity.getId().toString();
@@ -38,8 +39,6 @@ public class UserRequest {
     public UsersEntity toEntity() {
         UsersEntity usersEntity = new UsersEntity();
         usersEntity.setAvatar(this.avatar);
-        usersEntity.setEmail(this.email);
-        usersEntity.setPassword(this.password);
         usersEntity.setFirstName(this.firstName);
         usersEntity.setLastName(this.lastName);
         usersEntity.setBirthday(this.birthday);

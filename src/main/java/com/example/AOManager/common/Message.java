@@ -1,6 +1,7 @@
 package com.example.AOManager.common;
 
 public final class Message {
+    public static final String MSG_NOT_FOUND_BY_ID = "Không tìm thấy thông tin nào tương ứng với ID này!";
     public static final String MSG_CREATE_FAIL = "Tạo mới thất bại!";
     public static final String MSG_CREATE_SUCCESS = "Tạo mới thành công!";
     public static final String MSG_UPDATE_FAIL = "Cập nhật thất bại!";
@@ -20,13 +21,11 @@ public final class Message {
     public static final String MSG_GET_CATEGORIES_SUCCESS = "Lấy danh sách thể loại thành công!";
     public static final String MSG_GET_CATEGORY_FAIL = "Lấy thể loại thất bại!";
     public static final String MSG_GET_CATEGORY_SUCCESS = "Lấy thể loại thành công!";
-    public static final String MSG_NOT_FOUND_CATEGORY_BY_ID = "Không tìm thấy thể loại nào tương ứng với ID này!";
     public static final String MSG_GET_ORDER_STATUS_LIST_FAIL = "Lấy danh sách trạng thái thất bại!";
     public static final String MSG_GET_ORDER_STATUS_LIST_SUCCESS = "Lấy danh sách trạng thái thành công!";
     public static final String MSG_GET_PRODUCT_FAIL = "Lấy sản phẩm thất bại!";
     public static final String MSG_GET_PRODUCT_SUCCESS = "Lấy sản phẩm thành công!";
     public static final String MSG_ADD_PICTURE_PRODUCT_FAIL = "Đã xảy ra lỗi trong lúc thêm hình ảnh cho sản phẩm!";
-    public static final String MSG_NOT_FOUND_PRODUCT_BY_ID = "Không tìm thấy sản phẩm nào tương ứng với ID này!";
     public static final String MSG_UPDATE_PICTURE_PRODUCT_FAIL = "Đã xảy ra lỗi trong lúc cập nhật hình ảnh cho sản phẩm!";
     public static final String MSG_GET_ROLE_LIST_FAIL = "Lấy danh sách quyền thất bại!";
     public static final String MSG_GET_ROLE_LIST_SUCCESS = "Lấy danh sách quyền thành công!";
@@ -42,7 +41,6 @@ public final class Message {
     public static final String MSG_GET_ORDER_SUPPLIER_SUCCESS = "Lấy đơn hàng thành công!";
     public static final String MSG_GET_ORDER_SUPPLIER_LIST_FAIL = "Lấy danh sách đơn đặt hàng thất bại!";
     public static final String MSG_GET_ORDER_SUPPLIER_LIST_SUCCESS = "Lấy danh sách đơn đặt hàng thành công!";
-    public static final String MSG_NOT_FOUND_ORDER_SUPPLIER_BY_ID = "Không tìm thấy đơn đặt hàng nào tương ứng với ID này!";
     public static final String MSG_CANCEL_ORDER_SUPPLIER_FAIL = "Huỷ đơn đặt hàng thất bại!";
     public static final String MSG_CANCEL_ORDER_SUPPLIER_SUCCESS = "Huỷ đơn đặt hàng thành công!";
     public static final String MSG_CREATE_ORDER_SUPPLIER_FAIL = "Lập đơn đặt hàng thất bại!";
@@ -66,4 +64,5 @@ public final class Message {
     public static final String MSG_DELETE_PRODUCT_FAIL_PRICE = "Không thể xoá sản phẩm do tồn tại trong lịch sử chỉnh sửa giá, sản phẩm đã được chuyển sang trạng thái ngừng kinh doanh!";
     public static final String MSG_DELETE_PRODUCT_FAIL_DEDUCTION = "Không thể xoá sản phẩm do tồn tại trong lịch sử chỉnh sửa số lượng tồn, sản phẩm đã được chuyển sang trạng thái ngừng kinh doanh!";
     public static final String MSG_DELETE_PRODUCT_FAIL_CART = "Không thể xoá sản phẩm do tồn tại trong giỏ hàng, sản phẩm đã được chuyển sang trạng thái ngừng kinh doanh!";
+
 }

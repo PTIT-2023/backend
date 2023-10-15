@@ -23,7 +23,7 @@ public class UsersEntity {
     @Column(name = "avatar")
     private String avatar;
     @Basic(optional = false)
-    @Column(name = "email")
+    @Column(name = "email", unique = true)
     private String email;
     @Basic(optional = false)
     @Column(name = "password")

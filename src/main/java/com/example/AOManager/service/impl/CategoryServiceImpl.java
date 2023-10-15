@@ -94,7 +94,7 @@ public class CategoryServiceImpl implements CategoryService {
                 categoryEntityBef = this.categoryRepository.findById(UUID.fromString(id)).get();
             } catch (Exception e) {
                 System.out.println(e);
-                return new ApiResponse<>(HttpStatus.NOT_FOUND.value(), MSG_NOT_FOUND_CATEGORY_BY_ID, null);
+                return new ApiResponse<>(HttpStatus.NOT_FOUND.value(), MSG_NOT_FOUND_BY_ID, null);
             }
             CategoryEntity categoryEntityAft = new CategoryEntity(UUID.fromString(id), name, categoryEntityBef.getProductList());
             this.categoryRepository.save(categoryEntityAft);
@@ -116,7 +116,7 @@ public class CategoryServiceImpl implements CategoryService {
                 categoryEntity = this.categoryRepository.findById(UUID.fromString(id)).get();
             } catch (Exception e) {
                 System.out.println(e);
-                return new ApiResponse<>(HttpStatus.NOT_FOUND.value(), MSG_NOT_FOUND_CATEGORY_BY_ID, null);
+                return new ApiResponse<>(HttpStatus.NOT_FOUND.value(), MSG_NOT_FOUND_BY_ID, null);
             }
             this.categoryRepository.delete(categoryEntity);
             return new ApiResponse<>(HttpStatus.OK.value(), MSG_DELETE_SUCCESS, null);

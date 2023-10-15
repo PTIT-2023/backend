@@ -24,4 +24,7 @@ public class ManagerController {
 
     @PostMapping
     public ApiResponse<?> createManager(@Validated @RequestBody UserRequest createUserRequest) {return this.usersService.createUser(createUserRequest, "ROLE_MANAGER");}
+
+    @PutMapping
+    public ApiResponse<?> updateManager(@Validated @RequestBody UserRequest updateUserRequest) {return this.usersService.updateUser(updateUserRequest);}
 }

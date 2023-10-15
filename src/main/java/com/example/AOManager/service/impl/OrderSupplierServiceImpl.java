@@ -159,7 +159,7 @@ public class OrderSupplierServiceImpl implements OrderSupplierService {
                 orderSupplierEntity = this.orderSupplierRepository.findById(UUID.fromString(id)).get();
             } catch (Exception e) {
                 System.out.println(e);
-                return new ApiResponse<>(HttpStatus.NOT_FOUND.value(), MSG_NOT_FOUND_ORDER_SUPPLIER_BY_ID, null);
+                return new ApiResponse<>(HttpStatus.NOT_FOUND.value(), MSG_NOT_FOUND_BY_ID, null);
             }
             orderSupplierEntity.setStatus("CANCELLED");
             this.orderSupplierRepository.save(orderSupplierEntity);
