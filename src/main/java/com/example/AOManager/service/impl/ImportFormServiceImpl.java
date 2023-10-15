@@ -9,6 +9,7 @@ import com.example.AOManager.entity.ProductEntity;
 import com.example.AOManager.repository.*;
 import com.example.AOManager.request.CreateImportFormRequest;
 import com.example.AOManager.response.ApiResponse;
+import com.example.AOManager.response.ApiResponseForList;
 import com.example.AOManager.service.ImportFormService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -80,6 +81,11 @@ public class ImportFormServiceImpl implements ImportFormService {
             return new ApiResponse<>(HttpStatus.BAD_REQUEST.value(), MSG_BAD_REQUEST, null);
         }
         try {
+            long totalResult = this.importFormRepository.findAll().size();
+            int totalPage = (int) Math.ceil((float)totalResult/limit);
+            if(page > totalPage) {
+                return new ApiResponse<>(HttpStatus.BAD_REQUEST.value(), MSG_BAD_REQUEST, null);
+            }
             List<ImportFormEntity> importFormEntityList = this.importFormRepository.getImportFormList(page - 1, limit).get();
             List<ImportFormDisplayDto> importFormDisplayDtoList = new ArrayList<>();
             for (ImportFormEntity importFormEntity : importFormEntityList) {
@@ -93,7 +99,7 @@ public class ImportFormServiceImpl implements ImportFormService {
                 importFormDisplayDto.setEmployeeName(importFormEntity.getEmployeeId().getLastName() + " " + importFormEntity.getEmployeeId().getFirstName());
                 importFormDisplayDtoList.add(importFormDisplayDto);
             }
-            return new ApiResponse<>(HttpStatus.OK.value(), MSG_GET_IMPORT_FORM_LIST_SUCCESS, importFormDisplayDtoList);
+            return new ApiResponse<>(HttpStatus.OK.value(), MSG_GET_IMPORT_FORM_LIST_SUCCESS, new ApiResponseForList<>(totalResult, page, totalPage, limit, importFormDisplayDtoList));
         } catch (Exception e) {
             System.out.println(e);
             return new ApiResponse<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), MSG_GET_IMPORT_FORM_LIST_FAIL, null);

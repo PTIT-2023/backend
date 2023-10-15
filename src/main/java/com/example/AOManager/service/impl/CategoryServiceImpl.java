@@ -6,6 +6,7 @@ import com.example.AOManager.dto.CategoryDto;
 import com.example.AOManager.entity.CategoryEntity;
 import com.example.AOManager.response.ApiResponse;
 import com.example.AOManager.repository.CategoryRepository;
+import com.example.AOManager.response.ApiResponseForList;
 import com.example.AOManager.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -36,11 +37,16 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public ApiResponse<?> getAllCategoriesList() {
+    public ApiResponse<?> getAllCategoriesList(int page, int limit) {
         try {
-            List<CategoryEntity> categoryList = this.categoryRepository.findAll();
+            long totalResult = this.categoryRepository.findAll().size();
+            int totalPage = (int) Math.ceil((float)totalResult/limit);
+            if(page > totalPage) {
+                return new ApiResponse<>(HttpStatus.BAD_REQUEST.value(), MSG_BAD_REQUEST, null);
+            }
+            List<CategoryEntity> categoryList = this.categoryRepository.getCategoriesList(page - 1, limit).get();
             List<CategoryDisplayDto> categoryDtoList = categoryList.stream().map(CategoryDisplayDto::new).collect(Collectors.toList());
-            return new ApiResponse<>(HttpStatus.OK.value(), MSG_GET_CATEGORIES_SUCCESS, categoryDtoList);
+            return new ApiResponse<>(HttpStatus.OK.value(), MSG_GET_CATEGORIES_SUCCESS, new ApiResponseForList<>(totalResult, page, totalPage, limit, categoryDtoList));
         } catch (Exception e) {
             System.out.println(e);
             return new ApiResponse<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), MSG_GET_CATEGORIES_FAIL, null);

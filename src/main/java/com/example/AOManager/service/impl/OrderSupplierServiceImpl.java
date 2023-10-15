@@ -10,6 +10,7 @@ import com.example.AOManager.repository.UsersRepository;
 import com.example.AOManager.request.CreateOrderSupplierRequest;
 import com.example.AOManager.response.ApiResponse;
 import com.example.AOManager.repository.OrderSupplierRepository;
+import com.example.AOManager.response.ApiResponseForList;
 import com.example.AOManager.service.OrderSupplierService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -89,6 +90,11 @@ public class OrderSupplierServiceImpl implements OrderSupplierService {
             return new ApiResponse<>(HttpStatus.BAD_REQUEST.value(), MSG_BAD_REQUEST, null);
         }
         try {
+            long totalResult = this.orderSupplierRepository.findByStatus(status).get().size();
+            int totalPage = (int) Math.ceil((float)totalResult/limit);
+            if(page > totalPage) {
+                return new ApiResponse<>(HttpStatus.BAD_REQUEST.value(), MSG_BAD_REQUEST, null);
+            }
             List<OrderSupplierEntity> orderSupplierEntityList = this.orderSupplierRepository.getOrderSupplierList(status, page - 1, limit);
             List<OrderSupplierDisplayDto> orderSupplierDisplayDtoList = new ArrayList<>();
             for (OrderSupplierEntity orderSupplierEntity : orderSupplierEntityList) {
@@ -103,7 +109,7 @@ public class OrderSupplierServiceImpl implements OrderSupplierService {
                 orderSupplierDisplayDto.setTotalPriceOrder(0);
                 orderSupplierDisplayDtoList.add(orderSupplierDisplayDto);
             }
-            return new ApiResponse<>(HttpStatus.OK.value(), MSG_GET_ORDER_SUPPLIER_LIST_SUCCESS, orderSupplierDisplayDtoList);
+            return new ApiResponse<>(HttpStatus.OK.value(), MSG_GET_ORDER_SUPPLIER_LIST_SUCCESS, new ApiResponseForList<>(totalResult, page, totalPage, limit, orderSupplierDisplayDtoList));
         } catch (Exception e) {
             System.out.println(e);
             return new ApiResponse<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), MSG_GET_ORDER_SUPPLIER_LIST_FAIL, null);

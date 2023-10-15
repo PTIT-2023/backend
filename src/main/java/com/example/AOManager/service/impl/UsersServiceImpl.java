@@ -84,8 +84,13 @@ public class UsersServiceImpl implements UsersService {
     @Override
     public ApiResponse<?> getCustomerList(String roleId, int page, int limit) {
         try {
+            long totalResult = this.userRoleRepository.findByRoleId_Id(UUID.fromString(roleId)).get().size();
+            int totalPage = (int) Math.ceil((float)totalResult/limit);
+            if(page > totalPage) {
+                return new ApiResponse<>(HttpStatus.BAD_REQUEST.value(), MSG_BAD_REQUEST, null);
+            }
             List<UsersDto> managerList = this.usersService.getUsersList(roleId, page, limit);
-            return new ApiResponse<>(HttpStatus.OK.value(), MSG_GET_CUSTOMER_LIST_SUCCESS, managerList);
+            return new ApiResponse<>(HttpStatus.OK.value(), MSG_GET_CUSTOMER_LIST_SUCCESS, new ApiResponseForList<>(totalResult, page, totalPage, limit, managerList));
         } catch (Exception e) {
             System.out.println(e);
             return new ApiResponse<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), MSG_GET_CUSTOMER_LIST_FAIL, null);
@@ -95,8 +100,13 @@ public class UsersServiceImpl implements UsersService {
     @Override
     public ApiResponse<?> getEmployeeList(String roleId, int page, int limit) {
         try {
+            long totalResult = this.userRoleRepository.findByRoleId_Id(UUID.fromString(roleId)).get().size();
+            int totalPage = (int) Math.ceil((float)totalResult/limit);
+            if(page > totalPage) {
+                return new ApiResponse<>(HttpStatus.BAD_REQUEST.value(), MSG_BAD_REQUEST, null);
+            }
             List<UsersDto> employeeList = this.usersService.getUsersList(roleId, page, limit);
-            return new ApiResponse<>(HttpStatus.OK.value(), MSG_GET_EMPLOYEE_LIST_SUCCESS, employeeList);
+            return new ApiResponse<>(HttpStatus.OK.value(), MSG_GET_EMPLOYEE_LIST_SUCCESS, new ApiResponseForList<>(totalResult, page, totalPage, limit, employeeList));
         } catch (Exception e) {
             System.out.println(e);
             return new ApiResponse<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), MSG_GET_EMPLOYEE_LIST_FAIL, null);

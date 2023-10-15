@@ -7,7 +7,7 @@ public final class Message {
     public static final String MSG_UPDATE_SUCCESS = "Cập nhật thành công!";
     public static final String MSG_DELETE_FAIL = "Xoá thất bại!";
     public static final String MSG_DELETE_SUCCESS = "Xoá thành công!";
-    public static final String MSG_BAD_REQUEST = "Xử lý thất bại, hãy kiểm tra lại đầu vào của bạn!";
+    public static final String MSG_BAD_REQUEST = "Xử lý thất bại, hãy kiểm tra lại yêu cầu của bạn!";
     public static final String MSG_LOGIN_SUCCESS = "Đăng nhập thành công!";
     public static final String MSG_EMAIL_EXIST = "Email này đã được sử dụng!";
     public static final String MSG_REGISTRY_FAIL = "Đăng ký thất bại!";
@@ -40,8 +40,8 @@ public final class Message {
     public static final String MSG_GET_PRODUCTS_lIST_SUCCESS = "Lấy danh sách sản phẩm thành công!";
     public static final String MSG_GET_ORDER_SUPPLIER_FAIL = "Lấy đơn hàng thất bại!";
     public static final String MSG_GET_ORDER_SUPPLIER_SUCCESS = "Lấy đơn hàng thành công!";
-    public static final String MSG_GET_ORDER_SUPPLIER_LIST_FAIL = "Lấy danh sách đơn hàng thất bại!";
-    public static final String MSG_GET_ORDER_SUPPLIER_LIST_SUCCESS = "Lấy danh sách đơn hàng thành công!";
+    public static final String MSG_GET_ORDER_SUPPLIER_LIST_FAIL = "Lấy danh sách đơn đặt hàng thất bại!";
+    public static final String MSG_GET_ORDER_SUPPLIER_LIST_SUCCESS = "Lấy danh sách đơn đặt hàng thành công!";
     public static final String MSG_NOT_FOUND_ORDER_SUPPLIER_BY_ID = "Không tìm thấy đơn đặt hàng nào tương ứng với ID này!";
     public static final String MSG_CANCEL_ORDER_SUPPLIER_FAIL = "Huỷ đơn đặt hàng thất bại!";
     public static final String MSG_CANCEL_ORDER_SUPPLIER_SUCCESS = "Huỷ đơn đặt hàng thành công!";

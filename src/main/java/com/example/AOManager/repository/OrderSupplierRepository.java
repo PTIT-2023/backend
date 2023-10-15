@@ -12,6 +12,8 @@ public interface OrderSupplierRepository extends JpaRepository<OrderSupplierEnti
 
     Optional<OrderSupplierEntity> findById(UUID id);
 
+    Optional<List<OrderSupplierEntity>> findByStatus(String status);
+
     @Query(value = "SELECT o.* FROM order_supplier o WHERE o.status = :status LIMIT :limit OFFSET :page", nativeQuery = true)
     List<OrderSupplierEntity> getOrderSupplierList(String status, int page, int limit);
 }
