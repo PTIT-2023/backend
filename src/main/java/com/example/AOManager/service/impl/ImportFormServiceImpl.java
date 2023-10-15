@@ -86,7 +86,7 @@ public class ImportFormServiceImpl implements ImportFormService {
             if(page > totalPage) {
                 return new ApiResponse<>(HttpStatus.BAD_REQUEST.value(), MSG_BAD_REQUEST, null);
             }
-            List<ImportFormEntity> importFormEntityList = this.importFormRepository.getImportFormList(page - 1, limit).get();
+            List<ImportFormEntity> importFormEntityList = this.importFormRepository.getImportFormList((page - 1) * limit, limit).get();
             List<ImportFormDisplayDto> importFormDisplayDtoList = new ArrayList<>();
             for (ImportFormEntity importFormEntity : importFormEntityList) {
                 ImportFormDisplayDto importFormDisplayDto = new ImportFormDisplayDto();

@@ -44,7 +44,7 @@ public class CategoryServiceImpl implements CategoryService {
             if(page > totalPage) {
                 return new ApiResponse<>(HttpStatus.BAD_REQUEST.value(), MSG_BAD_REQUEST, null);
             }
-            List<CategoryEntity> categoryList = this.categoryRepository.getCategoriesList(page - 1, limit).get();
+            List<CategoryEntity> categoryList = this.categoryRepository.getCategoriesList((page - 1) * limit, limit).get();
             List<CategoryDisplayDto> categoryDtoList = categoryList.stream().map(CategoryDisplayDto::new).collect(Collectors.toList());
             return new ApiResponse<>(HttpStatus.OK.value(), MSG_GET_CATEGORIES_SUCCESS, new ApiResponseForList<>(totalResult, page, totalPage, limit, categoryDtoList));
         } catch (Exception e) {

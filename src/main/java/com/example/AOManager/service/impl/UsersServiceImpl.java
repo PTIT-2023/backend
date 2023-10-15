@@ -76,7 +76,7 @@ public class UsersServiceImpl implements UsersService {
 
     @Override
     public List<UsersDto> getUsersList(String roleId, int page, int limit) {
-        List<UsersEntity> managerList = this.usersRepository.getUsersList(UUID.fromString(roleId), page - 1, limit);
+        List<UsersEntity> managerList = this.usersRepository.getUsersList(UUID.fromString(roleId), (page - 1) * limit, limit);
         return managerList.stream().map(UsersDto::new).collect(Collectors.toList());
     }
 
@@ -120,7 +120,7 @@ public class UsersServiceImpl implements UsersService {
             if (page > totalPage) {
                 return new ApiResponse<>(HttpStatus.BAD_REQUEST.value(), MSG_BAD_REQUEST, null);
             }
-            List<UsersDto> managerList = this.usersService.getUsersList(roleId, page, limit);
+            List<UsersDto> managerList = this.usersService.getUsersList(roleId, (page - 1) * limit, limit);
             return new ApiResponse<>(HttpStatus.OK.value(), MSG_GET_MANAGER_LIST_SUCCESS, new ApiResponseForList<>(totalResult, page, totalPage, limit, managerList));
         } catch (Exception e) {
             System.out.println(e);

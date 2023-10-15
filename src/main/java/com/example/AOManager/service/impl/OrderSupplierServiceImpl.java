@@ -95,7 +95,7 @@ public class OrderSupplierServiceImpl implements OrderSupplierService {
             if(page > totalPage) {
                 return new ApiResponse<>(HttpStatus.BAD_REQUEST.value(), MSG_BAD_REQUEST, null);
             }
-            List<OrderSupplierEntity> orderSupplierEntityList = this.orderSupplierRepository.getOrderSupplierList(status, page - 1, limit);
+            List<OrderSupplierEntity> orderSupplierEntityList = this.orderSupplierRepository.getOrderSupplierList(status, (page - 1) * limit, limit);
             List<OrderSupplierDisplayDto> orderSupplierDisplayDtoList = new ArrayList<>();
             for (OrderSupplierEntity orderSupplierEntity : orderSupplierEntityList) {
                 OrderSupplierDisplayDto orderSupplierDisplayDto = new OrderSupplierDisplayDto();
