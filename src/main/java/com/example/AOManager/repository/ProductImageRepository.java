@@ -8,5 +8,6 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface ProductImageRepository extends JpaRepository<ProductImageEntity, UUID> {
+
     Optional<List<ProductImageEntity>> findByProductId_Id(UUID id);
 }

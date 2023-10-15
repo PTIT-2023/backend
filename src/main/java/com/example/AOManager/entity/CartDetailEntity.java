@@ -22,6 +22,9 @@ public class CartDetailEntity {
     @Basic(optional = false)
     @Column(name = "price")
     private Long price;
+    @Basic(optional = false)
+    @Column(name = "quantity")
+    private int quantity;
     @JoinColumn(name = "order_customer_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private OrderCustomerEntity orderCustomerId;

@@ -35,6 +35,7 @@ import static com.example.AOManager.common.Message.*;
 
 @Service
 public class AuthServiceImpl implements AuthService {
+
     @Autowired
     AuthenticationManager authenticationManager;
 
@@ -98,11 +99,11 @@ public class AuthServiceImpl implements AuthService {
             userRole.setUserId(userRegistry);
             userRole.setRoleId(roleRegistry);
             this.userRoleRepository.save(userRole);
+            return new ApiResponse<>(HttpStatus.CREATED.value(), MSG_REGISTRY_SUCCESS, null);
         } catch (Exception e) {
             System.out.println(e);
             return new ApiResponse<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), MSG_REGISTRY_FAIL, null);
         }
-        return new ApiResponse<>(HttpStatus.CREATED.value(), MSG_REGISTRY_SUCCESS, null);
     }
 
     @Override

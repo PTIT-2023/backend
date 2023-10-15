@@ -39,6 +39,9 @@ public class OrderCustomerEntity {
     @Basic(optional = false)
     @Column(name = "delivery_date")
     private Long deliveryDate;
+    @Basic(optional = false)
+    @Column(name = "total_price")
+    private Long totalPrice;
     @OneToMany(cascade = CascadeType.REFRESH, mappedBy = "orderCustomerId")
     private List<CartDetailEntity> cartDetailList;
     @JoinColumn(name = "customer_id", referencedColumnName = "id")

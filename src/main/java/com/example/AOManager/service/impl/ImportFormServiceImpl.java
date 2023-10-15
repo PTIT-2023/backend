@@ -22,6 +22,7 @@ import static com.example.AOManager.common.Message.*;
 
 @Service
 public class ImportFormServiceImpl implements ImportFormService {
+
     @Autowired
     ImportFormRepository importFormRepository;
 
@@ -42,10 +43,9 @@ public class ImportFormServiceImpl implements ImportFormService {
         if (CheckString.stringIsNullOrEmpty(id) || !CheckString.isValidUUID(id)) {
             return new ApiResponse<>(HttpStatus.BAD_REQUEST.value(), MSG_BAD_REQUEST, null);
         }
-        ImportFormEntity importFormEntity;
-        ImportFormDisplayDto importFormDisplayDto = new ImportFormDisplayDto();
         try {
-            importFormEntity = this.importFormRepository.findById(UUID.fromString(id)).get();
+            ImportFormEntity importFormEntity = this.importFormRepository.findById(UUID.fromString(id)).get();
+            ImportFormDisplayDto importFormDisplayDto = new ImportFormDisplayDto();
             importFormDisplayDto.setId(importFormEntity.getId().toString());
             importFormDisplayDto.setOrderSupplierId(importFormEntity.getOrderSupplierId().getId().toString());
             importFormDisplayDto.setCreateDate(importFormEntity.getCreateDate());
@@ -67,11 +67,11 @@ public class ImportFormServiceImpl implements ImportFormService {
             }
             importFormDisplayDto.setProductList(productList);
             importFormDisplayDto.setTotalPriceImportForm(productList.stream().mapToLong(ImportFormDisplayDto.Product::getTotalPrice).sum());
+            return new ApiResponse<>(HttpStatus.OK.value(), MSG_GET_IMPORT_FORM_SUCCESS, importFormDisplayDto);
         } catch (Exception e) {
             System.out.println(e);
             return new ApiResponse<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), MSG_GET_IMPORT_FORM_FAIL, null);
         }
-        return new ApiResponse<>(HttpStatus.OK.value(), MSG_GET_IMPORT_FORM_SUCCESS, importFormDisplayDto);
     }
 
     @Override
@@ -79,10 +79,9 @@ public class ImportFormServiceImpl implements ImportFormService {
         if (0 >= page || 0 >= limit) {
             return new ApiResponse<>(HttpStatus.BAD_REQUEST.value(), MSG_BAD_REQUEST, null);
         }
-        List<ImportFormEntity> importFormEntityList;
-        List<ImportFormDisplayDto> importFormDisplayDtoList = new ArrayList<>();
         try {
-            importFormEntityList = this.importFormRepository.getImportFormList(page - 1, limit).get();
+            List<ImportFormEntity> importFormEntityList = this.importFormRepository.getImportFormList(page - 1, limit).get();
+            List<ImportFormDisplayDto> importFormDisplayDtoList = new ArrayList<>();
             for (ImportFormEntity importFormEntity : importFormEntityList) {
                 ImportFormDisplayDto importFormDisplayDto = new ImportFormDisplayDto();
                 importFormDisplayDto.setTotalPriceImportForm(0);
@@ -94,11 +93,11 @@ public class ImportFormServiceImpl implements ImportFormService {
                 importFormDisplayDto.setEmployeeName(importFormEntity.getEmployeeId().getLastName() + " " + importFormEntity.getEmployeeId().getFirstName());
                 importFormDisplayDtoList.add(importFormDisplayDto);
             }
+            return new ApiResponse<>(HttpStatus.OK.value(), MSG_GET_IMPORT_FORM_LIST_SUCCESS, importFormDisplayDtoList);
         } catch (Exception e) {
             System.out.println(e);
             return new ApiResponse<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), MSG_GET_IMPORT_FORM_LIST_FAIL, null);
         }
-        return new ApiResponse<>(HttpStatus.OK.value(), MSG_GET_IMPORT_FORM_LIST_SUCCESS, importFormDisplayDtoList);
     }
 
     @Override

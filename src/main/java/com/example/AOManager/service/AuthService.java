@@ -6,6 +6,7 @@ import com.example.AOManager.payload.request.UserSignupRequest;
 import com.example.AOManager.response.ApiResponse;
 
 public interface AuthService {
+
     ApiResponse sigin(LoginRequest loginRequest);
 
     ApiResponse<?> signup(UserSignupRequest signupRequest);

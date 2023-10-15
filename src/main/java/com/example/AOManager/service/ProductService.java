@@ -6,6 +6,7 @@ import com.example.AOManager.response.ApiResponse;
 import java.util.List;
 
 public interface ProductService {
+
     List<ProductDto> getProductsList(String categoryId, int page, int limit);
 
     ApiResponse<?> getProduct(String id);
@@ -15,4 +16,6 @@ public interface ProductService {
     ApiResponse<?> updateProduct(ProductDto productDto);
 
     ApiResponse<?> deleteProduct(String id);
+
+    long getTotalRecord(String categoryId);
 }

@@ -2,6 +2,7 @@ package com.example.AOManager.controller;
 
 import com.example.AOManager.dto.ProductDto;
 import com.example.AOManager.response.ApiResponse;
+import com.example.AOManager.response.ApiResponseForList;
 import com.example.AOManager.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,6 +18,7 @@ import static com.example.AOManager.common.Message.*;
 @RestController
 @RequestMapping("/api/products")
 public class ProductController {
+
     @Autowired
     ProductService productService;
 
@@ -25,19 +27,23 @@ public class ProductController {
 
     @GetMapping
     public ApiResponse<?> getProductsList(@RequestParam String categoryId, @RequestParam String orderByPrice, @RequestParam int page, @RequestParam int limit) {
-        List<ProductDto> productsList;
-        try {
-            productsList = this.productService.getProductsList(categoryId, page, limit);
-            if(orderByPrice.equals("ASC") && productsList.size() > 0) {
-                productsList.sort(Comparator.comparingLong(ProductDto::getPrice));
-            } else if(orderByPrice.equals("DESC") && productsList.size() > 0)  {
-                productsList.sort((a1, a2) -> -Long.compare(a1.getPrice(), a2.getPrice()));
-            }
-        } catch (Exception e) {
-            System.out.println(e);
-            return new ApiResponse<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), MSG_GET_PRODUCTS_lIST_FAIL, null);
-        }
-        return new ApiResponse<>(HttpStatus.OK.value(), MSG_GET_PRODUCTS_lIST_SUCCESS, productsList);
+         try {
+             long totalResult = this.productService.getTotalRecord(categoryId);
+             int totalPage = (int) Math.ceil((float)totalResult/limit);
+             if(page > totalPage) {
+                 return new ApiResponse<>(HttpStatus.BAD_REQUEST.value(), MSG_BAD_REQUEST, null);
+             }
+             List<ProductDto> productsList = this.productService.getProductsList(categoryId, page, limit);
+             if(orderByPrice.equals("ASC") && productsList.size() > 0) {
+                 productsList.sort(Comparator.comparingLong(ProductDto::getPrice));
+             } else if(orderByPrice.equals("DESC") && productsList.size() > 0)  {
+                 productsList.sort((a1, a2) -> -Long.compare(a1.getPrice(), a2.getPrice()));
+             }
+             return new ApiResponse<>(HttpStatus.OK.value(), MSG_GET_PRODUCTS_lIST_SUCCESS, new ApiResponseForList<>(totalResult, page, totalPage, limit, productsList));
+         } catch (Exception e) {
+             System.out.println(e);
+             return new ApiResponse<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), MSG_GET_PRODUCTS_lIST_FAIL, null);
+         }
     }
 
     @PostMapping

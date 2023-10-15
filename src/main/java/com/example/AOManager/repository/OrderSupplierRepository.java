@@ -9,7 +9,9 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface OrderSupplierRepository extends JpaRepository<OrderSupplierEntity, UUID> {
+
     Optional<OrderSupplierEntity> findById(UUID id);
+
     @Query(value = "SELECT o.* FROM order_supplier o WHERE o.status = :status LIMIT :limit OFFSET :page", nativeQuery = true)
     List<OrderSupplierEntity> getOrderSupplierList(String status, int page, int limit);
 }

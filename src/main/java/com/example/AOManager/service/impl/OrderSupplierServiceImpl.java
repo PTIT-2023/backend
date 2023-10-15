@@ -21,6 +21,7 @@ import static com.example.AOManager.common.Message.*;
 
 @Service
 public class OrderSupplierServiceImpl implements OrderSupplierService {
+
     @Autowired
     OrderSupplierRepository orderSupplierRepository;
 
@@ -50,11 +51,9 @@ public class OrderSupplierServiceImpl implements OrderSupplierService {
         if (CheckString.stringIsNullOrEmpty(id) || !CheckString.isValidUUID(id)) {
             return new ApiResponse<>(HttpStatus.BAD_REQUEST.value(), MSG_BAD_REQUEST, null);
         }
-        OrderSupplierEntity orderSupplierEntity;
-        OrderSupplierDisplayDto orderSupplierDisplayDto;
         try {
-            orderSupplierEntity = this.orderSupplierRepository.findById(UUID.fromString(id)).get();
-            orderSupplierDisplayDto = new OrderSupplierDisplayDto();
+            OrderSupplierEntity orderSupplierEntity = this.orderSupplierRepository.findById(UUID.fromString(id)).get();
+            OrderSupplierDisplayDto orderSupplierDisplayDto = new OrderSupplierDisplayDto();
             orderSupplierDisplayDto.setId(orderSupplierEntity.getId().toString());
             orderSupplierDisplayDto.setSupplierName(orderSupplierEntity.getSupplierName());
             orderSupplierDisplayDto.setStatus(this.getStatusName(orderSupplierEntity.getStatus()));
@@ -77,11 +76,11 @@ public class OrderSupplierServiceImpl implements OrderSupplierService {
             }
             orderSupplierDisplayDto.setProductsList(productList);
             orderSupplierDisplayDto.setTotalPriceOrder(productList.stream().mapToLong(OrderSupplierDisplayDto.Product::getTotalPrice).sum());
+            return new ApiResponse<>(HttpStatus.OK.value(), MSG_GET_ORDER_SUPPLIER_SUCCESS, orderSupplierDisplayDto);
         } catch (Exception e) {
             System.out.println(e);
             return new ApiResponse<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), MSG_GET_ORDER_SUPPLIER_FAIL, null);
         }
-        return new ApiResponse<>(HttpStatus.OK.value(), MSG_GET_ORDER_SUPPLIER_SUCCESS, orderSupplierDisplayDto);
     }
 
     @Override
@@ -89,10 +88,9 @@ public class OrderSupplierServiceImpl implements OrderSupplierService {
         if (CheckString.stringIsNullOrEmpty(status) || 0 >= page || 0 >= limit) {
             return new ApiResponse<>(HttpStatus.BAD_REQUEST.value(), MSG_BAD_REQUEST, null);
         }
-        List<OrderSupplierEntity> orderSupplierEntityList;
-        List<OrderSupplierDisplayDto> orderSupplierDisplayDtoList = new ArrayList<>();
         try {
-            orderSupplierEntityList = this.orderSupplierRepository.getOrderSupplierList(status, page - 1, limit);
+            List<OrderSupplierEntity> orderSupplierEntityList = this.orderSupplierRepository.getOrderSupplierList(status, page - 1, limit);
+            List<OrderSupplierDisplayDto> orderSupplierDisplayDtoList = new ArrayList<>();
             for (OrderSupplierEntity orderSupplierEntity : orderSupplierEntityList) {
                 OrderSupplierDisplayDto orderSupplierDisplayDto = new OrderSupplierDisplayDto();
                 orderSupplierDisplayDto.setId(orderSupplierEntity.getId().toString());
@@ -105,11 +103,11 @@ public class OrderSupplierServiceImpl implements OrderSupplierService {
                 orderSupplierDisplayDto.setTotalPriceOrder(0);
                 orderSupplierDisplayDtoList.add(orderSupplierDisplayDto);
             }
+            return new ApiResponse<>(HttpStatus.OK.value(), MSG_GET_ORDER_SUPPLIER_LIST_SUCCESS, orderSupplierDisplayDtoList);
         } catch (Exception e) {
             System.out.println(e);
             return new ApiResponse<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), MSG_GET_ORDER_SUPPLIER_LIST_FAIL, null);
         }
-        return new ApiResponse<>(HttpStatus.OK.value(), MSG_GET_ORDER_SUPPLIER_LIST_SUCCESS, orderSupplierDisplayDtoList);
     }
 
     @Override
@@ -159,10 +157,10 @@ public class OrderSupplierServiceImpl implements OrderSupplierService {
             }
             orderSupplierEntity.setStatus("CANCELLED");
             this.orderSupplierRepository.save(orderSupplierEntity);
+            return new ApiResponse<>(HttpStatus.OK.value(), MSG_CANCEL_ORDER_SUPPLIER_SUCCESS, null);
         } catch (Exception e) {
             System.out.println(e);
             return new ApiResponse<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), MSG_CANCEL_ORDER_SUPPLIER_FAIL, null);
         }
-        return new ApiResponse<>(HttpStatus.OK.value(), MSG_CANCEL_ORDER_SUPPLIER_SUCCESS, null);
     }
 }

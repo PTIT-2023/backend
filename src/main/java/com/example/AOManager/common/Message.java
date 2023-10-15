@@ -36,8 +36,8 @@ public final class Message {
     public static final String MSG_GET_EMPLOYEE_LIST_SUCCESS = "Lấy danh sách nhân viên thành công!";
     public static final String MSG_GET_MANAGER_LIST_FAIL = "Lấy danh sách quản lý thất bại!";
     public static final String MSG_GET_MANAGER_LIST_SUCCESS = "Lấy danh sách quản lý thành công!";
-    public static final String MSG_GET_PRODUCTS_lIST_FAIL = "Lấy danh sách sản phẩm thành công!";
-    public static final String MSG_GET_PRODUCTS_lIST_SUCCESS = "Lấy danh sách sản phẩm thất bại!";
+    public static final String MSG_GET_PRODUCTS_lIST_FAIL = "Lấy danh sách sản phẩm thất bại!";
+    public static final String MSG_GET_PRODUCTS_lIST_SUCCESS = "Lấy danh sách sản phẩm thành công!";
     public static final String MSG_GET_ORDER_SUPPLIER_FAIL = "Lấy đơn hàng thất bại!";
     public static final String MSG_GET_ORDER_SUPPLIER_SUCCESS = "Lấy đơn hàng thành công!";
     public static final String MSG_GET_ORDER_SUPPLIER_LIST_FAIL = "Lấy danh sách đơn hàng thất bại!";
@@ -55,4 +55,10 @@ public final class Message {
     public static final String MSG_GET_IMPORT_FORM_SUCCESS = "Lấy phiếu nhập thành công!";
     public static final String MSG_GET_IMPORT_FORM_LIST_FAIL = "Lấy danh sách phiếu nhập thất bại!";
     public static final String MSG_GET_IMPORT_FORM_LIST_SUCCESS = "Lấy danh sách phiếu nhập thành công!";
+    public static final String MSG_USER_FAIL = "Lấy User thất bại!";
+    public static final String MSG_USER_SUCCESS = "Lấy User thành công!";
+    public static final String MSG_CREATE_USER_FAIL = "Tạo User thất bại!";
+    public static final String MSG_CREATE_USER_SUCCESS = "Tạo User thành công!";
+    public static final String MSG_UPDATE_USER_FAIL = "Cập nhật User thất bại!";
+    public static final String MSG_UPDATE_USER_SUCCESS = "Cập nhật User thành công!";
 }

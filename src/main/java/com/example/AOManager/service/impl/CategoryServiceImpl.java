@@ -19,34 +19,32 @@ import static com.example.AOManager.common.Message.*;
 
 @Service
 public class CategoryServiceImpl implements CategoryService {
+
     @Autowired
     CategoryRepository categoryRepository;
 
     @Override
     public ApiResponse<?> getAllCategoriesMaster() {
-        List<CategoryDto> categoryDtoList;
         try {
             List<CategoryEntity> categoryList = this.categoryRepository.findAll();
-            categoryDtoList = categoryList.stream().map(CategoryDto::new).collect(Collectors.toList());
+            List<CategoryDto> categoryDtoList = categoryList.stream().map(CategoryDto::new).collect(Collectors.toList());
+            return new ApiResponse<>(HttpStatus.OK.value(), MSG_GET_CATEGORIES_SUCCESS, categoryDtoList);
         } catch (Exception e) {
             System.out.println(e);
             return new ApiResponse<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), MSG_GET_CATEGORIES_FAIL, null);
         }
-        return new ApiResponse<>(HttpStatus.OK.value(), MSG_GET_CATEGORIES_SUCCESS, categoryDtoList);
-
     }
 
     @Override
     public ApiResponse<?> getAllCategoriesList() {
-        List<CategoryDisplayDto> categoryDtoList;
         try {
             List<CategoryEntity> categoryList = this.categoryRepository.findAll();
-            categoryDtoList = categoryList.stream().map(CategoryDisplayDto::new).collect(Collectors.toList());
+            List<CategoryDisplayDto> categoryDtoList = categoryList.stream().map(CategoryDisplayDto::new).collect(Collectors.toList());
+            return new ApiResponse<>(HttpStatus.OK.value(), MSG_GET_CATEGORIES_SUCCESS, categoryDtoList);
         } catch (Exception e) {
             System.out.println(e);
             return new ApiResponse<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), MSG_GET_CATEGORIES_FAIL, null);
         }
-        return new ApiResponse<>(HttpStatus.OK.value(), MSG_GET_CATEGORIES_SUCCESS, categoryDtoList);
     }
 
     @Override
@@ -54,14 +52,13 @@ public class CategoryServiceImpl implements CategoryService {
         if(CheckString.stringIsNullOrEmpty(id)) {
             return new ApiResponse<>(HttpStatus.BAD_REQUEST.value(), MSG_BAD_REQUEST, null);
         }
-        CategoryDto categoryDto;
         try {
-            categoryDto = new CategoryDto(this.categoryRepository.findById(UUID.fromString(id)).get());
+            CategoryDto categoryDto = new CategoryDto(this.categoryRepository.findById(UUID.fromString(id)).get());
+            return new ApiResponse<>(HttpStatus.OK.value(), MSG_GET_CATEGORY_SUCCESS, categoryDto);
         } catch (Exception e) {
             System.out.println(e);
             return new ApiResponse<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), MSG_GET_CATEGORY_FAIL, null);
         }
-        return new ApiResponse<>(HttpStatus.OK.value(), MSG_GET_CATEGORY_SUCCESS, categoryDto);
     }
 
     @Override
@@ -73,11 +70,11 @@ public class CategoryServiceImpl implements CategoryService {
         categoryEntity.setName(name);
         try {
             this.categoryRepository.save(categoryEntity);
+            return new ApiResponse<>(HttpStatus.CREATED.value(), MSG_CREATE_SUCCESS, null);
         } catch (Exception e) {
             System.out.println(e);
             return new ApiResponse<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), MSG_CREATE_FAIL, null);
         }
-        return new ApiResponse<>(HttpStatus.CREATED.value(), MSG_CREATE_SUCCESS, null);
     }
 
     @Override
@@ -95,11 +92,11 @@ public class CategoryServiceImpl implements CategoryService {
             }
             CategoryEntity categoryEntityAft = new CategoryEntity(UUID.fromString(id), name, categoryEntityBef.getProductList());
             this.categoryRepository.save(categoryEntityAft);
+            return new ApiResponse<>(HttpStatus.OK.value(), MSG_UPDATE_SUCCESS, null);
         } catch (Exception e) {
             System.out.println(e);
             return new ApiResponse<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), MSG_UPDATE_FAIL, null);
         }
-        return new ApiResponse<>(HttpStatus.OK.value(), MSG_UPDATE_SUCCESS, null);
     }
 
     @Override
@@ -116,10 +113,10 @@ public class CategoryServiceImpl implements CategoryService {
                 return new ApiResponse<>(HttpStatus.NOT_FOUND.value(), MSG_NOT_FOUND_CATEGORY_BY_ID, null);
             }
             this.categoryRepository.delete(categoryEntity);
+            return new ApiResponse<>(HttpStatus.OK.value(), MSG_DELETE_SUCCESS, null);
         } catch (Exception e) {
             System.out.println(e);
             return new ApiResponse<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), MSG_DELETE_FAIL, null);
         }
-        return new ApiResponse<>(HttpStatus.OK.value(), MSG_DELETE_SUCCESS, null);
     }
 }

@@ -28,7 +28,7 @@ public class ProductEntity {
     @Basic(optional = false)
     @Column(name = "name")
     private String name;
-    @Column(name = "description")
+    @Column(name = "description", columnDefinition = "TEXT")
     private String description;
     @Column(name = "habitat")
     private String habitat;

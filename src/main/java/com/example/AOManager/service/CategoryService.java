@@ -3,7 +3,9 @@ package com.example.AOManager.service;
 import com.example.AOManager.response.ApiResponse;
 
 public interface CategoryService {
+
     ApiResponse<?> getAllCategoriesMaster();
+
     ApiResponse<?> getAllCategoriesList();
 
     ApiResponse<?> getCategory(String id);

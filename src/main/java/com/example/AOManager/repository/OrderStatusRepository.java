@@ -7,5 +7,6 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface OrderStatusRepository extends JpaRepository<OrderStatusEntity, UUID> {
+
     Optional<OrderStatusEntity> findById(UUID id);
 }

@@ -10,9 +10,10 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface ProductRepository extends JpaRepository<ProductEntity, UUID> {
+
     Optional<ProductEntity> findById(UUID id);
 
-    @Transactional
+    Optional<List<ProductEntity>> findByCategoryId_Id(UUID id);
 
     @Query(value = "SELECT p.* \n" +
             "FROM product p \n" +

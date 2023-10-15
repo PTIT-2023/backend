@@ -16,19 +16,19 @@ import static com.example.AOManager.common.Message.*;
 
 @Service
 public class RoleServiceImpl implements RoleService {
+
     @Autowired
     RoleRepository roleRepository;
 
     @Override
     public ApiResponse<?> getAllRoles() {
-        List<RoleDto> roleListDto;
         try {
             List<RoleEntity> roleList = this.roleRepository.findAll();
-            roleListDto = roleList.stream().map(RoleDto::new).collect(Collectors.toList());
+            List<RoleDto> roleListDto = roleList.stream().map(RoleDto::new).collect(Collectors.toList());
+            return new ApiResponse<>(HttpStatus.OK.value(), MSG_GET_ROLE_LIST_SUCCESS, roleListDto);
         } catch (Exception e) {
             System.out.println(e);
             return new ApiResponse<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), MSG_GET_ROLE_LIST_FAIL, null);
         }
-        return new ApiResponse<>(HttpStatus.OK.value(), MSG_GET_ROLE_LIST_SUCCESS, roleListDto);
     }
 }

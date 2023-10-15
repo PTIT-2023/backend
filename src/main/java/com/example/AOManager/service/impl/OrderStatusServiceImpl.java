@@ -16,19 +16,19 @@ import static com.example.AOManager.common.Message.*;
 
 @Service
 public class OrderStatusServiceImpl implements OrderStatusService {
+
     @Autowired
     OrderStatusRepository orderStatusRepository;
 
     @Override
     public ApiResponse<?> getAllOrderStatus() {
-        List<OrderStatusDto> orderStatusDtoList;
         try {
             List<OrderStatusEntity> orderStatusList = this.orderStatusRepository.findAll();
-            orderStatusDtoList = orderStatusList.stream().map(OrderStatusDto::new).collect(Collectors.toList());
+            List<OrderStatusDto> orderStatusDtoList = orderStatusList.stream().map(OrderStatusDto::new).collect(Collectors.toList());
+            return new ApiResponse<>(HttpStatus.OK.value(), MSG_GET_ORDER_STATUS_LIST_SUCCESS, orderStatusDtoList);
         } catch (Exception e) {
             System.out.println(e);
             return new ApiResponse<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), MSG_GET_ORDER_STATUS_LIST_FAIL, null);
         }
-        return new ApiResponse<>(HttpStatus.OK.value(), MSG_GET_ORDER_STATUS_LIST_SUCCESS, orderStatusDtoList);
     }
 }

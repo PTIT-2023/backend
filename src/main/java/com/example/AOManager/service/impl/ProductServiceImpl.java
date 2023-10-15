@@ -21,6 +21,7 @@ import static com.example.AOManager.common.Message.*;
 
 @Service
 public class ProductServiceImpl implements ProductService {
+
     @Autowired
     ProductRepository productRepository;
 
@@ -46,13 +47,12 @@ public class ProductServiceImpl implements ProductService {
         if(CheckString.stringIsNullOrEmpty(id)) {
             return new ApiResponse<>(HttpStatus.BAD_REQUEST.value(), MSG_BAD_REQUEST, null);
         }
-        ProductDto productDto;
         try {
-            productDto = new ProductDto(this.productRepository.findById(UUID.fromString(id)).get());
+            ProductDto productDto = new ProductDto(this.productRepository.findById(UUID.fromString(id)).get());
+            return new ApiResponse<>(HttpStatus.OK.value(), MSG_GET_PRODUCT_SUCCESS, productDto);
         } catch (Exception e) {
             return new ApiResponse<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), MSG_GET_PRODUCT_FAIL, null);
         }
-        return new ApiResponse<>(HttpStatus.OK.value(), MSG_GET_PRODUCT_SUCCESS, productDto);
     }
 
     @Override
@@ -76,11 +76,11 @@ public class ProductServiceImpl implements ProductService {
                     return new ApiResponse<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), MSG_ADD_PICTURE_PRODUCT_FAIL, null);
                 }
             }
+            return new ApiResponse<>(HttpStatus.CREATED.value(), MSG_CREATE_SUCCESS, null);
         } catch (Exception e) {
             System.out.println(e);
             return new ApiResponse<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), MSG_CREATE_FAIL, null);
         }
-        return new ApiResponse<>(HttpStatus.CREATED.value(), MSG_CREATE_SUCCESS, null);
     }
 
     @Override
@@ -89,9 +89,8 @@ public class ProductServiceImpl implements ProductService {
             return new ApiResponse<>(HttpStatus.BAD_REQUEST.value(), MSG_BAD_REQUEST, null);
         }
         try {
-            ProductEntity productEntityBef;
             try {
-                productEntityBef = this.productRepository.findById(UUID.fromString(productDto.getId())).get();
+                this.productRepository.findById(UUID.fromString(productDto.getId())).get();
             } catch (Exception e) {
                 return new ApiResponse<>(HttpStatus.NOT_FOUND.value(), MSG_NOT_FOUND_PRODUCT_BY_ID, null);
             }
@@ -112,11 +111,11 @@ public class ProductServiceImpl implements ProductService {
                     return new ApiResponse<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), MSG_UPDATE_PICTURE_PRODUCT_FAIL, null);
                 }
             }
+            return new ApiResponse<>(HttpStatus.OK.value(), MSG_UPDATE_SUCCESS, null);
         } catch (Exception e) {
             System.out.println(e);
             return new ApiResponse<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), MSG_UPDATE_FAIL, null);
         }
-        return new ApiResponse<>(HttpStatus.OK.value(), MSG_UPDATE_SUCCESS, null);
     }
 
     @Override
@@ -133,10 +132,19 @@ public class ProductServiceImpl implements ProductService {
                 return new ApiResponse<>(HttpStatus.NOT_FOUND.value(), MSG_NOT_FOUND_PRODUCT_BY_ID, null);
             }
             this.productRepository.delete(productEntity);
+            return new ApiResponse<>(HttpStatus.OK.value(), MSG_DELETE_SUCCESS, null);
         } catch (Exception e) {
             System.out.println(e);
             return new ApiResponse<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), MSG_DELETE_FAIL, null);
         }
-        return new ApiResponse<>(HttpStatus.OK.value(), MSG_DELETE_SUCCESS, null);
+    }
+
+    @Override
+    public long getTotalRecord(String categoryId) {
+        if (CheckString.isValidUUID(categoryId)) {
+            return this.productRepository.findByCategoryId_Id(UUID.fromString(categoryId)).get().size();
+        } else {
+            return this.productRepository.findAll().size();
+        }
     }
 }
