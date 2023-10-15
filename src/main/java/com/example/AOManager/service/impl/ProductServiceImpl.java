@@ -32,6 +32,15 @@ public class ProductServiceImpl implements ProductService {
     ProductImageRepository productImageRepository;
 
     @Override
+    public long getTotalRecord(String categoryId) {
+        if (CheckString.isValidUUID(categoryId)) {
+            return this.productRepository.findByCategoryId_Id(UUID.fromString(categoryId)).get().size();
+        } else {
+            return this.productRepository.findAll().size();
+        }
+    }
+
+    @Override
     public List<ProductDto> getProductsList(String categoryId, int page, int limit) {
         List<ProductEntity> productsList;
         if(CheckString.isValidUUID(categoryId)) {
@@ -131,20 +140,13 @@ public class ProductServiceImpl implements ProductService {
                 System.out.println(e);
                 return new ApiResponse<>(HttpStatus.NOT_FOUND.value(), MSG_NOT_FOUND_PRODUCT_BY_ID, null);
             }
+            List<ProductImageEntity> productImageEntityList = this.productImageRepository.findByProductId_Id(productEntity.getId()).get();
+            this.productImageRepository.deleteAll(productImageEntityList);
             this.productRepository.delete(productEntity);
             return new ApiResponse<>(HttpStatus.OK.value(), MSG_DELETE_SUCCESS, null);
         } catch (Exception e) {
             System.out.println(e);
             return new ApiResponse<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), MSG_DELETE_FAIL, null);
-        }
-    }
-
-    @Override
-    public long getTotalRecord(String categoryId) {
-        if (CheckString.isValidUUID(categoryId)) {
-            return this.productRepository.findByCategoryId_Id(UUID.fromString(categoryId)).get().size();
-        } else {
-            return this.productRepository.findAll().size();
         }
     }
 }
