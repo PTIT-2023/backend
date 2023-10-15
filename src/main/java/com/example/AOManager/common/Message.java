@@ -61,4 +61,9 @@ public final class Message {
     public static final String MSG_CREATE_USER_SUCCESS = "Tạo User thành công!";
     public static final String MSG_UPDATE_USER_FAIL = "Cập nhật User thất bại!";
     public static final String MSG_UPDATE_USER_SUCCESS = "Cập nhật User thành công!";
+    public static final String MSG_DELETE_PRODUCT_FAIL_IMPORT = "Không thể xoá sản phẩm do tồn tại trong phiếu nhập hàng, sản phẩm đã được chuyển sang trạng thái ngừng kinh doanh!";
+    public static final String MSG_DELETE_PRODUCT_FAIL_ORDER_SUPPLIER = "Không thể xoá sản phẩm do tồn tại trong phiếu đặt hàng, sản phẩm đã được chuyển sang trạng thái ngừng kinh doanh!";
+    public static final String MSG_DELETE_PRODUCT_FAIL_PRICE = "Không thể xoá sản phẩm do tồn tại trong lịch sử chỉnh sửa giá, sản phẩm đã được chuyển sang trạng thái ngừng kinh doanh!";
+    public static final String MSG_DELETE_PRODUCT_FAIL_DEDUCTION = "Không thể xoá sản phẩm do tồn tại trong lịch sử chỉnh sửa số lượng tồn, sản phẩm đã được chuyển sang trạng thái ngừng kinh doanh!";
+    public static final String MSG_DELETE_PRODUCT_FAIL_CART = "Không thể xoá sản phẩm do tồn tại trong giỏ hàng, sản phẩm đã được chuyển sang trạng thái ngừng kinh doanh!";
 }

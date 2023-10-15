@@ -4,10 +4,8 @@ import com.example.AOManager.common.CheckString;
 import com.example.AOManager.dto.ProductDto;
 import com.example.AOManager.entity.ProductEntity;
 import com.example.AOManager.entity.ProductImageEntity;
+import com.example.AOManager.repository.*;
 import com.example.AOManager.response.ApiResponse;
-import com.example.AOManager.repository.CategoryRepository;
-import com.example.AOManager.repository.ProductImageRepository;
-import com.example.AOManager.repository.ProductRepository;
 import com.example.AOManager.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -31,6 +29,21 @@ public class ProductServiceImpl implements ProductService {
     @Autowired
     ProductImageRepository productImageRepository;
 
+    @Autowired
+    ImportDetailRepository importDetailRepository;
+
+    @Autowired
+    OrderSupplierDetailRepository orderSupplierDetailRepository;
+
+    @Autowired
+    PriceDetailRepository priceDetailRepository;
+
+    @Autowired
+    DeductionRepository deductionRepository;
+
+    @Autowired
+    CartDetailRepository cartDetailRepository;
+
     @Override
     public long getTotalRecord(String categoryId) {
         if (CheckString.isValidUUID(categoryId)) {
@@ -53,7 +66,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public ApiResponse<?> getProduct(String id) {
-        if(CheckString.stringIsNullOrEmpty(id)) {
+        if(CheckString.stringIsNullOrEmpty(id) || !CheckString.isValidUUID(id)) {
             return new ApiResponse<>(HttpStatus.BAD_REQUEST.value(), MSG_BAD_REQUEST, null);
         }
         try {
@@ -129,24 +142,45 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public ApiResponse<?> deleteProduct(String id) {
-        if(CheckString.stringIsNullOrEmpty(id)) {
+        if(CheckString.stringIsNullOrEmpty(id) || !CheckString.isValidUUID(id)) {
             return new ApiResponse<>(HttpStatus.BAD_REQUEST.value(), MSG_BAD_REQUEST, null);
         }
+        ProductEntity productEntity;
         try {
-            ProductEntity productEntity;
-            try {
-                productEntity = this.productRepository.findById(UUID.fromString(id)).get();
-            } catch (Exception e) {
-                System.out.println(e);
-                return new ApiResponse<>(HttpStatus.NOT_FOUND.value(), MSG_NOT_FOUND_PRODUCT_BY_ID, null);
-            }
-            List<ProductImageEntity> productImageEntityList = this.productImageRepository.findByProductId_Id(productEntity.getId()).get();
-            this.productImageRepository.deleteAll(productImageEntityList);
-            this.productRepository.delete(productEntity);
-            return new ApiResponse<>(HttpStatus.OK.value(), MSG_DELETE_SUCCESS, null);
+            productEntity = this.productRepository.findById(UUID.fromString(id)).get();
         } catch (Exception e) {
             System.out.println(e);
-            return new ApiResponse<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), MSG_DELETE_FAIL, null);
+            return new ApiResponse<>(HttpStatus.NOT_FOUND.value(), MSG_NOT_FOUND_PRODUCT_BY_ID, null);
+        }
+        if (this.importDetailRepository.existsByProductId_Id(productEntity.getId())) {
+            productEntity.setStatus(false);
+            this.productRepository.save(productEntity);
+            return new ApiResponse<>(HttpStatus.OK.value(), MSG_DELETE_PRODUCT_FAIL_IMPORT, null);
+        } else if (this.orderSupplierDetailRepository.existsByProductId_Id(productEntity.getId())) {
+            productEntity.setStatus(false);
+            this.productRepository.save(productEntity);
+            return new ApiResponse<>(HttpStatus.OK.value(), MSG_DELETE_PRODUCT_FAIL_ORDER_SUPPLIER, null);
+        } else if (this.priceDetailRepository.existsByProductId_Id(productEntity.getId())) {
+            productEntity.setStatus(false);
+            this.productRepository.save(productEntity);
+            return new ApiResponse<>(HttpStatus.OK.value(), MSG_DELETE_PRODUCT_FAIL_PRICE, null);
+        } else if (this.deductionRepository.existsByProductId_Id(productEntity.getId())) {
+            productEntity.setStatus(false);
+            this.productRepository.save(productEntity);
+            return new ApiResponse<>(HttpStatus.OK.value(), MSG_DELETE_PRODUCT_FAIL_DEDUCTION, null);
+        } else if (this.cartDetailRepository.existsByProductId_Id(productEntity.getId())) {
+            productEntity.setStatus(false);
+            this.productRepository.save(productEntity);
+            return new ApiResponse<>(HttpStatus.OK.value(), MSG_DELETE_PRODUCT_FAIL_CART, null);
+        } else {
+            try {
+                List<ProductImageEntity> productImageEntityList = this.productImageRepository.findByProductId_Id(productEntity.getId()).get();
+                this.productImageRepository.deleteAll(productImageEntityList);
+                this.productRepository.delete(productEntity);
+                return new ApiResponse<>(HttpStatus.OK.value(), MSG_DELETE_SUCCESS, null);
+            } catch (Exception e) {
+                return new ApiResponse<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), MSG_DELETE_FAIL, null);
+            }
         }
     }
 }
