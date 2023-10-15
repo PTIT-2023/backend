@@ -13,6 +13,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CategoryDisplayDto {
+
     private String id;
     private String name;
     private int productCount;

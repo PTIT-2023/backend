@@ -2,7 +2,6 @@ package com.example.AOManager.controller;
 
 import com.example.AOManager.request.UserRequest;
 import com.example.AOManager.response.ApiResponse;
-import com.example.AOManager.response.ApiResponseForList;
 import com.example.AOManager.service.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;

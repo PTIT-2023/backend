@@ -79,7 +79,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public ApiResponse<?> createProduct(ProductDto productDto) {
-        if (null == productDto) {
+        if (null == productDto || !CheckString.isValidUUID(productDto.getCategoryId())) {
             return new ApiResponse<>(HttpStatus.BAD_REQUEST.value(), MSG_BAD_REQUEST, null);
         }
         ProductEntity productEntity = productDto.toEntity();

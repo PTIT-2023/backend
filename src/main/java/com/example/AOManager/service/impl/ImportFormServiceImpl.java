@@ -2,7 +2,6 @@ package com.example.AOManager.service.impl;
 
 import com.example.AOManager.common.CheckString;
 import com.example.AOManager.dto.ImportFormDisplayDto;
-import com.example.AOManager.dto.OrderSupplierDisplayDto;
 import com.example.AOManager.entity.ImportDetailEntity;
 import com.example.AOManager.entity.ImportFormEntity;
 import com.example.AOManager.entity.ProductEntity;
@@ -82,8 +81,8 @@ public class ImportFormServiceImpl implements ImportFormService {
         }
         try {
             long totalResult = this.importFormRepository.findAll().size();
-            int totalPage = (int) Math.ceil((float)totalResult/limit);
-            if(page > totalPage) {
+            int totalPage = (int) Math.ceil((float) totalResult / limit);
+            if (page > totalPage) {
                 return new ApiResponse<>(HttpStatus.BAD_REQUEST.value(), MSG_BAD_REQUEST, null);
             }
             List<ImportFormEntity> importFormEntityList = this.importFormRepository.getImportFormList((page - 1) * limit, limit).get();

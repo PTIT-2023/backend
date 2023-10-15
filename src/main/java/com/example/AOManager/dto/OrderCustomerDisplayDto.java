@@ -9,7 +9,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ImportFormDisplayDto {
+public class OrderCustomerDisplayDto {
 
     @Data
     public static class Product {
@@ -21,10 +21,11 @@ public class ImportFormDisplayDto {
     }
 
     private String id;
-    private String orderSupplierId;
-    private long createDate;
-    private String supplierName;
-    private String employeeName;
-    List<Product> productList;
-    private long totalPriceImportForm;
+    private long orderDate;
+    private String customerName;
+    private String deliveryAddress;
+    private String deliveryEmail;
+    private String deliveryPhone;
+    private long totalPriceOrder;
+    private List<Product> productList;
 }

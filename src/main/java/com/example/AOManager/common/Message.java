@@ -64,5 +64,14 @@ public final class Message {
     public static final String MSG_DELETE_PRODUCT_FAIL_PRICE = "Không thể xoá sản phẩm do tồn tại trong lịch sử chỉnh sửa giá, sản phẩm đã được chuyển sang trạng thái ngừng kinh doanh!";
     public static final String MSG_DELETE_PRODUCT_FAIL_DEDUCTION = "Không thể xoá sản phẩm do tồn tại trong lịch sử chỉnh sửa số lượng tồn, sản phẩm đã được chuyển sang trạng thái ngừng kinh doanh!";
     public static final String MSG_DELETE_PRODUCT_FAIL_CART = "Không thể xoá sản phẩm do tồn tại trong giỏ hàng, sản phẩm đã được chuyển sang trạng thái ngừng kinh doanh!";
-
+    public static final String MSG_GET_ORDER_CUSTOMER_FAIL = "Lấy đơn hàng thất bại!";
+    public static final String MSG_GET_ORDER_CUSTOMER_SUCCESS = "Lấy đơn hàng thành công!";
+    public static final String MSG_GET_ORDER_CUSTOMER_LIST_FAIL = "Lấy danh sách đơn đặt hàng thất bại!";
+    public static final String MSG_GET_ORDER_CUSTOMER_LIST_SUCCESS = "Lấy danh sách đơn đặt hàng thành công!";
+    public static final String MSG_UPDATE_STATUS_ORDER_CUSTOMER_FAIL = "Đã xảy ra lỗi trong quá trình cập nhật trạng thái cho đơn hàng!";
+    public static final String MSG_UPDATE_STATUS_ORDER_CUSTOMER_SUCCESS = "Cập nhật trạng thái đơn hàng thành công!";
+    public static final String MSG_UPDATE_ORDER_CUSTOMER_TO_WAITING_PICKUP_FAIL = "Không thể duyệt đơn hàng này do đơn hàng không ở trạng thái \"chờ xác nhận\"!";
+    public static final String MSG_NOT_UPDATE_ORDER_CUSTOMER_TO_DELIVERING_FAIL = "Không thể chuyển trạng thái thành \"đang giao\" do đơn hàng này không ờ trạng thái \"chờ lấy hàng\"!";
+    public static final String MSG_NOT_UPDATE_ORDER_CUSTOMER_TO_DELIVERED_FAIL = "Không thể chuyển trạng thái thành \"đã giao\" do đơn hàng này không ở trạng thái \"đang giao\"!";
+    public static final String MSG_NOT_UPDATE_ORDER_CUSTOMER_TO_CANCELLED_FAIL = "Không thể huỷ vì chỉ có thể huỷ các đơn hàng đang \"chờ xác nhận\"!";
 }

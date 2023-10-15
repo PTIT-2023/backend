@@ -12,6 +12,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 public class RoleDto implements Serializable {
+
     private String id;
     private String name;
 

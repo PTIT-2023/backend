@@ -28,8 +28,8 @@ public class OrderCustomerEntity {
     @Column(name = "delivery_name")
     private String deliveryName;
     @Basic(optional = false)
-    @Column(name = "delivery_adress")
-    private String deliveryAdress;
+    @Column(name = "delivery_address")
+    private String deliveryAddress;
     @Basic(optional = false)
     @Column(name = "delivery_phone")
     private String deliveryPhone;

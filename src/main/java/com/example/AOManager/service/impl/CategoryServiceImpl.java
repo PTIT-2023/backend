@@ -40,8 +40,8 @@ public class CategoryServiceImpl implements CategoryService {
     public ApiResponse<?> getAllCategoriesList(int page, int limit) {
         try {
             long totalResult = this.categoryRepository.findAll().size();
-            int totalPage = (int) Math.ceil((float)totalResult/limit);
-            if(page > totalPage) {
+            int totalPage = (int) Math.ceil((float) totalResult / limit);
+            if (page > totalPage) {
                 return new ApiResponse<>(HttpStatus.BAD_REQUEST.value(), MSG_BAD_REQUEST, null);
             }
             List<CategoryEntity> categoryList = this.categoryRepository.getCategoriesList((page - 1) * limit, limit).get();
@@ -55,7 +55,7 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public ApiResponse<?> getCategory(String id) {
-        if(CheckString.stringIsNullOrEmpty(id)) {
+        if (CheckString.stringIsNullOrEmpty(id)) {
             return new ApiResponse<>(HttpStatus.BAD_REQUEST.value(), MSG_BAD_REQUEST, null);
         }
         try {
@@ -69,7 +69,7 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public ApiResponse<?> createCategory(String name) {
-        if(CheckString.stringIsNullOrEmpty(name)) {
+        if (CheckString.stringIsNullOrEmpty(name)) {
             return new ApiResponse<>(HttpStatus.BAD_REQUEST.value(), MSG_BAD_REQUEST, null);
         }
         CategoryEntity categoryEntity = new CategoryEntity();
@@ -85,7 +85,7 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public ApiResponse<?> updateCategory(String id, String name) {
-        if(CheckString.stringIsNullOrEmpty(id) || CheckString.stringIsNullOrEmpty(name)) {
+        if (CheckString.stringIsNullOrEmpty(id) || CheckString.stringIsNullOrEmpty(name)) {
             return new ApiResponse<>(HttpStatus.BAD_REQUEST.value(), MSG_BAD_REQUEST, null);
         }
         try {
@@ -107,7 +107,7 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public ApiResponse<?> deleteCategory(String id) {
-        if(CheckString.stringIsNullOrEmpty(id)) {
+        if (CheckString.stringIsNullOrEmpty(id)) {
             return new ApiResponse<>(HttpStatus.BAD_REQUEST.value(), MSG_BAD_REQUEST, null);
         }
         try {

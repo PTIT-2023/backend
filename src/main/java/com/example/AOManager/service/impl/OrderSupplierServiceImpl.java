@@ -91,8 +91,8 @@ public class OrderSupplierServiceImpl implements OrderSupplierService {
         }
         try {
             long totalResult = this.orderSupplierRepository.findByStatus(status).get().size();
-            int totalPage = (int) Math.ceil((float)totalResult/limit);
-            if(page > totalPage) {
+            int totalPage = (int) Math.ceil((float) totalResult / limit);
+            if (page > totalPage) {
                 return new ApiResponse<>(HttpStatus.BAD_REQUEST.value(), MSG_BAD_REQUEST, null);
             }
             List<OrderSupplierEntity> orderSupplierEntityList = this.orderSupplierRepository.getOrderSupplierList(status, (page - 1) * limit, limit);

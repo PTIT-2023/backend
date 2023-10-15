@@ -78,7 +78,7 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public ApiResponse<?> signup(UserSignupRequest signupRequest) {
-        if(this.usersRepository.existsByEmail(signupRequest.getEmail())) {
+        if (this.usersRepository.existsByEmail(signupRequest.getEmail())) {
             return new ApiResponse<>(HttpStatus.BAD_REQUEST.value(), MSG_EMAIL_EXIST, null);
         }
         UsersEntity user = new UsersEntity();
