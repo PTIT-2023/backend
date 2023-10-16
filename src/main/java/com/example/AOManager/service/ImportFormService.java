@@ -9,5 +9,5 @@ public interface ImportFormService {
 
     ApiResponse<?> getImportForm(String id);
 
-    ApiResponse<?> getImportFormList(int page, int limit);
+    ApiResponse<?> getImportFormList(int page, int limit, String keyWord);
 }

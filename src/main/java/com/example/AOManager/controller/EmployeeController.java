@@ -19,7 +19,7 @@ public class EmployeeController {
     public ApiResponse<?> getEmployee(@PathVariable String id) {return this.usersService.getUser(id);}
 
     @GetMapping
-    public ApiResponse<?> getEmployeeList(@RequestParam String roleId, @RequestParam int page, @RequestParam int limit) {return this.usersService.getEmployeeList(roleId, page, limit);}
+    public ApiResponse<?> getEmployeeList(@RequestParam String roleId, @RequestParam int page, @RequestParam int limit, @RequestParam String keyWord) {return this.usersService.getEmployeeList(roleId, page, limit, keyWord);}
 
     @PostMapping
     public ApiResponse<?> createEmployee(@Validated @RequestBody UserRequest createUserRequest) {return this.usersService.createUser(createUserRequest, "ROLE_EMPLOYEE");}

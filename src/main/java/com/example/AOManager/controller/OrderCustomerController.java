@@ -17,7 +17,7 @@ public class OrderCustomerController {
     public ApiResponse<?> getOrderCustomer(@PathVariable String id) {return this.orderCustomerService.getOrderCustomer(id);}
 
     @GetMapping
-    public ApiResponse<?> getOrderCustomerList(@RequestParam String orderStatusId, @RequestParam int page, @RequestParam int limit) {return this.orderCustomerService.getOrderCustomerList(orderStatusId, page, limit);}
+    public ApiResponse<?> getOrderCustomerList(@RequestParam String orderStatusId, @RequestParam int page, @RequestParam int limit, @RequestParam String keyWord) {return this.orderCustomerService.getOrderCustomerList(orderStatusId, page, limit, keyWord);}
 
     @PutMapping
     public ApiResponse<?> updateStatusForOrderCustomer(@RequestParam String orderStatusIdTo, @RequestParam String id) {return this.orderCustomerService.updateStatusForOrderCustomer(orderStatusIdTo, id);}

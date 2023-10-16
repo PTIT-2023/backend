@@ -19,7 +19,7 @@ public class ManagerController {
     public ApiResponse<?> getManager(@PathVariable String id) {return this.usersService.getUser(id);}
 
     @GetMapping
-    public ApiResponse<?> getManagerList(@RequestParam String roleId, @RequestParam int page, @RequestParam int limit) {return this.usersService.getManagerList(roleId, page, limit);}
+    public ApiResponse<?> getManagerList(@RequestParam String roleId, @RequestParam int page, @RequestParam int limit, @RequestParam String keyWord) {return this.usersService.getManagerList(roleId, page, limit, keyWord);}
 
     @PostMapping
     public ApiResponse<?> createManager(@Validated @RequestBody UserRequest createUserRequest) {return this.usersService.createUser(createUserRequest, "ROLE_MANAGER");}

@@ -13,13 +13,13 @@ public interface UsersService {
 
     ApiResponse<?> getUser(String id);
 
-    List<UsersDto> getUsersList(String roleId, int page, int limit);
+    List<UsersDto> getUsersList(String roleId, int page, int limit, String keyWord);
 
-    ApiResponse<?> getCustomerList(String roleId, int page, int limit);
+    ApiResponse<?> getCustomerList(String roleId, int page, int limit, String keyWord);
 
-    ApiResponse<?> getEmployeeList(String roleId, int page, int limit);
+    ApiResponse<?> getEmployeeList(String roleId, int page, int limit, String keyWord);
 
-    ApiResponse<?> getManagerList(String roleId, int page, int limit);
+    ApiResponse<?> getManagerList(String roleId, int page, int limit, String keyWord);
 
     ApiResponse<?> createUser(UserRequest createUserRequest, String role);
 

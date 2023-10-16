@@ -19,7 +19,7 @@ public class ImportFormController {
     public ApiResponse<?> getImportForm(@PathVariable String id) {return this.importFormService.getImportForm(id);}
 
     @GetMapping
-    public ApiResponse<?> getImportFormList(@RequestParam int page, @RequestParam int limit) {return this.importFormService.getImportFormList(page, limit);}
+    public ApiResponse<?> getImportFormList(@RequestParam int page, @RequestParam int limit, @RequestParam String keyWord) {return this.importFormService.getImportFormList(page, limit, keyWord);}
 
     @PostMapping
     public ApiResponse<?> createImportForm(@Validated @RequestBody CreateImportFormRequest createImportFormRequest) {return this.importFormService.createImportForm(createImportFormRequest);}

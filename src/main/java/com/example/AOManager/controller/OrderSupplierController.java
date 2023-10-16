@@ -19,7 +19,7 @@ public class OrderSupplierController {
     public ApiResponse<?> getOrderSupplier(@PathVariable String id) {return this.orderSupplierService.getOrderSupplier(id);}
 
     @GetMapping
-    public ApiResponse<?> getOrderSupplierList(@RequestParam String status, @RequestParam int page, @RequestParam int limit) {return this.orderSupplierService.getOrderSupplierList(status, page, limit);}
+    public ApiResponse<?> getOrderSupplierList(@RequestParam String status, @RequestParam int page, @RequestParam int limit, @RequestParam String keyWord) {return this.orderSupplierService.getOrderSupplierList(status, page, limit, keyWord);}
 
     @PostMapping
     public ApiResponse<?> createOrderSupplier(@Validated @RequestBody CreateOrderSupplierRequest createOrderSupplierRequest) {return this.orderSupplierService.createOrderSupplier(createOrderSupplierRequest);}

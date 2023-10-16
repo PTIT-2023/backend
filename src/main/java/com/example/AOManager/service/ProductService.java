@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface ProductService {
 
-    List<ProductDto> getProductsList(String categoryId, int page, int limit);
+    List<ProductDto> getProductsList(String categoryId, int page, int limit, String keyWord);
 
     ApiResponse<?> getProduct(String id);
 
@@ -17,5 +17,5 @@ public interface ProductService {
 
     ApiResponse<?> deleteProduct(String id);
 
-    long getTotalRecord(String categoryId);
+    long getTotalRecord(String categoryId, String keyWord);
 }

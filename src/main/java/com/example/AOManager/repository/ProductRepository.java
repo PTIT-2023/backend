@@ -17,15 +17,34 @@ public interface ProductRepository extends JpaRepository<ProductEntity, UUID> {
     @Query(value = "SELECT p.* \n" +
             "FROM product p \n" +
             "INNER JOIN category c ON p.category_id = c.id \n" +
-            "WHERE (:categoryId IS NULL OR c.id = :categoryId) \n" +
-            "LIMIT :limit\n" +
-            "OFFSET :page", nativeQuery = true)
-    List<ProductEntity> getProductsListWithCategory(UUID categoryId, int page, int limit);
+            "WHERE (:categoryId IS NULL OR c.id = :categoryId) AND (1<>1 \n" +
+            "OR CAST(p.id AS text) ILIKE CONCAT('%', :keyWord, '%') \n" +
+            "OR CAST(p.name AS text) ILIKE CONCAT('%', :keyWord, '%'))", nativeQuery = true)
+    Optional<List<ProductEntity>> getCountRecordWithCategory(UUID categoryId, String keyWord);
 
     @Query(value = "SELECT p.* \n" +
             "FROM product p \n" +
             "INNER JOIN category c ON p.category_id = c.id \n" +
+            "WHERE (:categoryId IS NULL OR c.id = :categoryId) AND (1<>1 \n" +
+            "OR CAST(p.id AS text) ILIKE CONCAT('%', :keyWord, '%') \n" +
+            "OR CAST(p.name AS text) ILIKE CONCAT('%', :keyWord, '%')) \n" +
             "LIMIT :limit\n" +
             "OFFSET :page", nativeQuery = true)
-    List<ProductEntity> getProductsList(int page, int limit);
+    Optional<List<ProductEntity>> getProductsListWithCategory(UUID categoryId, int page, int limit, String keyWord);
+
+    @Query(value = "SELECT p.* \n" +
+            "FROM product p \n" +
+            "INNER JOIN category c ON p.category_id = c.id \n" +
+            "WHERE CAST(p.id AS text) ILIKE CONCAT('%', :keyWord, '%') \n" +
+            "OR CAST(p.name AS text) ILIKE CONCAT('%', :keyWord, '%')", nativeQuery = true)
+    Optional<List<ProductEntity>> getCountRecord(String keyWord);
+
+    @Query(value = "SELECT p.* \n" +
+            "FROM product p \n" +
+            "INNER JOIN category c ON p.category_id = c.id \n" +
+            "WHERE CAST(p.id AS text) ILIKE CONCAT('%', :keyWord, '%') \n" +
+            "OR CAST(p.name AS text) ILIKE CONCAT('%', :keyWord, '%') \n" +
+            "LIMIT :limit\n" +
+            "OFFSET :page", nativeQuery = true)
+    Optional<List<ProductEntity>> getProductsList(int page, int limit, String keyWord);
 }

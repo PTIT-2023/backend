@@ -75,20 +75,20 @@ public class UsersServiceImpl implements UsersService {
     }
 
     @Override
-    public List<UsersDto> getUsersList(String roleId, int page, int limit) {
-        List<UsersEntity> managerList = this.usersRepository.getUsersList(UUID.fromString(roleId), (page - 1) * limit, limit);
+    public List<UsersDto> getUsersList(String roleId, int page, int limit, String keyWord) {
+        List<UsersEntity> managerList = this.usersRepository.getUsersList(UUID.fromString(roleId), (page - 1) * limit, limit, keyWord);
         return managerList.stream().map(UsersDto::new).collect(Collectors.toList());
     }
 
     @Override
-    public ApiResponse<?> getCustomerList(String roleId, int page, int limit) {
+    public ApiResponse<?> getCustomerList(String roleId, int page, int limit, String keyWord) {
         try {
-            long totalResult = this.userRoleRepository.findByRoleId_Id(UUID.fromString(roleId)).get().size();
+            long totalResult = this.userRoleRepository.getCountRecord(UUID.fromString(roleId), keyWord).get().size();
             int totalPage = (int) Math.ceil((float) totalResult / limit);
-            if (page > totalPage) {
+            if (page > totalPage && totalPage != 0) {
                 return new ApiResponse<>(HttpStatus.BAD_REQUEST.value(), MSG_BAD_REQUEST, null);
             }
-            List<UsersDto> managerList = this.usersService.getUsersList(roleId, page, limit);
+            List<UsersDto> managerList = this.usersService.getUsersList(roleId, page, limit, keyWord);
             return new ApiResponse<>(HttpStatus.OK.value(), MSG_GET_CUSTOMER_LIST_SUCCESS, new ApiResponseForList<>(totalResult, page, totalPage, limit, managerList));
         } catch (Exception e) {
             System.out.println(e);
@@ -97,14 +97,14 @@ public class UsersServiceImpl implements UsersService {
     }
 
     @Override
-    public ApiResponse<?> getEmployeeList(String roleId, int page, int limit) {
+    public ApiResponse<?> getEmployeeList(String roleId, int page, int limit, String keyWord) {
         try {
-            long totalResult = this.userRoleRepository.findByRoleId_Id(UUID.fromString(roleId)).get().size();
+            long totalResult = this.userRoleRepository.getCountRecord(UUID.fromString(roleId), keyWord).get().size();
             int totalPage = (int) Math.ceil((float) totalResult / limit);
-            if (page > totalPage) {
+            if (page > totalPage && totalPage != 0) {
                 return new ApiResponse<>(HttpStatus.BAD_REQUEST.value(), MSG_BAD_REQUEST, null);
             }
-            List<UsersDto> employeeList = this.usersService.getUsersList(roleId, page, limit);
+            List<UsersDto> employeeList = this.usersService.getUsersList(roleId, page, limit, keyWord);
             return new ApiResponse<>(HttpStatus.OK.value(), MSG_GET_EMPLOYEE_LIST_SUCCESS, new ApiResponseForList<>(totalResult, page, totalPage, limit, employeeList));
         } catch (Exception e) {
             System.out.println(e);
@@ -113,14 +113,14 @@ public class UsersServiceImpl implements UsersService {
     }
 
     @Override
-    public ApiResponse<?> getManagerList(String roleId, int page, int limit) {
+    public ApiResponse<?> getManagerList(String roleId, int page, int limit, String keyWord) {
         try {
-            long totalResult = this.userRoleRepository.findByRoleId_Id(UUID.fromString(roleId)).get().size();
+            long totalResult = this.userRoleRepository.getCountRecord(UUID.fromString(roleId), keyWord).get().size();
             int totalPage = (int) Math.ceil((float) totalResult / limit);
-            if (page > totalPage) {
+            if (page > totalPage && totalPage != 0) {
                 return new ApiResponse<>(HttpStatus.BAD_REQUEST.value(), MSG_BAD_REQUEST, null);
             }
-            List<UsersDto> managerList = this.usersService.getUsersList(roleId, (page - 1) * limit, limit);
+            List<UsersDto> managerList = this.usersService.getUsersList(roleId, page, limit, keyWord);
             return new ApiResponse<>(HttpStatus.OK.value(), MSG_GET_MANAGER_LIST_SUCCESS, new ApiResponseForList<>(totalResult, page, totalPage, limit, managerList));
         } catch (Exception e) {
             System.out.println(e);

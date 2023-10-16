@@ -45,21 +45,21 @@ public class ProductServiceImpl implements ProductService {
     CartDetailRepository cartDetailRepository;
 
     @Override
-    public long getTotalRecord(String categoryId) {
+    public long getTotalRecord(String categoryId, String keyWord) {
         if (CheckString.isValidUUID(categoryId)) {
-            return this.productRepository.findByCategoryId_Id(UUID.fromString(categoryId)).get().size();
+            return this.productRepository.getCountRecordWithCategory(UUID.fromString(categoryId), keyWord).get().size();
         } else {
-            return this.productRepository.findAll().size();
+            return this.productRepository.getCountRecord(keyWord).get().size();
         }
     }
 
     @Override
-    public List<ProductDto> getProductsList(String categoryId, int page, int limit) {
+    public List<ProductDto> getProductsList(String categoryId, int page, int limit, String keyWord) {
         List<ProductEntity> productsList;
         if (CheckString.isValidUUID(categoryId)) {
-            productsList = this.productRepository.getProductsListWithCategory(UUID.fromString(categoryId), (page - 1) * limit, limit);
+            productsList = this.productRepository.getProductsListWithCategory(UUID.fromString(categoryId), (page - 1) * limit, limit, keyWord).get();
         } else {
-            productsList = this.productRepository.getProductsList((page - 1) * limit, limit);
+            productsList = this.productRepository.getProductsList((page - 1) * limit, limit, keyWord).get();
         }
         return productsList.stream().map(ProductDto::new).collect(Collectors.toList());
     }

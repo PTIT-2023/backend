@@ -17,5 +17,5 @@ public class CustomerController {
     public ApiResponse<?> getCustomer(@PathVariable String id) {return this.usersService.getUser(id);}
 
     @GetMapping
-    public ApiResponse<?> getCustomerList(@RequestParam String roleId, @RequestParam int page, @RequestParam int limit) {return this.usersService.getCustomerList(roleId, page, limit);}
+    public ApiResponse<?> getCustomerList(@RequestParam String roleId, @RequestParam int page, @RequestParam int limit, @RequestParam String keyWord) {return this.usersService.getCustomerList(roleId, page, limit, keyWord);}
 }

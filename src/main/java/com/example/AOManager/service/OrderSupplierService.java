@@ -7,7 +7,7 @@ public interface OrderSupplierService {
 
     ApiResponse<?> getOrderSupplier(String id);
 
-    ApiResponse<?> getOrderSupplierList(String status, int page, int limit);
+    ApiResponse<?> getOrderSupplierList(String status, int page, int limit, String keyWord);
 
     ApiResponse<?> cancelOrderSupplier(String id);
 

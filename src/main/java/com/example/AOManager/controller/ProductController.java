@@ -26,14 +26,14 @@ public class ProductController {
     public ApiResponse<?> getProduct(@PathVariable String id) {return this.productService.getProduct(id);}
 
     @GetMapping
-    public ApiResponse<?> getProductsList(@RequestParam String categoryId, @RequestParam String orderByPrice, @RequestParam int page, @RequestParam int limit) {
+    public ApiResponse<?> getProductsList(@RequestParam String categoryId, @RequestParam String orderByPrice, @RequestParam int page, @RequestParam int limit, @RequestParam String keyWord) {
          try {
-             long totalResult = this.productService.getTotalRecord(categoryId);
+             long totalResult = this.productService.getTotalRecord(categoryId, keyWord);
              int totalPage = (int) Math.ceil((float)totalResult/limit);
-             if(page > totalPage) {
+             if(page > totalPage && totalPage != 0) {
                  return new ApiResponse<>(HttpStatus.BAD_REQUEST.value(), MSG_BAD_REQUEST, null);
              }
-             List<ProductDto> productsList = this.productService.getProductsList(categoryId, page, limit);
+             List<ProductDto> productsList = this.productService.getProductsList(categoryId, page, limit, keyWord);
              if(orderByPrice.equals("ASC") && productsList.size() > 0) {
                  productsList.sort(Comparator.comparingLong(ProductDto::getPrice));
              } else if(orderByPrice.equals("DESC") && productsList.size() > 0)  {

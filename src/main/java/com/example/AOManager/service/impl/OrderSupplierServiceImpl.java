@@ -85,17 +85,17 @@ public class OrderSupplierServiceImpl implements OrderSupplierService {
     }
 
     @Override
-    public ApiResponse<?> getOrderSupplierList(String status, int page, int limit) {
+    public ApiResponse<?> getOrderSupplierList(String status, int page, int limit, String keyWord) {
         if (CheckString.stringIsNullOrEmpty(status) || 0 >= page || 0 >= limit) {
             return new ApiResponse<>(HttpStatus.BAD_REQUEST.value(), MSG_BAD_REQUEST, null);
         }
         try {
-            long totalResult = this.orderSupplierRepository.findByStatus(status).get().size();
+            long totalResult = this.orderSupplierRepository.getCountRecord(status, keyWord).get().size();
             int totalPage = (int) Math.ceil((float) totalResult / limit);
-            if (page > totalPage) {
+            if (page > totalPage && totalPage != 0) {
                 return new ApiResponse<>(HttpStatus.BAD_REQUEST.value(), MSG_BAD_REQUEST, null);
             }
-            List<OrderSupplierEntity> orderSupplierEntityList = this.orderSupplierRepository.getOrderSupplierList(status, (page - 1) * limit, limit);
+            List<OrderSupplierEntity> orderSupplierEntityList = this.orderSupplierRepository.getOrderSupplierList(status, (page - 1) * limit, limit, keyWord).get();
             List<OrderSupplierDisplayDto> orderSupplierDisplayDtoList = new ArrayList<>();
             for (OrderSupplierEntity orderSupplierEntity : orderSupplierEntityList) {
                 OrderSupplierDisplayDto orderSupplierDisplayDto = new OrderSupplierDisplayDto();

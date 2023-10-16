@@ -75,17 +75,17 @@ public class ImportFormServiceImpl implements ImportFormService {
     }
 
     @Override
-    public ApiResponse<?> getImportFormList(int page, int limit) {
+    public ApiResponse<?> getImportFormList(int page, int limit, String keyWord) {
         if (0 >= page || 0 >= limit) {
             return new ApiResponse<>(HttpStatus.BAD_REQUEST.value(), MSG_BAD_REQUEST, null);
         }
         try {
-            long totalResult = this.importFormRepository.findAll().size();
+            long totalResult = this.importFormRepository.getCountRecord(keyWord).get().size();
             int totalPage = (int) Math.ceil((float) totalResult / limit);
-            if (page > totalPage) {
+            if (page > totalPage && totalPage != 0) {
                 return new ApiResponse<>(HttpStatus.BAD_REQUEST.value(), MSG_BAD_REQUEST, null);
             }
-            List<ImportFormEntity> importFormEntityList = this.importFormRepository.getImportFormList((page - 1) * limit, limit).get();
+            List<ImportFormEntity> importFormEntityList = this.importFormRepository.getImportFormList((page - 1) * limit, limit, keyWord).get();
             List<ImportFormDisplayDto> importFormDisplayDtoList = new ArrayList<>();
             for (ImportFormEntity importFormEntity : importFormEntityList) {
                 ImportFormDisplayDto importFormDisplayDto = new ImportFormDisplayDto();

@@ -18,9 +18,13 @@ public interface UsersRepository extends JpaRepository<UsersEntity, UUID> {
                     "FROM users u\n" +
                     "INNER JOIN user_role ur ON u.id = ur.user_id\n" +
                     "INNER JOIN role r ON ur.role_id = r.id\n" +
-                    "WHERE r.id = :roleId\n" +
+                    "WHERE r.id = :roleId AND (1<>1 \n" +
+                    "OR CAST(u.first_name AS text) ILIKE CONCAT('%', :keyWord, '%') \n" +
+                    "OR CAST(u.last_name AS text) ILIKE CONCAT('%', :keyWord, '%') \n" +
+                    "OR CAST(u.email AS text) ILIKE CONCAT('%', :keyWord, '%') \n" +
+                    "OR CAST(u.address AS text) ILIKE CONCAT('%', :keyWord, '%')) \n" +
                     "ORDER BY u.first_name\n" +
                     "LIMIT :limit\n" +
                     "OFFSET :page", nativeQuery = true)
-    List<UsersEntity> getUsersList(UUID roleId, int page, int limit);
+    List<UsersEntity> getUsersList(UUID roleId, int page, int limit, String keyWord);
 }
