@@ -1,6 +1,11 @@
 package com.example.AOManager.common;
 
 public final class Message {
+    public static final String MSG_REQUIRED_EMAIL = "Vui lòng nhập Email!";
+    public static final String MSG_REQUIRED_PASSWORD = "Vui lòng nhập mật khẩu!";
+    public static final String MSG_EMAIL_NOT_TRUE = "Email không hợp lệ!";
+    public static final String MSG_LOGIN_SUCCESS = "Đăng nhập thành công!";
+    public static final String MSG_LOGIN_FAILD = "Đăng nhập không thành công, hãy kiểm tra lại Email và mật khẩu!";
     public static final String MSG_NOT_FOUND_BY_ID = "Không tìm thấy thông tin nào tương ứng với ID này!";
     public static final String MSG_CREATE_FAIL = "Tạo mới thất bại!";
     public static final String MSG_CREATE_SUCCESS = "Tạo mới thành công!";
@@ -9,7 +14,6 @@ public final class Message {
     public static final String MSG_DELETE_FAIL = "Xoá thất bại!";
     public static final String MSG_DELETE_SUCCESS = "Xoá thành công!";
     public static final String MSG_BAD_REQUEST = "Xử lý thất bại, hãy kiểm tra lại yêu cầu của bạn!";
-    public static final String MSG_LOGIN_SUCCESS = "Đăng nhập thành công!";
     public static final String MSG_EMAIL_EXIST = "Email này đã được sử dụng!";
     public static final String MSG_REGISTRY_FAIL = "Đăng ký thất bại!";
     public static final String MSG_REGISTRY_SUCCESS = "Đăng ký thành công!";
