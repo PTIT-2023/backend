@@ -1,6 +1,6 @@
 package com.example.AOManager.service.impl;
 
-import com.example.AOManager.common.CheckString;
+import com.example.AOManager.common.CheckInput;
 import com.example.AOManager.dto.CategoryDisplayDto;
 import com.example.AOManager.dto.CategoryDto;
 import com.example.AOManager.entity.CategoryEntity;
@@ -55,7 +55,7 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public ApiResponse<?> getCategory(String id) {
-        if (CheckString.stringIsNullOrEmpty(id)) {
+        if (CheckInput.stringIsNullOrEmpty(id) || !CheckInput.isValidUUID(id)) {
             return new ApiResponse<>(HttpStatus.BAD_REQUEST.value(), MSG_BAD_REQUEST, null);
         }
         try {
@@ -69,7 +69,7 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public ApiResponse<?> createCategory(String name) {
-        if (CheckString.stringIsNullOrEmpty(name)) {
+        if (CheckInput.stringIsNullOrEmpty(name)) {
             return new ApiResponse<>(HttpStatus.BAD_REQUEST.value(), MSG_BAD_REQUEST, null);
         }
         CategoryEntity categoryEntity = new CategoryEntity();
@@ -85,7 +85,7 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public ApiResponse<?> updateCategory(String id, String name) {
-        if (CheckString.stringIsNullOrEmpty(id) || CheckString.stringIsNullOrEmpty(name)) {
+        if (CheckInput.stringIsNullOrEmpty(id) || CheckInput.stringIsNullOrEmpty(name)) {
             return new ApiResponse<>(HttpStatus.BAD_REQUEST.value(), MSG_BAD_REQUEST, null);
         }
         try {
@@ -107,7 +107,7 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public ApiResponse<?> deleteCategory(String id) {
-        if (CheckString.stringIsNullOrEmpty(id)) {
+        if (CheckInput.stringIsNullOrEmpty(id)) {
             return new ApiResponse<>(HttpStatus.BAD_REQUEST.value(), MSG_BAD_REQUEST, null);
         }
         try {

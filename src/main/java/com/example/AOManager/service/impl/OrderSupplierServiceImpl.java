@@ -1,6 +1,6 @@
 package com.example.AOManager.service.impl;
 
-import com.example.AOManager.common.CheckString;
+import com.example.AOManager.common.CheckInput;
 import com.example.AOManager.dto.OrderSupplierDisplayDto;
 import com.example.AOManager.entity.OrderSupplierDetailEntity;
 import com.example.AOManager.entity.OrderSupplierEntity;
@@ -49,7 +49,7 @@ public class OrderSupplierServiceImpl implements OrderSupplierService {
 
     @Override
     public ApiResponse<?> getOrderSupplier(String id) {
-        if (CheckString.stringIsNullOrEmpty(id) || !CheckString.isValidUUID(id)) {
+        if (CheckInput.stringIsNullOrEmpty(id) || !CheckInput.isValidUUID(id)) {
             return new ApiResponse<>(HttpStatus.BAD_REQUEST.value(), MSG_BAD_REQUEST, null);
         }
         try {
@@ -86,7 +86,7 @@ public class OrderSupplierServiceImpl implements OrderSupplierService {
 
     @Override
     public ApiResponse<?> getOrderSupplierList(String status, int page, int limit, String keyWord) {
-        if (CheckString.stringIsNullOrEmpty(status) || 0 >= page || 0 >= limit) {
+        if (CheckInput.stringIsNullOrEmpty(status) || 0 >= page || 0 >= limit) {
             return new ApiResponse<>(HttpStatus.BAD_REQUEST.value(), MSG_BAD_REQUEST, null);
         }
         try {
@@ -149,7 +149,7 @@ public class OrderSupplierServiceImpl implements OrderSupplierService {
 
     @Override
     public ApiResponse<?> cancelOrderSupplier(String id) {
-        if (CheckString.stringIsNullOrEmpty(id) || !CheckString.isValidUUID(id)) {
+        if (CheckInput.stringIsNullOrEmpty(id) || !CheckInput.isValidUUID(id)) {
             return new ApiResponse<>(HttpStatus.BAD_REQUEST.value(), MSG_BAD_REQUEST, null);
         }
         try {

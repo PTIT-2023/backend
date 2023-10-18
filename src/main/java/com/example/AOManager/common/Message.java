@@ -78,4 +78,15 @@ public final class Message {
     public static final String MSG_NOT_UPDATE_ORDER_CUSTOMER_TO_DELIVERING_FAIL = "Không thể chuyển trạng thái thành \"đang giao\" do đơn hàng này không ờ trạng thái \"chờ lấy hàng\"!";
     public static final String MSG_NOT_UPDATE_ORDER_CUSTOMER_TO_DELIVERED_FAIL = "Không thể chuyển trạng thái thành \"đã giao\" do đơn hàng này không ở trạng thái \"đang giao\"!";
     public static final String MSG_NOT_UPDATE_ORDER_CUSTOMER_TO_CANCELLED_FAIL = "Không thể huỷ vì chỉ có thể huỷ các đơn hàng đang \"chờ xác nhận\"!";
+    public static final String MSG_GET_PRICE_DETAIL_SUCCESS = "Lấy chi tiết giá cho sản phẩm thành công!";
+    public static final String MSG_GET_PRICE_DETAIL_FAIL = "Lấy chi tiết giá cho sản phẩm thất bại!";
+    public static final String MSG_GET_PRICE_DETAIL_LIST_SUCCESS = "Lấy danh dách chi tiết giá cho sản phẩm thành công!";
+    public static final String MSG_GET_PRICE_DETAIL_LIST_FAIL = "Lấy danh dách chi tiết giá cho sản phẩm thất bại!";
+    public static final String MSG_BAD_REQUEST_FOR_PRICE_DETAIL = "Xử lý thất bại, hãy kiểm tra lại đầu vào của bạn: Giá phải lớn hơn 0, thời gian áp dụng phải từ ngày hiện tại trờ đi!";
+    public static final String MSG_CREATE_PRICE_DETAIL_SUCCESS = "Thêm giá cho sản phẩm thành công!";
+    public static final String MSG_CREATE_PRICE_DETAIL_FAIL = "Thêm giá cho sản phẩm thất bại!";
+    public static final String MSG_CANT_NOT_DELETE_PRICE_DETAIL = "Không thể xoá vì mức giá này đang được áp dụng!";
+    public static final String MSG_PRICE_DETAIL_EXISTED = "Không thể thêm vì ngày này đã đươc cập nhật giá trước đó!";
+    public static final String MSG_DELETE_PRICE_DETAIL_SUCCESS = "Xoá giá cho sản phẩm thành công!";
+    public static final String MSG_DELETE_PRICE_DETAIL_FAIL = "Xoá giá cho sản phẩm thất bại!";
 }

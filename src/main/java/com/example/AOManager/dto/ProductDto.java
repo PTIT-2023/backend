@@ -1,6 +1,6 @@
 package com.example.AOManager.dto;
 
-import com.example.AOManager.common.CheckString;
+import com.example.AOManager.common.CheckInput;
 import com.example.AOManager.entity.ProductEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -54,7 +54,7 @@ public class ProductDto {
 
     public ProductEntity toEntity() {
         ProductEntity productEntity = new ProductEntity();
-        if(!CheckString.stringIsNullOrEmpty(this.getId())) {
+        if(!CheckInput.stringIsNullOrEmpty(this.getId())) {
             productEntity.setId(UUID.fromString(this.getId()));
         }
         productEntity.setDescription(this.getDescription());

@@ -1,6 +1,6 @@
 package com.example.AOManager.service.impl;
 
-import com.example.AOManager.common.CheckString;
+import com.example.AOManager.common.CheckInput;
 import com.example.AOManager.dto.ImportFormDisplayDto;
 import com.example.AOManager.entity.ImportDetailEntity;
 import com.example.AOManager.entity.ImportFormEntity;
@@ -40,7 +40,7 @@ public class ImportFormServiceImpl implements ImportFormService {
 
     @Override
     public ApiResponse<?> getImportForm(String id) {
-        if (CheckString.stringIsNullOrEmpty(id) || !CheckString.isValidUUID(id)) {
+        if (CheckInput.stringIsNullOrEmpty(id) || !CheckInput.isValidUUID(id)) {
             return new ApiResponse<>(HttpStatus.BAD_REQUEST.value(), MSG_BAD_REQUEST, null);
         }
         try {

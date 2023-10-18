@@ -30,7 +30,7 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-import static com.example.AOManager.common.CheckString.stringIsNullOrEmpty;
+import static com.example.AOManager.common.CheckInput.stringIsNullOrEmpty;
 import static com.example.AOManager.common.Message.*;
 
 @Service

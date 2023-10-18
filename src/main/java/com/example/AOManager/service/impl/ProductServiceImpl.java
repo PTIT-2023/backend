@@ -1,6 +1,6 @@
 package com.example.AOManager.service.impl;
 
-import com.example.AOManager.common.CheckString;
+import com.example.AOManager.common.CheckInput;
 import com.example.AOManager.dto.ProductDto;
 import com.example.AOManager.entity.ProductEntity;
 import com.example.AOManager.entity.ProductImageEntity;
@@ -46,7 +46,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public long getTotalRecord(String categoryId, String keyWord) {
-        if (CheckString.isValidUUID(categoryId)) {
+        if (CheckInput.isValidUUID(categoryId)) {
             return this.productRepository.getCountRecordWithCategory(UUID.fromString(categoryId), keyWord).get().size();
         } else {
             return this.productRepository.getCountRecord(keyWord).get().size();
@@ -56,7 +56,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public List<ProductDto> getProductsList(String categoryId, int page, int limit, String keyWord) {
         List<ProductEntity> productsList;
-        if (CheckString.isValidUUID(categoryId)) {
+        if (CheckInput.isValidUUID(categoryId)) {
             productsList = this.productRepository.getProductsListWithCategory(UUID.fromString(categoryId), (page - 1) * limit, limit, keyWord).get();
         } else {
             productsList = this.productRepository.getProductsList((page - 1) * limit, limit, keyWord).get();
@@ -66,7 +66,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public ApiResponse<?> getProduct(String id) {
-        if (CheckString.stringIsNullOrEmpty(id) || !CheckString.isValidUUID(id)) {
+        if (CheckInput.stringIsNullOrEmpty(id) || !CheckInput.isValidUUID(id)) {
             return new ApiResponse<>(HttpStatus.BAD_REQUEST.value(), MSG_BAD_REQUEST, null);
         }
         try {
@@ -79,7 +79,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public ApiResponse<?> createProduct(ProductDto productDto) {
-        if (null == productDto || !CheckString.isValidUUID(productDto.getCategoryId())) {
+        if (null == productDto || !CheckInput.isValidUUID(productDto.getCategoryId())) {
             return new ApiResponse<>(HttpStatus.BAD_REQUEST.value(), MSG_BAD_REQUEST, null);
         }
         ProductEntity productEntity = productDto.toEntity();
@@ -142,7 +142,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public ApiResponse<?> deleteProduct(String id) {
-        if (CheckString.stringIsNullOrEmpty(id) || !CheckString.isValidUUID(id)) {
+        if (CheckInput.stringIsNullOrEmpty(id) || !CheckInput.isValidUUID(id)) {
             return new ApiResponse<>(HttpStatus.BAD_REQUEST.value(), MSG_BAD_REQUEST, null);
         }
         ProductEntity productEntity;

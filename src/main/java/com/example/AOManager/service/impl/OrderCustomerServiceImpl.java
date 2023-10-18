@@ -1,6 +1,6 @@
 package com.example.AOManager.service.impl;
 
-import com.example.AOManager.common.CheckString;
+import com.example.AOManager.common.CheckInput;
 import com.example.AOManager.dto.OrderCustomerDisplayDto;
 import com.example.AOManager.entity.CartDetailEntity;
 import com.example.AOManager.entity.OrderCustomerEntity;
@@ -31,7 +31,7 @@ public class OrderCustomerServiceImpl implements OrderCustomerService {
 
     @Override
     public ApiResponse<?> getOrderCustomer(String id) {
-        if (CheckString.stringIsNullOrEmpty(id) || !CheckString.isValidUUID(id)) {
+        if (CheckInput.stringIsNullOrEmpty(id) || !CheckInput.isValidUUID(id)) {
             return new ApiResponse<>(HttpStatus.BAD_REQUEST.value(), MSG_BAD_REQUEST, null);
         }
         try {
@@ -68,7 +68,7 @@ public class OrderCustomerServiceImpl implements OrderCustomerService {
 
     @Override
     public ApiResponse<?> getOrderCustomerList(String orderStatusId, int page, int limit, String keyWord) {
-        if (CheckString.stringIsNullOrEmpty(orderStatusId) || !CheckString.isValidUUID(orderStatusId) || 0 >= page || 0 >= limit) {
+        if (CheckInput.stringIsNullOrEmpty(orderStatusId) || !CheckInput.isValidUUID(orderStatusId) || 0 >= page || 0 >= limit) {
             return new ApiResponse<>(HttpStatus.BAD_REQUEST.value(), MSG_BAD_REQUEST, null);
         }
         try {
@@ -100,7 +100,7 @@ public class OrderCustomerServiceImpl implements OrderCustomerService {
 
     @Override
     public ApiResponse<?> updateStatusForOrderCustomer(String orderStatusIdTo, String id) {
-        if (CheckString.stringIsNullOrEmpty(orderStatusIdTo) || CheckString.stringIsNullOrEmpty(id) || !CheckString.isValidUUID(orderStatusIdTo) || !CheckString.isValidUUID(id)) {
+        if (CheckInput.stringIsNullOrEmpty(orderStatusIdTo) || CheckInput.stringIsNullOrEmpty(id) || !CheckInput.isValidUUID(orderStatusIdTo) || !CheckInput.isValidUUID(id)) {
             return new ApiResponse<>(HttpStatus.BAD_REQUEST.value(), MSG_BAD_REQUEST, null);
         }
         OrderStatusEntity orderStatusEntity;
