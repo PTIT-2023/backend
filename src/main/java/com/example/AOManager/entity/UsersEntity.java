@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -49,6 +50,10 @@ public class UsersEntity {
     @Basic(optional = false)
     @Column(name = "status")
     private Boolean status;
+    @Column(name = "token")
+    private String token;
+    @Column(name = "token_creation_date", columnDefinition = "TIMESTAMP")
+    private LocalDateTime tokenCreationDate;
     @OneToMany(cascade = CascadeType.REFRESH, mappedBy = "employeeId")
     private List<OrderSupplierEntity> orderSupplierList;
     @OneToMany(cascade = CascadeType.REFRESH, mappedBy = "customerId")

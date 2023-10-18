@@ -89,4 +89,7 @@ public final class Message {
     public static final String MSG_PRICE_DETAIL_EXISTED = "Không thể thêm vì ngày này đã đươc cập nhật giá trước đó!";
     public static final String MSG_DELETE_PRICE_DETAIL_SUCCESS = "Xoá giá cho sản phẩm thành công!";
     public static final String MSG_DELETE_PRICE_DETAIL_FAIL = "Xoá giá cho sản phẩm thất bại!";
+    public static final String MSG_SENT_MAIL_SUCCESS = "Đã gửi đường dẫn khôi phục mật khẩu đến Email của bạn!";
+    public static final String MSG_TOKEN_EXPIRED = "Không thể đặt lại mật khẩu do Token hết thời gian hiệu lực!";
+    public static final String MSG_RESET_PASSWORD_SUCCESS = "Đặt lại mật khẩu thành công!";
 }

@@ -6,8 +6,6 @@ public interface CategoryService {
 
     ApiResponse<?> getAllCategoriesMaster();
 
-    ApiResponse<?> getAllCategoriesList(int page, int limit);
-
     ApiResponse<?> getCategory(String id);
 
     ApiResponse<?> createCategory(String name);

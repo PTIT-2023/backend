@@ -6,12 +6,12 @@ import com.example.AOManager.dto.CategoryDto;
 import com.example.AOManager.entity.CategoryEntity;
 import com.example.AOManager.response.ApiResponse;
 import com.example.AOManager.repository.CategoryRepository;
-import com.example.AOManager.response.ApiResponseForList;
 import com.example.AOManager.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -28,25 +28,11 @@ public class CategoryServiceImpl implements CategoryService {
     public ApiResponse<?> getAllCategoriesMaster() {
         try {
             List<CategoryEntity> categoryList = this.categoryRepository.findAll();
-            List<CategoryDto> categoryDtoList = categoryList.stream().map(CategoryDto::new).collect(Collectors.toList());
-            return new ApiResponse<>(HttpStatus.OK.value(), MSG_GET_CATEGORIES_SUCCESS, categoryDtoList);
-        } catch (Exception e) {
-            System.out.println(e);
-            return new ApiResponse<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), MSG_GET_CATEGORIES_FAIL, null);
-        }
-    }
-
-    @Override
-    public ApiResponse<?> getAllCategoriesList(int page, int limit) {
-        try {
-            long totalResult = this.categoryRepository.findAll().size();
-            int totalPage = (int) Math.ceil((float) totalResult / limit);
-            if (page > totalPage) {
-                return new ApiResponse<>(HttpStatus.BAD_REQUEST.value(), MSG_BAD_REQUEST, null);
+            List<CategoryDisplayDto> categoryDtoList = new ArrayList<>();
+            for (CategoryEntity categoryEntity : categoryList) {
+                categoryDtoList.add(new CategoryDisplayDto(categoryEntity));
             }
-            List<CategoryEntity> categoryList = this.categoryRepository.getCategoriesList((page - 1) * limit, limit).get();
-            List<CategoryDisplayDto> categoryDtoList = categoryList.stream().map(CategoryDisplayDto::new).collect(Collectors.toList());
-            return new ApiResponse<>(HttpStatus.OK.value(), MSG_GET_CATEGORIES_SUCCESS, new ApiResponseForList<>(totalResult, page, totalPage, limit, categoryDtoList));
+            return new ApiResponse<>(HttpStatus.OK.value(), MSG_GET_CATEGORIES_SUCCESS, categoryDtoList);
         } catch (Exception e) {
             System.out.println(e);
             return new ApiResponse<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), MSG_GET_CATEGORIES_FAIL, null);
