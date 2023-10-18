@@ -117,6 +117,7 @@ public class ProductServiceImpl implements ProductService {
                 return new ApiResponse<>(HttpStatus.NOT_FOUND.value(), MSG_NOT_FOUND_BY_ID, null);
             }
             ProductEntity productEntityAft = productDto.toEntity();
+            productEntityAft.setStatus(productDto.isStatus());
             productEntityAft.setCategoryId(this.categoryRepository.findById(UUID.fromString(productDto.getCategoryId())).get());
             ProductEntity productEntityUpdate = this.productRepository.save(productEntityAft);
             List<ProductImageEntity> listDelete = this.productImageRepository.findByProductId_Id(productEntityUpdate.getId()).get();
