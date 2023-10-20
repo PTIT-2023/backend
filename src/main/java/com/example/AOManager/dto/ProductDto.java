@@ -1,6 +1,7 @@
 package com.example.AOManager.dto;
 
 import com.example.AOManager.common.CheckInput;
+import com.example.AOManager.common.Function;
 import com.example.AOManager.entity.ProductEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -31,6 +32,8 @@ public class ProductDto {
     private String categoryName;
     private List<String> imageList;
     private long price;
+    private long createAt;
+    private long updateAt;
 
     public ProductDto(ProductEntity productEntity) {
         this.id = productEntity.getId().toString();
@@ -50,6 +53,8 @@ public class ProductDto {
         this.categoryName = productEntity.getCategoryId().getName();
         this.imageList = productEntity.getImageListString();
         this.price = productEntity.getCurrentPrice();
+        this.createAt = null != productEntity.getCreatedAt() ? Function.toLongFromTimeStamp(productEntity.getCreatedAt()) : 0;
+        this.updateAt = null != productEntity.getUpdatedAt() ? Function.toLongFromTimeStamp(productEntity.getUpdatedAt()) : 0;
     }
 
     public ProductEntity toEntity() {
@@ -66,8 +71,8 @@ public class ProductDto {
         productEntity.setPosition(this.getPosition());
         productEntity.setReproductionMethod(this.getReproductionMethod());
         productEntity.setTemperature(this.getTemperature());
-        productEntity.setInventoryQuantity(this.inventoryQuantity);
-        productEntity.setSoldQuantity(this.soldQuantity);
+        productEntity.setInventoryQuantity(this.getInventoryQuantity());
+        productEntity.setSoldQuantity(this.getSoldQuantity());
         return productEntity;
     }
 }

@@ -8,6 +8,7 @@ import com.example.AOManager.response.ApiResponse;
 import com.example.AOManager.repository.CategoryRepository;
 import com.example.AOManager.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -27,7 +28,7 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public ApiResponse<?> getAllCategoriesMaster() {
         try {
-            List<CategoryEntity> categoryList = this.categoryRepository.findAll();
+            List<CategoryEntity> categoryList = this.categoryRepository.findAll(Sort.by(Sort.Order.desc("updatedAt"), Sort.Order.desc("createdAt")));
             List<CategoryDisplayDto> categoryDtoList = new ArrayList<>();
             for (CategoryEntity categoryEntity : categoryList) {
                 categoryDtoList.add(new CategoryDisplayDto(categoryEntity));

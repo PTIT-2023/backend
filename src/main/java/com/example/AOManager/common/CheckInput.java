@@ -1,5 +1,8 @@
 package com.example.AOManager.common;
 
+import com.example.AOManager.dto.ProductDto;
+import com.example.AOManager.entity.ProductEntity;
+
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -56,5 +59,19 @@ public class CheckInput {
         } catch (Exception e) {
             return false;
         }
+    }
+
+    public static boolean checkProduct(ProductDto productDto) {
+        if (productDto.getPh() < 0 || productDto.getPh() > 14
+            || productDto.getMaxSize() <= 0
+            || productDto.getTemperature() < 20 || productDto.getTemperature() > 30) {
+            return false;
+        } else return true;
+    }
+
+    public static boolean checkChangeStatusProduct(ProductEntity productEntity, boolean statusTo) {
+        if (false == productEntity.getStatus() && true == statusTo && 0 >= productEntity.getInventoryQuantity()) {
+            return false;
+        } else return true;
     }
 }

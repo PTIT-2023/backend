@@ -34,6 +34,7 @@ public interface OrderSupplierRepository extends JpaRepository<OrderSupplierEnti
             "OR CAST(o.delivery_date AS text) ILIKE CONCAT('%', :keyWord, '%') \n" +
             "OR CAST(u.first_name AS text) ILIKE CONCAT('%', :keyWord, '%') \n" +
             "OR CAST(u.last_name AS text) ILIKE CONCAT('%', :keyWord, '%')) \n" +
+            "ORDER BY o.updated_at DESC, o.created_at DESC " +
             "LIMIT :limit OFFSET :page", nativeQuery = true)
     Optional<List<OrderSupplierEntity>> getOrderSupplierList(String status, int page, int limit, String keyWord);
 }

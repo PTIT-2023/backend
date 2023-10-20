@@ -1,6 +1,7 @@
 package com.example.AOManager.service.impl;
 
 import com.example.AOManager.common.CheckInput;
+import com.example.AOManager.common.Function;
 import com.example.AOManager.dto.OrderSupplierDisplayDto;
 import com.example.AOManager.entity.OrderSupplierDetailEntity;
 import com.example.AOManager.entity.OrderSupplierEntity;
@@ -77,6 +78,8 @@ public class OrderSupplierServiceImpl implements OrderSupplierService {
             }
             orderSupplierDisplayDto.setProductsList(productList);
             orderSupplierDisplayDto.setTotalPriceOrder(productList.stream().mapToLong(OrderSupplierDisplayDto.Product::getTotalPrice).sum());
+            orderSupplierDisplayDto.setCreateAt(null != orderSupplierEntity.getCreatedAt() ? Function.toLongFromTimeStamp(orderSupplierEntity.getCreatedAt()) : 0);
+            orderSupplierDisplayDto.setUpdateAt(null != orderSupplierEntity.getUpdatedAt() ? Function.toLongFromTimeStamp(orderSupplierEntity.getUpdatedAt()) : 0);
             return new ApiResponse<>(HttpStatus.OK.value(), MSG_GET_ORDER_SUPPLIER_SUCCESS, orderSupplierDisplayDto);
         } catch (Exception e) {
             System.out.println(e);
@@ -107,6 +110,8 @@ public class OrderSupplierServiceImpl implements OrderSupplierService {
                 orderSupplierDisplayDto.setEmployeeName(orderSupplierEntity.getEmployeeId().getLastName() + " " + orderSupplierEntity.getEmployeeId().getFirstName());
                 orderSupplierDisplayDto.setProductsList(null);
                 orderSupplierDisplayDto.setTotalPriceOrder(0);
+                orderSupplierDisplayDto.setCreateAt(null != orderSupplierEntity.getCreatedAt() ? Function.toLongFromTimeStamp(orderSupplierEntity.getCreatedAt()) : 0);
+                orderSupplierDisplayDto.setUpdateAt(null != orderSupplierEntity.getUpdatedAt() ? Function.toLongFromTimeStamp(orderSupplierEntity.getUpdatedAt()) : 0);
                 orderSupplierDisplayDtoList.add(orderSupplierDisplayDto);
             }
             return new ApiResponse<>(HttpStatus.OK.value(), MSG_GET_ORDER_SUPPLIER_LIST_SUCCESS, new ApiResponseForList<>(totalResult, page, totalPage, limit, orderSupplierDisplayDtoList));

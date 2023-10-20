@@ -82,7 +82,7 @@ public final class Message {
     public static final String MSG_GET_PRICE_DETAIL_FAIL = "Lấy chi tiết giá cho sản phẩm thất bại!";
     public static final String MSG_GET_PRICE_DETAIL_LIST_SUCCESS = "Lấy danh dách chi tiết giá cho sản phẩm thành công!";
     public static final String MSG_GET_PRICE_DETAIL_LIST_FAIL = "Lấy danh dách chi tiết giá cho sản phẩm thất bại!";
-    public static final String MSG_BAD_REQUEST_FOR_PRICE_DETAIL = "Xử lý thất bại, hãy kiểm tra lại đầu vào của bạn: Giá phải lớn hơn 0, thời gian áp dụng phải từ ngày hiện tại trờ đi!";
+    public static final String MSG_BAD_REQUEST_FOR_PRICE_DETAIL = "Xử lý thất bại, hãy kiểm tra lại đầu vào của bạn: Giá phải lớn hơn 0, thời gian áp dụng phải sau ngày hiện tại!";
     public static final String MSG_CREATE_PRICE_DETAIL_SUCCESS = "Thêm giá cho sản phẩm thành công!";
     public static final String MSG_CREATE_PRICE_DETAIL_FAIL = "Thêm giá cho sản phẩm thất bại!";
     public static final String MSG_CANT_NOT_DELETE_PRICE_DETAIL = "Không thể xoá vì mức giá này đang được áp dụng!";

@@ -1,5 +1,6 @@
 package com.example.AOManager.dto;
 
+import com.example.AOManager.common.Function;
 import com.example.AOManager.entity.PriceDetailEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -16,6 +17,8 @@ public class PriceDetailDto {
     private String employeeId;
     private String employeeName;
     private String productId;
+    private long createAt;
+    private long updateAt;
 
     public PriceDetailDto(PriceDetailEntity priceDetailEntity) {
         this.setId(priceDetailEntity.getId().toString());
@@ -24,5 +27,7 @@ public class PriceDetailDto {
         this.setEmployeeId(priceDetailEntity.getEmployeeId().getId().toString());
         this.setEmployeeName(priceDetailEntity.getEmployeeId().getLastName() + " " + priceDetailEntity.getEmployeeId().getFirstName());
         this.setProductId(priceDetailEntity.getProductId().getId().toString());
+        this.setCreateAt(null != priceDetailEntity.getCreatedAt() ? Function.toLongFromTimeStamp(priceDetailEntity.getCreatedAt()) : 0);
+        this.setUpdateAt(null != priceDetailEntity.getUpdatedAt() ? Function.toLongFromTimeStamp(priceDetailEntity.getUpdatedAt()) : 0);
     }
 }

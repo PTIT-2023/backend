@@ -51,7 +51,7 @@ public class PriceDetailServiceImpl implements PriceDetailService {
             return new ApiResponse<>(HttpStatus.BAD_REQUEST.value(), MSG_BAD_REQUEST, null);
         }
         try {
-            List<PriceDetailEntity> priceDetailEntityList = this.priceDetailRepository.findByProductId_Id(UUID.fromString(productId)).get();
+            List<PriceDetailEntity> priceDetailEntityList = this.priceDetailRepository.getPriceDetailsListWithProductId(UUID.fromString(productId)).get();
             List<PriceDetailDto> priceDetailDtoList = priceDetailEntityList.stream().map(PriceDetailDto::new).collect(Collectors.toList());
             return new ApiResponse<>(HttpStatus.OK.value(), MSG_GET_PRICE_DETAIL_LIST_SUCCESS, priceDetailDtoList);
         } catch (Exception e) {
@@ -65,7 +65,7 @@ public class PriceDetailServiceImpl implements PriceDetailService {
         if (null == createPriceDetailRequest || 0 >= createPriceDetailRequest.getPrice() || !CheckInput.isValidDateForPriceDetail(createPriceDetailRequest.getApplyDate())) {
             return new ApiResponse<>(HttpStatus.BAD_REQUEST.value(), MSG_BAD_REQUEST_FOR_PRICE_DETAIL, null);
         }
-        List<PriceDetailEntity> priceDetailEntityList = this.priceDetailRepository.findByProductId_Id(UUID.fromString(createPriceDetailRequest.getProductId())).get();
+        List<PriceDetailEntity> priceDetailEntityList = this.priceDetailRepository.getPriceDetailsListWithProductId(UUID.fromString(createPriceDetailRequest.getProductId())).get();
         if (priceDetailEntityList.stream().anyMatch(priceDetail -> priceDetail.getApplyDate() == createPriceDetailRequest.getApplyDate())) {
             return new ApiResponse<>(HttpStatus.BAD_REQUEST.value(), MSG_PRICE_DETAIL_EXISTED, null);
         }

@@ -4,8 +4,11 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Getter
@@ -26,6 +29,14 @@ public class ImportDetailEntity {
     @Basic(optional = false)
     @Column(name = "price")
     private Long price;
+    @Basic(optional = false)
+    @Column(name = "created_at", updatable = false)
+    @CreationTimestamp
+    private LocalDateTime createdAt;
+    @Basic(optional = false)
+    @Column(name = "updated_at")
+    @UpdateTimestamp
+    private LocalDateTime updatedAt;
     @JoinColumn(name = "import_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private ImportFormEntity importId;

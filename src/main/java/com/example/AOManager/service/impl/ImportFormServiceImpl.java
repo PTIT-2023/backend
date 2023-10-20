@@ -1,6 +1,7 @@
 package com.example.AOManager.service.impl;
 
 import com.example.AOManager.common.CheckInput;
+import com.example.AOManager.common.Function;
 import com.example.AOManager.dto.ImportFormDisplayDto;
 import com.example.AOManager.entity.ImportDetailEntity;
 import com.example.AOManager.entity.ImportFormEntity;
@@ -67,6 +68,8 @@ public class ImportFormServiceImpl implements ImportFormService {
             }
             importFormDisplayDto.setProductList(productList);
             importFormDisplayDto.setTotalPriceImportForm(productList.stream().mapToLong(ImportFormDisplayDto.Product::getTotalPrice).sum());
+            importFormDisplayDto.setCreateAt(null != importFormEntity.getCreatedAt() ? Function.toLongFromTimeStamp(importFormEntity.getCreatedAt()) : 0);
+            importFormDisplayDto.setUpdateAt(null != importFormEntity.getUpdatedAt() ? Function.toLongFromTimeStamp(importFormEntity.getUpdatedAt()) : 0);
             return new ApiResponse<>(HttpStatus.OK.value(), MSG_GET_IMPORT_FORM_SUCCESS, importFormDisplayDto);
         } catch (Exception e) {
             System.out.println(e);
@@ -96,6 +99,8 @@ public class ImportFormServiceImpl implements ImportFormService {
                 importFormDisplayDto.setCreateDate(importFormEntity.getCreateDate());
                 importFormDisplayDto.setSupplierName(importFormEntity.getOrderSupplierId().getSupplierName());
                 importFormDisplayDto.setEmployeeName(importFormEntity.getEmployeeId().getLastName() + " " + importFormEntity.getEmployeeId().getFirstName());
+                importFormDisplayDto.setCreateAt(null != importFormEntity.getCreatedAt() ? Function.toLongFromTimeStamp(importFormEntity.getCreatedAt()) : 0);
+                importFormDisplayDto.setUpdateAt(null != importFormEntity.getUpdatedAt() ? Function.toLongFromTimeStamp(importFormEntity.getUpdatedAt()): 0);
                 importFormDisplayDtoList.add(importFormDisplayDto);
             }
             return new ApiResponse<>(HttpStatus.OK.value(), MSG_GET_IMPORT_FORM_LIST_SUCCESS, new ApiResponseForList<>(totalResult, page, totalPage, limit, importFormDisplayDtoList));

@@ -28,6 +28,7 @@ public interface ImportFormRepository extends JpaRepository<ImportFormEntity, UU
             "OR CAST(i.create_date AS text) ILIKE CONCAT('%', :keyWord, '%') \n" +
             "OR CAST(u.first_name AS text) ILIKE CONCAT('%', :keyWord, '%') \n" +
             "OR CAST(u.last_name AS text) ILIKE CONCAT('%', :keyWord, '%') \n" +
+            "ORDER BY i.updated_at DESC, i.created_at DESC " +
             "LIMIT :limit OFFSET :page", nativeQuery = true)
     Optional<List<ImportFormEntity>> getImportFormList(int page, int limit, String keyWord);
 }

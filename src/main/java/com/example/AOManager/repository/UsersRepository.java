@@ -1,6 +1,5 @@
 package com.example.AOManager.repository;
 
-import com.example.AOManager.entity.UserRoleEntity;
 import com.example.AOManager.entity.UsersEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -26,7 +25,7 @@ public interface UsersRepository extends JpaRepository<UsersEntity, UUID> {
                     "OR CAST(u.last_name AS text) ILIKE CONCAT('%', :keyWord, '%') \n" +
                     "OR CAST(u.email AS text) ILIKE CONCAT('%', :keyWord, '%') \n" +
                     "OR CAST(u.address AS text) ILIKE CONCAT('%', :keyWord, '%')) \n" +
-                    "ORDER BY u.first_name\n" +
+                    "ORDER BY u.updated_at DESC, u.created_at DESC \n" +
                     "LIMIT :limit\n" +
                     "OFFSET :page", nativeQuery = true)
     List<UsersEntity> getUsersList(UUID roleId, int page, int limit, String keyWord);

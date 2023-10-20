@@ -28,6 +28,7 @@ public interface ProductRepository extends JpaRepository<ProductEntity, UUID> {
             "WHERE (:categoryId IS NULL OR c.id = :categoryId) AND (1<>1 \n" +
             "OR CAST(p.description AS text) ILIKE CONCAT('%', :keyWord, '%') \n" +
             "OR CAST(p.name AS text) ILIKE CONCAT('%', :keyWord, '%')) \n" +
+            "ORDER BY p.updated_at DESC, p.created_at DESC \n" +
             "LIMIT :limit\n" +
             "OFFSET :page", nativeQuery = true)
     Optional<List<ProductEntity>> getProductsListWithCategory(UUID categoryId, int page, int limit, String keyWord);
@@ -44,6 +45,7 @@ public interface ProductRepository extends JpaRepository<ProductEntity, UUID> {
             "INNER JOIN category c ON p.category_id = c.id \n" +
             "WHERE CAST(p.description AS text) ILIKE CONCAT('%', :keyWord, '%') \n" +
             "OR CAST(p.name AS text) ILIKE CONCAT('%', :keyWord, '%') \n" +
+            "ORDER BY p.updated_at DESC, p.created_at DESC \n" +
             "LIMIT :limit\n" +
             "OFFSET :page", nativeQuery = true)
     Optional<List<ProductEntity>> getProductsList(int page, int limit, String keyWord);

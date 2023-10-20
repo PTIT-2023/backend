@@ -28,4 +28,6 @@ public class OrderCustomerDisplayDto {
     private String deliveryPhone;
     private long totalPriceOrder;
     private List<Product> productList;
+    private long createAt;
+    private long updateAt;
 }

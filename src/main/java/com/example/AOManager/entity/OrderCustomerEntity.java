@@ -4,8 +4,11 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -42,6 +45,14 @@ public class OrderCustomerEntity {
     @Basic(optional = false)
     @Column(name = "total_price")
     private Long totalPrice;
+    @Basic(optional = false)
+    @Column(name = "created_at", updatable = false)
+    @CreationTimestamp
+    private LocalDateTime createdAt;
+    @Basic(optional = false)
+    @Column(name = "updated_at")
+    @UpdateTimestamp
+    private LocalDateTime updatedAt;
     @OneToMany(cascade = CascadeType.REFRESH, mappedBy = "orderCustomerId")
     private List<CartDetailEntity> cartDetailList;
     @JoinColumn(name = "customer_id", referencedColumnName = "id")

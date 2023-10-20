@@ -1,6 +1,7 @@
 package com.example.AOManager.service.impl;
 
 import com.example.AOManager.common.CheckInput;
+import com.example.AOManager.common.Function;
 import com.example.AOManager.dto.OrderCustomerDisplayDto;
 import com.example.AOManager.entity.CartDetailEntity;
 import com.example.AOManager.entity.OrderCustomerEntity;
@@ -59,6 +60,8 @@ public class OrderCustomerServiceImpl implements OrderCustomerService {
             }
             orderCustomerDisplayDto.setProductList(productList);
             orderCustomerDisplayDto.setTotalPriceOrder(productList.stream().mapToLong(OrderCustomerDisplayDto.Product::getTotalPrice).sum());
+            orderCustomerDisplayDto.setCreateAt(null != orderCustomerEntity.getCreatedAt() ? Function.toLongFromTimeStamp(orderCustomerEntity.getCreatedAt()) : 0);
+            orderCustomerDisplayDto.setUpdateAt(null != orderCustomerEntity.getUpdatedAt() ? Function.toLongFromTimeStamp(orderCustomerEntity.getUpdatedAt()) : 0);
             return new ApiResponse<>(HttpStatus.OK.value(), MSG_GET_ORDER_CUSTOMER_SUCCESS, orderCustomerDisplayDto);
         } catch (Exception e) {
             System.out.println(e);
@@ -89,6 +92,8 @@ public class OrderCustomerServiceImpl implements OrderCustomerService {
                 orderCustomerDisplayDto.setOrderDate(orderCustomerEntity.getOrderDate());
                 orderCustomerDisplayDto.setTotalPriceOrder(0);
                 orderCustomerDisplayDto.setProductList(null);
+                orderCustomerDisplayDto.setCreateAt(null != orderCustomerEntity.getCreatedAt() ? Function.toLongFromTimeStamp(orderCustomerEntity.getCreatedAt()) : 0);
+                orderCustomerDisplayDto.setUpdateAt(null != orderCustomerEntity.getUpdatedAt() ? Function.toLongFromTimeStamp(orderCustomerEntity.getUpdatedAt()) : 0);
                 orderCustomerDisplayDtoList.add(orderCustomerDisplayDto);
             }
             return new ApiResponse<>(HttpStatus.OK.value(), MSG_GET_ORDER_CUSTOMER_LIST_SUCCESS, new ApiResponseForList<>(totalResult, page, totalPage, limit, orderCustomerDisplayDtoList));

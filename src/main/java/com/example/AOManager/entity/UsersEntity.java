@@ -3,6 +3,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -52,6 +54,14 @@ public class UsersEntity {
     private Boolean status;
     @Column(name = "token")
     private String token;
+    @Basic(optional = false)
+    @Column(name = "created_at", updatable = false)
+    @CreationTimestamp
+    private LocalDateTime createdAt;
+    @Basic(optional = false)
+    @Column(name = "updated_at")
+    @UpdateTimestamp
+    private LocalDateTime updatedAt;
     @Column(name = "token_creation_date", columnDefinition = "TIMESTAMP")
     private LocalDateTime tokenCreationDate;
     @OneToMany(cascade = CascadeType.REFRESH, mappedBy = "employeeId")

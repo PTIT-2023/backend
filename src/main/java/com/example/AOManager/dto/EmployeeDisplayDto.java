@@ -1,5 +1,6 @@
 package com.example.AOManager.dto;
 
+import com.example.AOManager.common.Function;
 import com.example.AOManager.entity.UsersEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -15,6 +16,8 @@ public class EmployeeDisplayDto {
     private String email;
     private String address;
     private String phone;
+    private long createAt;
+    private long updateAt;
 
     public EmployeeDisplayDto(UsersEntity usersEntity) {
         this.setAvatar(usersEntity.getAvatar());
@@ -22,5 +25,7 @@ public class EmployeeDisplayDto {
         this.setEmail(usersEntity.getEmail());
         this.setAddress(usersEntity.getAddress());
         this.setPhone(usersEntity.getPhone());
+        this.setCreateAt(null != usersEntity.getCreatedAt() ? Function.toLongFromTimeStamp(usersEntity.getCreatedAt()) : 0);
+        this.setUpdateAt(null != usersEntity.getUpdatedAt() ? Function.toLongFromTimeStamp(usersEntity.getUpdatedAt()) : 0);
     }
 }

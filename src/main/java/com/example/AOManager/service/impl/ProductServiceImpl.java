@@ -79,7 +79,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public ApiResponse<?> createProduct(ProductDto productDto) {
-        if (null == productDto || !CheckInput.isValidUUID(productDto.getCategoryId())) {
+        if (null == productDto || !CheckInput.isValidUUID(productDto.getCategoryId()) || false == CheckInput.checkProduct(productDto)) {
             return new ApiResponse<>(HttpStatus.BAD_REQUEST.value(), MSG_BAD_REQUEST, null);
         }
         ProductEntity productEntity = productDto.toEntity();
@@ -107,26 +107,31 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public ApiResponse<?> updateProduct(ProductDto productDto) {
-        if (null == productDto) {
+        if (null == productDto || false == CheckInput.checkProduct(productDto)) {
             return new ApiResponse<>(HttpStatus.BAD_REQUEST.value(), MSG_BAD_REQUEST, null);
         }
         try {
+            ProductEntity productEntityBef;
             try {
-                this.productRepository.findById(UUID.fromString(productDto.getId())).get();
+                productEntityBef = this.productRepository.findById(UUID.fromString(productDto.getId())).get();
             } catch (Exception e) {
                 return new ApiResponse<>(HttpStatus.NOT_FOUND.value(), MSG_NOT_FOUND_BY_ID, null);
             }
             ProductEntity productEntityAft = productDto.toEntity();
             productEntityAft.setStatus(productDto.isStatus());
+            if (false == CheckInput.checkChangeStatusProduct(productEntityBef, productDto.isStatus())) {
+                return new ApiResponse<>(HttpStatus.BAD_REQUEST.value(), MSG_BAD_REQUEST, null);
+            }
+            productEntityAft.setStatus(productDto.isStatus());
             productEntityAft.setCategoryId(this.categoryRepository.findById(UUID.fromString(productDto.getCategoryId())).get());
-            ProductEntity productEntityUpdate = this.productRepository.save(productEntityAft);
-            List<ProductImageEntity> listDelete = this.productImageRepository.findByProductId_Id(productEntityUpdate.getId()).get();
+            ProductEntity productEntityUpdated = this.productRepository.save(productEntityAft);
+            List<ProductImageEntity> listDelete = this.productImageRepository.findByProductId_Id(productEntityUpdated.getId()).get();
             this.productImageRepository.deleteAll(listDelete);
             System.out.println(listDelete);
             for (String productImage : productDto.getImageList()) {
                 ProductImageEntity productImageEntity = new ProductImageEntity();
                 productImageEntity.setUrl(productImage);
-                productImageEntity.setProductId(productEntityUpdate);
+                productImageEntity.setProductId(productEntityUpdated);
                 try {
                     this.productImageRepository.save(productImageEntity);
                 } catch (Exception e) {

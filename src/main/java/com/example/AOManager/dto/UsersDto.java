@@ -1,5 +1,6 @@
 package com.example.AOManager.dto;
 
+import com.example.AOManager.common.Function;
 import com.example.AOManager.entity.UsersEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -22,6 +23,8 @@ public class UsersDto {
     private String address;
     private String phone;
     private boolean status;
+    private long createAt;
+    private long updateAt;
 
     public UsersDto(UsersEntity usersEntity) {
         this.id = usersEntity.getId().toString();
@@ -33,6 +36,8 @@ public class UsersDto {
         this.gender = usersEntity.getGender();
         this.address = usersEntity.getAddress();
         this.phone = usersEntity.getPhone();
-        this.status =usersEntity.getStatus();
+        this.status = usersEntity.getStatus();
+        this.createAt = null != usersEntity.getCreatedAt() ? Function.toLongFromTimeStamp(usersEntity.getCreatedAt()) : 0;
+        this.updateAt = null != usersEntity.getUpdatedAt() ? Function.toLongFromTimeStamp(usersEntity.getUpdatedAt()) : 0;
     }
 }

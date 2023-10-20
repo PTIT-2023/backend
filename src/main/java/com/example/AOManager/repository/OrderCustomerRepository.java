@@ -34,6 +34,7 @@ public interface OrderCustomerRepository extends JpaRepository<OrderCustomerEnti
             "OR CAST(delivery_address AS text) ILIKE CONCAT('%', :keyWord, '%') \n" +
             "OR CAST(delivery_phone AS text) ILIKE CONCAT('%', :keyWord, '%') \n" +
             "OR CAST(order_date AS text) ILIKE CONCAT('%', :keyWord, '%')) \n" +
+            "ORDER BY o.updated_at DESC, o.created_at DESC " +
             "LIMIT :limit \n" +
             "OFFSET :page", nativeQuery = true)
     Optional<List<OrderCustomerEntity>> getOrderCustomerList(UUID orderStatusId, int page, int limit, String keyWord);

@@ -29,4 +29,6 @@ public class OrderSupplierDisplayDto {
     private String employeeName;
     private long totalPriceOrder;
     private List<Product> productsList;
+    private long createAt;
+    private long updateAt;
 }
