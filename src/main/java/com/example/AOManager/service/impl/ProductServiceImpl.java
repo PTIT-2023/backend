@@ -170,23 +170,23 @@ public class ProductServiceImpl implements ProductService {
         if (this.importDetailRepository.existsByProductId_Id(productEntity.getId())) {
             productEntity.setStatus(false);
             this.productRepository.save(productEntity);
-            return new ApiResponse<>(HttpStatus.OK.value(), MSG_DELETE_PRODUCT_FAIL_IMPORT, null);
+            return new ApiResponse<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), MSG_DELETE_PRODUCT_FAIL_IMPORT, null);
         } else if (this.orderSupplierDetailRepository.existsByProductId_Id(productEntity.getId())) {
             productEntity.setStatus(false);
             this.productRepository.save(productEntity);
-            return new ApiResponse<>(HttpStatus.OK.value(), MSG_DELETE_PRODUCT_FAIL_ORDER_SUPPLIER, null);
+            return new ApiResponse<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), MSG_DELETE_PRODUCT_FAIL_ORDER_SUPPLIER, null);
         } else if (this.priceDetailRepository.existsByProductId_Id(productEntity.getId())) {
             productEntity.setStatus(false);
             this.productRepository.save(productEntity);
-            return new ApiResponse<>(HttpStatus.OK.value(), MSG_DELETE_PRODUCT_FAIL_PRICE, null);
+            return new ApiResponse<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), MSG_DELETE_PRODUCT_FAIL_PRICE, null);
         } else if (this.deductionRepository.existsByProductId_Id(productEntity.getId())) {
             productEntity.setStatus(false);
             this.productRepository.save(productEntity);
-            return new ApiResponse<>(HttpStatus.OK.value(), MSG_DELETE_PRODUCT_FAIL_DEDUCTION, null);
+            return new ApiResponse<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), MSG_DELETE_PRODUCT_FAIL_DEDUCTION, null);
         } else if (this.cartDetailRepository.existsByProductId_Id(productEntity.getId())) {
             productEntity.setStatus(false);
             this.productRepository.save(productEntity);
-            return new ApiResponse<>(HttpStatus.OK.value(), MSG_DELETE_PRODUCT_FAIL_CART, null);
+            return new ApiResponse<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), MSG_DELETE_PRODUCT_FAIL_CART, null);
         } else {
             try {
                 List<ProductImageEntity> productImageEntityList = this.productImageRepository.findByProductId_Id(productEntity.getId()).get();
