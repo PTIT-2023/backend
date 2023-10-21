@@ -24,7 +24,7 @@ public class OrderSupplierDisplayDto {
     private String id;
     private String supplierName;
     private long orderDate;
-    private long deliverydate;
+    private long deliveryDate;
     private String status;
     private String employeeName;
     private long totalPriceOrder;

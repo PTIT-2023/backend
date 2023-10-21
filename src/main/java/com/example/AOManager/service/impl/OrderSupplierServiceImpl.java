@@ -60,7 +60,7 @@ public class OrderSupplierServiceImpl implements OrderSupplierService {
             orderSupplierDisplayDto.setSupplierName(orderSupplierEntity.getSupplierName());
             orderSupplierDisplayDto.setStatus(this.getStatusName(orderSupplierEntity.getStatus()));
             orderSupplierDisplayDto.setOrderDate(orderSupplierEntity.getOrderDate());
-            orderSupplierDisplayDto.setDeliverydate(orderSupplierEntity.getDeliveryDate());
+            orderSupplierDisplayDto.setDeliveryDate(orderSupplierEntity.getDeliveryDate());
             orderSupplierDisplayDto.setEmployeeName(orderSupplierEntity.getEmployeeId().getLastName() + " " + orderSupplierEntity.getEmployeeId().getFirstName());
             List<OrderSupplierDisplayDto.Product> productList = new ArrayList<>();
             for (OrderSupplierDetailEntity orderSupplierDetailEntity : orderSupplierEntity.getOrderSupplierDetailList()) {
@@ -105,7 +105,7 @@ public class OrderSupplierServiceImpl implements OrderSupplierService {
                 orderSupplierDisplayDto.setId(orderSupplierEntity.getId().toString());
                 orderSupplierDisplayDto.setSupplierName(orderSupplierEntity.getSupplierName());
                 orderSupplierDisplayDto.setOrderDate(orderSupplierEntity.getOrderDate());
-                orderSupplierDisplayDto.setDeliverydate(orderSupplierEntity.getDeliveryDate());
+                orderSupplierDisplayDto.setDeliveryDate(orderSupplierEntity.getDeliveryDate());
                 orderSupplierDisplayDto.setStatus(orderSupplierEntity.getStatus());
                 orderSupplierDisplayDto.setEmployeeName(orderSupplierEntity.getEmployeeId().getLastName() + " " + orderSupplierEntity.getEmployeeId().getFirstName());
                 orderSupplierDisplayDto.setProductsList(null);
