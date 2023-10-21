@@ -89,7 +89,7 @@ public class UsersServiceImpl implements UsersService {
             long totalResult = this.userRoleRepository.getCountRecord(UUID.fromString(roleId), keyWord).get().size();
             int totalPage = (int) Math.ceil((float) totalResult / limit);
             if (page > totalPage && totalPage != 0) {
-                return new ApiResponse<>(HttpStatus.BAD_REQUEST.value(), MSG_BAD_REQUEST, null);
+                page = 1;
             }
             List<UsersEntity> usersEntityList = this.usersService.getUsersList(roleId, page, limit, keyWord);
             List<CustomerDisplayDto> customerDisplayDtoList = new ArrayList<>();
@@ -109,7 +109,7 @@ public class UsersServiceImpl implements UsersService {
             long totalResult = this.userRoleRepository.getCountRecord(UUID.fromString(roleId), keyWord).get().size();
             int totalPage = (int) Math.ceil((float) totalResult / limit);
             if (page > totalPage && totalPage != 0) {
-                return new ApiResponse<>(HttpStatus.BAD_REQUEST.value(), MSG_BAD_REQUEST, null);
+                page = 1;
             }
             List<UsersEntity> usersEntityList = this.usersService.getUsersList(roleId, page, limit, keyWord);
             List<EmployeeDisplayDto> employeeList = new ArrayList<>();
@@ -129,7 +129,7 @@ public class UsersServiceImpl implements UsersService {
             long totalResult = this.userRoleRepository.getCountRecord(UUID.fromString(roleId), keyWord).get().size();
             int totalPage = (int) Math.ceil((float) totalResult / limit);
             if (page > totalPage && totalPage != 0) {
-                return new ApiResponse<>(HttpStatus.BAD_REQUEST.value(), MSG_BAD_REQUEST, null);
+                page = 1;
             }
             List<UsersEntity> usersEntityList = this.usersService.getUsersList(roleId, page, limit, keyWord);
             List<EmployeeDisplayDto> managerList = new ArrayList<>();

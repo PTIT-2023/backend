@@ -78,7 +78,7 @@ public class OrderCustomerServiceImpl implements OrderCustomerService {
             long totalResult = this.orderCustomerRepository.getCountRecord(UUID.fromString(orderStatusId), keyWord).get().size();
             int totalPage = (int) Math.ceil((float) totalResult / limit);
             if (page > totalPage && totalPage != 0) {
-                return new ApiResponse<>(HttpStatus.BAD_REQUEST.value(), MSG_BAD_REQUEST, null);
+                page = 1;
             }
             List<OrderCustomerEntity> orderCustomerEntityList = this.orderCustomerRepository.getOrderCustomerList(UUID.fromString(orderStatusId), (page - 1) * limit, limit, keyWord).get();
             List<OrderCustomerDisplayDto> orderCustomerDisplayDtoList = new ArrayList<>();

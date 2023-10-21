@@ -96,7 +96,7 @@ public class OrderSupplierServiceImpl implements OrderSupplierService {
             long totalResult = this.orderSupplierRepository.getCountRecord(status, keyWord).get().size();
             int totalPage = (int) Math.ceil((float) totalResult / limit);
             if (page > totalPage && totalPage != 0) {
-                return new ApiResponse<>(HttpStatus.BAD_REQUEST.value(), MSG_BAD_REQUEST, null);
+                page = 1;
             }
             List<OrderSupplierEntity> orderSupplierEntityList = this.orderSupplierRepository.getOrderSupplierList(status, (page - 1) * limit, limit, keyWord).get();
             List<OrderSupplierDisplayDto> orderSupplierDisplayDtoList = new ArrayList<>();

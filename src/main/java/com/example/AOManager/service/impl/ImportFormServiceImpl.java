@@ -86,7 +86,7 @@ public class ImportFormServiceImpl implements ImportFormService {
             long totalResult = this.importFormRepository.getCountRecord(keyWord).get().size();
             int totalPage = (int) Math.ceil((float) totalResult / limit);
             if (page > totalPage && totalPage != 0) {
-                return new ApiResponse<>(HttpStatus.BAD_REQUEST.value(), MSG_BAD_REQUEST, null);
+                page = 1;
             }
             List<ImportFormEntity> importFormEntityList = this.importFormRepository.getImportFormList((page - 1) * limit, limit, keyWord).get();
             List<ImportFormDisplayDto> importFormDisplayDtoList = new ArrayList<>();

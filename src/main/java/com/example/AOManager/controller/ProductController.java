@@ -31,7 +31,7 @@ public class ProductController {
              long totalResult = this.productService.getTotalRecord(categoryId, keyWord);
              int totalPage = (int) Math.ceil((float)totalResult/limit);
              if(page > totalPage && totalPage != 0) {
-                 return new ApiResponse<>(HttpStatus.BAD_REQUEST.value(), MSG_BAD_REQUEST, null);
+                 page = 1;
              }
              List<ProductDto> productsList = this.productService.getProductsList(categoryId, page, limit, keyWord);
              if(orderByPrice.equals("ASC") && productsList.size() > 0) {
