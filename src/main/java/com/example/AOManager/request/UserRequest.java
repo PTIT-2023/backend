@@ -1,5 +1,6 @@
 package com.example.AOManager.request;
 
+import com.example.AOManager.common.Function;
 import com.example.AOManager.entity.UsersEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -39,8 +40,8 @@ public class UserRequest {
     public UsersEntity toEntity() {
         UsersEntity usersEntity = new UsersEntity();
         usersEntity.setAvatar(this.avatar);
-        usersEntity.setFirstName(this.firstName);
-        usersEntity.setLastName(this.lastName);
+        usersEntity.setFirstName(Function.normalizeName(this.firstName));
+        usersEntity.setLastName(Function.normalizeName(this.lastName));
         usersEntity.setBirthday(this.birthday);
         usersEntity.setGender(this.gender);
         usersEntity.setAddress(this.address);

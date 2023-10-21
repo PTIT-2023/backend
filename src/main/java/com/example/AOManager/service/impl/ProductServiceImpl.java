@@ -1,6 +1,7 @@
 package com.example.AOManager.service.impl;
 
 import com.example.AOManager.common.CheckInput;
+import com.example.AOManager.common.Function;
 import com.example.AOManager.dto.ProductDto;
 import com.example.AOManager.entity.ProductEntity;
 import com.example.AOManager.entity.ProductImageEntity;
@@ -82,6 +83,9 @@ public class ProductServiceImpl implements ProductService {
         if (null == productDto || !CheckInput.isValidUUID(productDto.getCategoryId()) || false == CheckInput.checkProduct(productDto)) {
             return new ApiResponse<>(HttpStatus.BAD_REQUEST.value(), MSG_BAD_REQUEST, null);
         }
+        if (this.productRepository.existsByName(Function.normalizeName(productDto.getName()))) {
+            return new ApiResponse<>(HttpStatus.BAD_REQUEST.value(), MSG_NAME_PRODUCT_EXIST, null);
+        }
         ProductEntity productEntity = productDto.toEntity();
         productEntity.setStatus(false);
         productEntity.setCategoryId(this.categoryRepository.findById(UUID.fromString(productDto.getCategoryId())).get());
@@ -109,6 +113,9 @@ public class ProductServiceImpl implements ProductService {
     public ApiResponse<?> updateProduct(ProductDto productDto) {
         if (null == productDto || false == CheckInput.checkProduct(productDto)) {
             return new ApiResponse<>(HttpStatus.BAD_REQUEST.value(), MSG_BAD_REQUEST, null);
+        }
+        if (this.productRepository.existsByName(Function.normalizeName(productDto.getName()))) {
+            return new ApiResponse<>(HttpStatus.BAD_REQUEST.value(), MSG_NAME_PRODUCT_EXIST, null);
         }
         try {
             ProductEntity productEntityBef;

@@ -14,6 +14,8 @@ public interface ProductRepository extends JpaRepository<ProductEntity, UUID> {
 
     Optional<List<ProductEntity>> findByCategoryId_Id(UUID id);
 
+    boolean existsByName(String name);
+
     @Query(value = "SELECT p.* \n" +
             "FROM product p \n" +
             "INNER JOIN category c ON p.category_id = c.id \n" +

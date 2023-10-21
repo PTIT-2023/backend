@@ -66,7 +66,7 @@ public class ProductDto {
         productEntity.setFoodType(this.getFoodType());
         productEntity.setHabitat(this.getHabitat());
         productEntity.setMaxSize(this.getMaxSize());
-        productEntity.setName(this.getName());
+        productEntity.setName(Function.normalizeName(this.getName()));
         productEntity.setPh(this.getPh());
         productEntity.setPosition(this.getPosition());
         productEntity.setReproductionMethod(this.getReproductionMethod());
