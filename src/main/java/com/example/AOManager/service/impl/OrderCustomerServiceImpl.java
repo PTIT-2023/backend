@@ -54,6 +54,7 @@ public class OrderCustomerServiceImpl implements OrderCustomerService {
                 }
                 product.setName(cartDetail.getProductId().getName());
                 product.setQuantity(cartDetail.getQuantity());
+                product.setInventoryQuantity(cartDetail.getProductId().getInventoryQuantity());
                 product.setUnitPrice(cartDetail.getPrice());
                 product.setTotalPrice(cartDetail.getQuantity() * cartDetail.getPrice());
                 productList.add(product);

@@ -17,6 +17,7 @@ public class OrderSupplierDisplayDto {
         private String productImage;
         private String name;
         private int quantity;
+        private int inventoryQuantity;
         private long unitPrice;
         private long totalPrice;
     }

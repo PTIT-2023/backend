@@ -72,6 +72,7 @@ public class OrderSupplierServiceImpl implements OrderSupplierService {
                 }
                 product.setName(orderSupplierDetailEntity.getProductId().getName());
                 product.setQuantity(orderSupplierDetailEntity.getQuantity());
+                product.setInventoryQuantity(orderSupplierDetailEntity.getProductId().getInventoryQuantity());
                 product.setUnitPrice(orderSupplierDetailEntity.getPrice());
                 product.setTotalPrice(orderSupplierDetailEntity.getQuantity() * orderSupplierDetailEntity.getPrice());
                 productList.add(product);

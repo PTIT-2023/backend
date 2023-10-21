@@ -62,6 +62,7 @@ public class ImportFormServiceImpl implements ImportFormService {
                 }
                 product.setName(importDetailEntity.getProductId().getName());
                 product.setQuantity(importDetailEntity.getQuantity());
+                product.setInventoryQuantity(importDetailEntity.getProductId().getInventoryQuantity());
                 product.setUnitPrice(importDetailEntity.getPrice());
                 product.setTotalPrice(importDetailEntity.getQuantity() * importDetailEntity.getPrice());
                 productList.add(product);
