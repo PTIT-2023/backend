@@ -114,13 +114,15 @@ public class ProductServiceImpl implements ProductService {
         if (null == productDto || false == CheckInput.checkProduct(productDto)) {
             return new ApiResponse<>(HttpStatus.BAD_REQUEST.value(), MSG_BAD_REQUEST, null);
         }
-        if (this.productRepository.existsByName(Function.normalizeName(productDto.getName()))) {
-            return new ApiResponse<>(HttpStatus.BAD_REQUEST.value(), MSG_NAME_PRODUCT_EXIST, null);
-        }
         try {
             ProductEntity productEntityBef;
             try {
                 productEntityBef = this.productRepository.findById(UUID.fromString(productDto.getId())).get();
+                if (!productEntityBef.getName().equals(Function.normalizeName(productDto.getName()))) {
+                    if (this.productRepository.existsByName(Function.normalizeName(productDto.getName()))) {
+                        return new ApiResponse<>(HttpStatus.BAD_REQUEST.value(), MSG_NAME_PRODUCT_EXIST, null);
+                    }
+                }
             } catch (Exception e) {
                 return new ApiResponse<>(HttpStatus.NOT_FOUND.value(), MSG_NOT_FOUND_BY_ID, null);
             }
