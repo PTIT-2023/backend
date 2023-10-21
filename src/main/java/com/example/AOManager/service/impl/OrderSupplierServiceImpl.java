@@ -58,7 +58,7 @@ public class OrderSupplierServiceImpl implements OrderSupplierService {
             OrderSupplierDisplayDto orderSupplierDisplayDto = new OrderSupplierDisplayDto();
             orderSupplierDisplayDto.setId(orderSupplierEntity.getId().toString());
             orderSupplierDisplayDto.setSupplierName(orderSupplierEntity.getSupplierName());
-            orderSupplierDisplayDto.setStatus(this.getStatusName(orderSupplierEntity.getStatus()));
+            orderSupplierDisplayDto.setStatus(orderSupplierEntity.getStatus());
             orderSupplierDisplayDto.setOrderDate(orderSupplierEntity.getOrderDate());
             orderSupplierDisplayDto.setDeliveryDate(orderSupplierEntity.getDeliveryDate());
             orderSupplierDisplayDto.setEmployeeName(orderSupplierEntity.getEmployeeId().getLastName() + " " + orderSupplierEntity.getEmployeeId().getFirstName());
