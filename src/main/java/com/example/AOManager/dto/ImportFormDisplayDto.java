@@ -13,6 +13,7 @@ public class ImportFormDisplayDto {
 
     @Data
     public static class Product {
+        private String productId;
         private String productImage;
         private String name;
         private int quantity;

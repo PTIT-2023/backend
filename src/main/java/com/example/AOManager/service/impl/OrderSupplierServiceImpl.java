@@ -65,6 +65,7 @@ public class OrderSupplierServiceImpl implements OrderSupplierService {
             List<OrderSupplierDisplayDto.Product> productList = new ArrayList<>();
             for (OrderSupplierDetailEntity orderSupplierDetailEntity : orderSupplierEntity.getOrderSupplierDetailList()) {
                 OrderSupplierDisplayDto.Product product = new OrderSupplierDisplayDto.Product();
+                product.setProductId(orderSupplierDetailEntity.getProductId().getId().toString());
                 if (orderSupplierDetailEntity.getProductId().getProductImageList().size() > 0) {
                     product.setProductImage(orderSupplierDetailEntity.getProductId().getProductImageList().get(0).getUrl());
                 } else {

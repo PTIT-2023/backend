@@ -47,6 +47,7 @@ public class OrderCustomerServiceImpl implements OrderCustomerService {
             List<OrderCustomerDisplayDto.Product> productList = new ArrayList<>();
             for (CartDetailEntity cartDetail : orderCustomerEntity.getCartDetailList()) {
                 OrderCustomerDisplayDto.Product product = new OrderCustomerDisplayDto.Product();
+                product.setProductId(cartDetail.getProductId().getId().toString());
                 if (cartDetail.getProductId().getProductImageList().size() > 0) {
                     product.setProductImage(cartDetail.getProductId().getProductImageList().get(0).getUrl());
                 } else {

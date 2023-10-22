@@ -55,6 +55,7 @@ public class ImportFormServiceImpl implements ImportFormService {
             List<ImportFormDisplayDto.Product> productList = new ArrayList<>();
             for (ImportDetailEntity importDetailEntity : importFormEntity.getImportDetailList()) {
                 ImportFormDisplayDto.Product product = new ImportFormDisplayDto.Product();
+                product.setProductId(importDetailEntity.getProductId().getId().toString());
                 if (importDetailEntity.getProductId().getProductImageList().size() > 0) {
                     product.setProductImage(importDetailEntity.getProductId().getProductImageList().get(0).getUrl());
                 } else {
@@ -113,6 +114,12 @@ public class ImportFormServiceImpl implements ImportFormService {
 
     @Override
     public ApiResponse<?> createImportForm(CreateImportFormRequest createImportFormRequest) {
+        int totalQuantity = createImportFormRequest.getImportDetailList().stream()
+                .mapToInt(CreateImportFormRequest.ImportDetail::getQuantity)
+                .sum();
+        if (totalQuantity <= 0) {
+            return new ApiResponse<>(HttpStatus.BAD_REQUEST.value(), MSG_CANT_NOT_IMPORT_ZERO_QUANTITY, null);
+        }
         ImportFormEntity importFormEntity;
         try {
             ImportFormEntity importFormToAdd = new ImportFormEntity();
@@ -126,16 +133,18 @@ public class ImportFormServiceImpl implements ImportFormService {
         }
         try {
             for (CreateImportFormRequest.ImportDetail importDetail : createImportFormRequest.getImportDetailList()) {
-                ProductEntity productEntity = this.productRepository.findById(UUID.fromString(importDetail.getProductId())).get();
-                ImportDetailEntity importDetailEntity = new ImportDetailEntity();
-                importDetailEntity.setPrice(importDetail.getPrice());
-                importDetailEntity.setQuantity(importDetail.getQuantity());
-                importDetailEntity.setImportId(importFormEntity);
-                importDetailEntity.setProductId(productEntity);
-                this.importDetailRepository.save(importDetailEntity);
-                productEntity.setInventoryQuantity(productEntity.getInventoryQuantity() + importDetail.getQuantity());
-                productEntity.setStatus(productEntity.getInventoryQuantity() > 0 ? true : false);
-                this.productRepository.save(productEntity);
+                if (importDetail.getQuantity() > 0) {
+                    ProductEntity productEntity = this.productRepository.findById(UUID.fromString(importDetail.getProductId())).get();
+                    ImportDetailEntity importDetailEntity = new ImportDetailEntity();
+                    importDetailEntity.setPrice(importDetail.getPrice());
+                    importDetailEntity.setQuantity(importDetail.getQuantity());
+                    importDetailEntity.setImportId(importFormEntity);
+                    importDetailEntity.setProductId(productEntity);
+                    this.importDetailRepository.save(importDetailEntity);
+                    productEntity.setInventoryQuantity(productEntity.getInventoryQuantity() + importDetail.getQuantity());
+                    productEntity.setStatus(productEntity.getInventoryQuantity() > 0 ? true : false);
+                    this.productRepository.save(productEntity);
+                }
             }
         } catch (Exception e) {
             System.out.println(e);

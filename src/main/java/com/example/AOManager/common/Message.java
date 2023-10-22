@@ -93,4 +93,5 @@ public final class Message {
     public static final String MSG_SENT_MAIL_SUCCESS = "Đã gửi đường dẫn khôi phục mật khẩu đến Email của bạn!";
     public static final String MSG_TOKEN_EXPIRED = "Không thể đặt lại mật khẩu do Token hết thời gian hiệu lực!";
     public static final String MSG_RESET_PASSWORD_SUCCESS = "Đặt lại mật khẩu thành công!";
+    public static final String MSG_CANT_NOT_IMPORT_ZERO_QUANTITY = "Không thể nhập hàng với số lượng sản phẩm là 0";
 }
