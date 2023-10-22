@@ -5,6 +5,7 @@ import com.example.AOManager.common.Function;
 import com.example.AOManager.dto.ImportFormDisplayDto;
 import com.example.AOManager.entity.ImportDetailEntity;
 import com.example.AOManager.entity.ImportFormEntity;
+import com.example.AOManager.entity.OrderSupplierEntity;
 import com.example.AOManager.entity.ProductEntity;
 import com.example.AOManager.repository.*;
 import com.example.AOManager.request.CreateImportFormRequest;
@@ -150,6 +151,9 @@ public class ImportFormServiceImpl implements ImportFormService {
             System.out.println(e);
             return new ApiResponse<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), MSG_ADD_PRODUCT_FOR_IMPORT_FROM_FAIL, null);
         }
+        OrderSupplierEntity orderSupplierEntity = this.orderSupplierRepository.findById(UUID.fromString(createImportFormRequest.getOrderSupplierId())).get();
+        orderSupplierEntity.setStatus("IMPORTED");
+        this.orderSupplierRepository.save(orderSupplierEntity);
         return new ApiResponse<>(HttpStatus.OK.value(), MSG_CREATE_IMPORT_FORM_SUCCESS, null);
     }
 }
