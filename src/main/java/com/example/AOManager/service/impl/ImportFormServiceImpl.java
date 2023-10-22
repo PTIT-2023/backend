@@ -69,7 +69,7 @@ public class ImportFormServiceImpl implements ImportFormService {
                 product.setTotalPrice(importDetailEntity.getQuantity() * importDetailEntity.getPrice());
                 productList.add(product);
             }
-            importFormDisplayDto.setProductList(productList);
+            importFormDisplayDto.setProductsList(productList);
             importFormDisplayDto.setTotalPriceImportForm(productList.stream().mapToLong(ImportFormDisplayDto.Product::getTotalPrice).sum());
             importFormDisplayDto.setCreateAt(null != importFormEntity.getCreatedAt() ? Function.toLongFromTimeStamp(importFormEntity.getCreatedAt()) : 0);
             importFormDisplayDto.setUpdateAt(null != importFormEntity.getUpdatedAt() ? Function.toLongFromTimeStamp(importFormEntity.getUpdatedAt()) : 0);
@@ -96,7 +96,7 @@ public class ImportFormServiceImpl implements ImportFormService {
             for (ImportFormEntity importFormEntity : importFormEntityList) {
                 ImportFormDisplayDto importFormDisplayDto = new ImportFormDisplayDto();
                 importFormDisplayDto.setTotalPriceImportForm(0);
-                importFormDisplayDto.setProductList(null);
+                importFormDisplayDto.setProductsList(null);
                 importFormDisplayDto.setId(importFormEntity.getId().toString());
                 importFormDisplayDto.setOrderSupplierId(importFormEntity.getOrderSupplierId().getId().toString());
                 importFormDisplayDto.setCreateDate(importFormEntity.getCreateDate());

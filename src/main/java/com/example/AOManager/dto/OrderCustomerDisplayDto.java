@@ -29,7 +29,7 @@ public class OrderCustomerDisplayDto {
     private String deliveryEmail;
     private String deliveryPhone;
     private long totalPriceOrder;
-    private List<Product> productList;
+    private List<Product> productsList;
     private long createAt;
     private long updateAt;
 }

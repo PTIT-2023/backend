@@ -27,7 +27,7 @@ public class ImportFormDisplayDto {
     private long createDate;
     private String supplierName;
     private String employeeName;
-    private List<Product> productList;
+    private List<Product> productsList;
     private long totalPriceImportForm;
     private long createAt;
     private long updateAt;

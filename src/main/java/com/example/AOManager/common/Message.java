@@ -88,7 +88,7 @@ public final class Message {
     public static final String MSG_CREATE_PRICE_DETAIL_FAIL = "Fail to add price for product!";
     public static final String MSG_CANT_NOT_DELETE_PRICE_DETAIL = "Cannot be deleted because this price is currently applied!";
     public static final String MSG_PRICE_DETAIL_EXISTED = "This date has already been updated!";
-    public static final String MSG_DELETE_PRICE_DETAIL_SUCCESS = "Xoá giá cho sản phẩm thành công!";
+    public static final String MSG_DELETE_PRICE_DETAIL_SUCCESS = "Delete price successfully!";
     public static final String MSG_DELETE_PRICE_DETAIL_FAIL = "Deleted successfully!";
     public static final String MSG_SENT_MAIL_SUCCESS = "The password recovery link has been sent to your Email!";
     public static final String MSG_TOKEN_EXPIRED = "Fail to reset password because Token has expired!";

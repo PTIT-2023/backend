@@ -60,7 +60,7 @@ public class OrderCustomerServiceImpl implements OrderCustomerService {
                 product.setTotalPrice(cartDetail.getQuantity() * cartDetail.getPrice());
                 productList.add(product);
             }
-            orderCustomerDisplayDto.setProductList(productList);
+            orderCustomerDisplayDto.setProductsList(productList);
             orderCustomerDisplayDto.setTotalPriceOrder(productList.stream().mapToLong(OrderCustomerDisplayDto.Product::getTotalPrice).sum());
             orderCustomerDisplayDto.setCreateAt(null != orderCustomerEntity.getCreatedAt() ? Function.toLongFromTimeStamp(orderCustomerEntity.getCreatedAt()) : 0);
             orderCustomerDisplayDto.setUpdateAt(null != orderCustomerEntity.getUpdatedAt() ? Function.toLongFromTimeStamp(orderCustomerEntity.getUpdatedAt()) : 0);
@@ -93,7 +93,7 @@ public class OrderCustomerServiceImpl implements OrderCustomerService {
                 orderCustomerDisplayDto.setDeliveryPhone(orderCustomerEntity.getDeliveryPhone());
                 orderCustomerDisplayDto.setOrderDate(orderCustomerEntity.getOrderDate());
                 orderCustomerDisplayDto.setTotalPriceOrder(0);
-                orderCustomerDisplayDto.setProductList(null);
+                orderCustomerDisplayDto.setProductsList(null);
                 orderCustomerDisplayDto.setCreateAt(null != orderCustomerEntity.getCreatedAt() ? Function.toLongFromTimeStamp(orderCustomerEntity.getCreatedAt()) : 0);
                 orderCustomerDisplayDto.setUpdateAt(null != orderCustomerEntity.getUpdatedAt() ? Function.toLongFromTimeStamp(orderCustomerEntity.getUpdatedAt()) : 0);
                 orderCustomerDisplayDtoList.add(orderCustomerDisplayDto);

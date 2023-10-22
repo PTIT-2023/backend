@@ -15,6 +15,7 @@ public interface ImportFormRepository extends JpaRepository<ImportFormEntity, UU
             "INNER JOIN order_supplier os ON i.order_supplier_id = os.id \n" +
             "WHERE CAST(i.id AS text) ILIKE CONCAT('%', :keyWord, '%') \n" +
             "OR CAST(os.id AS text) ILIKE CONCAT('%', :keyWord, '%') \n" +
+            "OR CAST(os.supplier_name AS text) ILIKE CONCAT('%', :keyWord, '%') \n" +
             "OR CAST(i.create_date AS text) ILIKE CONCAT('%', :keyWord, '%') \n" +
             "OR CAST(u.first_name AS text) ILIKE CONCAT('%', :keyWord, '%') \n" +
             "OR CAST(u.last_name AS text) ILIKE CONCAT('%', :keyWord, '%')",nativeQuery = true)
@@ -25,6 +26,7 @@ public interface ImportFormRepository extends JpaRepository<ImportFormEntity, UU
             "INNER JOIN order_supplier os ON i.order_supplier_id = os.id \n" +
             "WHERE CAST(i.id AS text) ILIKE CONCAT('%', :keyWord, '%') \n" +
             "OR CAST(os.id AS text) ILIKE CONCAT('%', :keyWord, '%') \n" +
+            "OR CAST(os.supplier_name AS text) ILIKE CONCAT('%', :keyWord, '%') \n" +
             "OR CAST(i.create_date AS text) ILIKE CONCAT('%', :keyWord, '%') \n" +
             "OR CAST(u.first_name AS text) ILIKE CONCAT('%', :keyWord, '%') \n" +
             "OR CAST(u.last_name AS text) ILIKE CONCAT('%', :keyWord, '%') \n" +
