@@ -32,4 +32,7 @@ public class MasterController {
 
     @GetMapping("/order-status")
     public ApiResponse<?> getAllOrderStatus() {return this.orderStatusService.getAllOrderStatus();}
+
+    @GetMapping("/employee-roles")
+    public ApiResponse<?> getEmployeeRoles() {return this.roleService.getEmployeoleRoles();}
 }

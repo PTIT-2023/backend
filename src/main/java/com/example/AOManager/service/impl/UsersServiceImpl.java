@@ -84,8 +84,9 @@ public class UsersServiceImpl implements UsersService {
     }
 
     @Override
-    public ApiResponse<?> getCustomerList(String roleId, int page, int limit, String keyWord) {
+    public ApiResponse<?> getCustomerList(String roleName, int page, int limit, String keyWord) {
         try {
+            String roleId = this.roleRepository.findByName(roleName).get().getId().toString();
             long totalResult = this.userRoleRepository.getCountRecord(UUID.fromString(roleId), keyWord).get().size();
             int totalPage = (int) Math.ceil((float) totalResult / limit);
             if (page > totalPage && totalPage != 0) {

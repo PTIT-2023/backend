@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class CustomerDisplayDto {
 
+    private String id;
     private String avatar;
     private String name;
     private String email;
@@ -20,6 +21,7 @@ public class CustomerDisplayDto {
     private long updateAt;
 
     public CustomerDisplayDto(UsersEntity usersEntity) {
+        this.setId(usersEntity.getId().toString());
         this.setAvatar(usersEntity.getAvatar());
         this.setName(usersEntity.getLastName() + " " + usersEntity.getFirstName());
         this.setEmail(usersEntity.getEmail());

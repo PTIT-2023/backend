@@ -16,7 +16,7 @@ public interface UsersService {
 
     List<UsersEntity> getUsersList(String roleId, int page, int limit, String keyWord);
 
-    ApiResponse<?> getCustomerList(String roleId, int page, int limit, String keyWord);
+    ApiResponse<?> getCustomerList(String roleName, int page, int limit, String keyWord);
 
     ApiResponse<?> getEmployeeList(String roleId, int page, int limit, String keyWord);
 

@@ -29,6 +29,8 @@ public class OrderCustomerDisplayDto {
     private String deliveryEmail;
     private String deliveryPhone;
     private long totalPriceOrder;
+    private String orderStatusId;
+    private String orderStatusName;
     private List<Product> productsList;
     private long createAt;
     private long updateAt;

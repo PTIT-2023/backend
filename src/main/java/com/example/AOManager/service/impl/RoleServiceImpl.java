@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -24,6 +25,24 @@ public class RoleServiceImpl implements RoleService {
     public ApiResponse<?> getAllRoles() {
         try {
             List<RoleEntity> roleList = this.roleRepository.findAll();
+            List<RoleDto> roleListDto = roleList.stream().map(RoleDto::new).collect(Collectors.toList());
+            return new ApiResponse<>(HttpStatus.OK.value(), MSG_GET_ROLE_LIST_SUCCESS, roleListDto);
+        } catch (Exception e) {
+            System.out.println(e);
+            return new ApiResponse<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), MSG_GET_ROLE_LIST_FAIL, null);
+        }
+    }
+
+    @Override
+    public ApiResponse<?> getEmployeoleRoles() {
+        try {
+            List<RoleEntity> roleList = this.roleRepository.findAll();
+            for (Iterator<RoleEntity> iterator = roleList.iterator(); iterator.hasNext();) {
+                RoleEntity obj = iterator.next();
+                if (obj.getName().equals("ROLE_CUSTOMER")) {
+                    iterator.remove();
+                }
+            }
             List<RoleDto> roleListDto = roleList.stream().map(RoleDto::new).collect(Collectors.toList());
             return new ApiResponse<>(HttpStatus.OK.value(), MSG_GET_ROLE_LIST_SUCCESS, roleListDto);
         } catch (Exception e) {

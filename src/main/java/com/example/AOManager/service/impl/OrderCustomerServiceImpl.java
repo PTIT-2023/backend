@@ -62,6 +62,8 @@ public class OrderCustomerServiceImpl implements OrderCustomerService {
             }
             orderCustomerDisplayDto.setProductsList(productList);
             orderCustomerDisplayDto.setTotalPriceOrder(productList.stream().mapToLong(OrderCustomerDisplayDto.Product::getTotalPrice).sum());
+            orderCustomerDisplayDto.setOrderStatusId(orderCustomerEntity.getOrderStatusId().getId().toString());
+            orderCustomerDisplayDto.setOrderStatusName(orderCustomerEntity.getOrderStatusId().getName());
             orderCustomerDisplayDto.setCreateAt(null != orderCustomerEntity.getCreatedAt() ? Function.toLongFromTimeStamp(orderCustomerEntity.getCreatedAt()) : 0);
             orderCustomerDisplayDto.setUpdateAt(null != orderCustomerEntity.getUpdatedAt() ? Function.toLongFromTimeStamp(orderCustomerEntity.getUpdatedAt()) : 0);
             return new ApiResponse<>(HttpStatus.OK.value(), MSG_GET_ORDER_CUSTOMER_SUCCESS, orderCustomerDisplayDto);
@@ -93,6 +95,8 @@ public class OrderCustomerServiceImpl implements OrderCustomerService {
                 orderCustomerDisplayDto.setDeliveryPhone(orderCustomerEntity.getDeliveryPhone());
                 orderCustomerDisplayDto.setOrderDate(orderCustomerEntity.getOrderDate());
                 orderCustomerDisplayDto.setTotalPriceOrder(0);
+                orderCustomerDisplayDto.setOrderStatusId(orderCustomerEntity.getOrderStatusId().getId().toString());
+                orderCustomerDisplayDto.setOrderStatusName(orderCustomerEntity.getOrderStatusId().getName());
                 orderCustomerDisplayDto.setProductsList(null);
                 orderCustomerDisplayDto.setCreateAt(null != orderCustomerEntity.getCreatedAt() ? Function.toLongFromTimeStamp(orderCustomerEntity.getCreatedAt()) : 0);
                 orderCustomerDisplayDto.setUpdateAt(null != orderCustomerEntity.getUpdatedAt() ? Function.toLongFromTimeStamp(orderCustomerEntity.getUpdatedAt()) : 0);

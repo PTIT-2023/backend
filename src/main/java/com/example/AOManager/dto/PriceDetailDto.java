@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 public class PriceDetailDto {
 
     private String id;
+    private long price;
     private long applyDate;
     private String note;
     private String employeeId;
@@ -22,6 +23,7 @@ public class PriceDetailDto {
 
     public PriceDetailDto(PriceDetailEntity priceDetailEntity) {
         this.setId(priceDetailEntity.getId().toString());
+        this.setPrice(priceDetailEntity.getPrice());
         this.setApplyDate(priceDetailEntity.getApplyDate());
         this.setNote(priceDetailEntity.getNote());
         this.setEmployeeId(priceDetailEntity.getEmployeeId().getId().toString());
