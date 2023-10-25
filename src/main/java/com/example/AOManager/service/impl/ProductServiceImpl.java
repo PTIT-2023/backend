@@ -127,11 +127,11 @@ public class ProductServiceImpl implements ProductService {
                 return new ApiResponse<>(HttpStatus.NOT_FOUND.value(), MSG_NOT_FOUND_BY_ID, null);
             }
             ProductEntity productEntityAft = productDto.toEntity();
-            productEntityAft.setStatus(productDto.isStatus());
-            if (false == CheckInput.checkChangeStatusProduct(productEntityBef, productDto.isStatus())) {
+            productEntityAft.setStatus(productDto.getStatus());
+            if (false == CheckInput.checkChangeStatusProduct(productEntityBef, productDto.getStatus())) {
                 return new ApiResponse<>(HttpStatus.BAD_REQUEST.value(), MSG_BAD_REQUEST, null);
             }
-            productEntityAft.setStatus(productDto.isStatus());
+            productEntityAft.setStatus(productDto.getStatus());
             productEntityAft.setCategoryId(this.categoryRepository.findById(UUID.fromString(productDto.getCategoryId())).get());
             ProductEntity productEntityUpdated = this.productRepository.save(productEntityAft);
             List<ProductImageEntity> listDelete = this.productImageRepository.findByProductId_Id(productEntityUpdated.getId()).get();

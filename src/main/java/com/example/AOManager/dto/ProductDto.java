@@ -19,21 +19,21 @@ public class ProductDto {
     private String name;
     private String description;
     private String habitat;
-    private double temperature;
-    private double ph;
+    private Double temperature;
+    private Double ph;
     private String position;
     private String reproductionMethod;
     private String foodType;
-    private double maxSize;
-    private int inventoryQuantity;
-    private int soldQuantity;
-    private boolean status;
+    private Double maxSize;
+    private Integer inventoryQuantity;
+    private Integer soldQuantity;
+    private Boolean status;
     private String categoryId;
     private String categoryName;
     private List<String> imageList;
-    private long price;
-    private long createAt;
-    private long updateAt;
+    private Long price;
+    private Long createAt;
+    private Long updateAt;
 
     public ProductDto(ProductEntity productEntity) {
         this.id = productEntity.getId().toString();

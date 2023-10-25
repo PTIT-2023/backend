@@ -62,9 +62,9 @@ public class CheckInput {
     }
 
     public static boolean checkProduct(ProductDto productDto) {
-        if (productDto.getPh() < 0 || productDto.getPh() > 14
-            || productDto.getMaxSize() <= 0
-            || productDto.getTemperature() < 20 || productDto.getTemperature() > 30) {
+        if ((productDto.getPh() != null && (productDto.getPh() < 0 || productDto.getPh() > 14))
+            || (productDto.getMaxSize() != null && (productDto.getMaxSize() <= 0))
+            || (productDto.getTemperature() != null && (productDto.getTemperature() < 20 || productDto.getTemperature() > 30))) {
             return false;
         } else return true;
     }
