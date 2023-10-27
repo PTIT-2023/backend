@@ -1,5 +1,6 @@
-package com.example.AOManager.dto;
+package com.example.AOManager.dto.manager;
 
+import com.example.AOManager.entity.OrderSupplierEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,7 +10,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class OrderCustomerDisplayDto {
+public class OrderSupplierDisplayDto {
 
     @Data
     public static class Product {
@@ -23,14 +24,12 @@ public class OrderCustomerDisplayDto {
     }
 
     private String id;
+    private String supplierName;
     private long orderDate;
-    private String customerName;
-    private String deliveryAddress;
-    private String deliveryEmail;
-    private String deliveryPhone;
+    private long deliveryDate;
+    private String status;
+    private String employeeName;
     private long totalPriceOrder;
-    private String orderStatusId;
-    private String orderStatusName;
     private List<Product> productsList;
     private long createAt;
     private long updateAt;

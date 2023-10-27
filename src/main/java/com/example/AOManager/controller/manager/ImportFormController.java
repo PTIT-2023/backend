@@ -1,4 +1,4 @@
-package com.example.AOManager.controller;
+package com.example.AOManager.controller.manager;
 
 import com.example.AOManager.request.CreateImportFormRequest;
 import com.example.AOManager.response.ApiResponse;

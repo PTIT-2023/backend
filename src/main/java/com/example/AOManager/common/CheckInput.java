@@ -1,6 +1,6 @@
 package com.example.AOManager.common;
 
-import com.example.AOManager.dto.ProductDto;
+import com.example.AOManager.dto.manager.ProductDto;
 import com.example.AOManager.entity.ProductEntity;
 
 import java.time.Instant;

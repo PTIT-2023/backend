@@ -1,4 +1,4 @@
-package com.example.AOManager.dto;
+package com.example.AOManager.dto.manager;
 
 import com.example.AOManager.entity.OrderStatusEntity;
 import lombok.AllArgsConstructor;

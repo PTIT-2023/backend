@@ -1,6 +1,8 @@
 package com.example.AOManager.repository;
 
 import com.example.AOManager.entity.ProductEntity;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -51,4 +53,39 @@ public interface ProductRepository extends JpaRepository<ProductEntity, UUID> {
             "LIMIT :limit\n" +
             "OFFSET :page", nativeQuery = true)
     Optional<List<ProductEntity>> getProductsList(int page, int limit, String keyWord);
+
+    @Query(value = "SELECT * " +
+            "FROM product p " +
+            "JOIN import_detail imd ON p.id = imd.product_id " +
+            "WHERE p.status = true " +
+            "ORDER BY imd.created_at DESC " +
+            "LIMIT 10", nativeQuery = true)
+    Optional<List<ProductEntity>> getNewProductsList();
+
+    @Query(value = "SELECT * " +
+            "FROM product " +
+            "WHERE status = true " +
+            "ORDER BY sold_quantity DESC " +
+            "LIMIT 10 ", nativeQuery = true)
+    Optional<List<ProductEntity>> getBestSellingProductsList();
+
+    @Query(value = "SELECT p.* " +
+            "FROM product p " +
+            "INNER JOIN category c ON p.category_id = c.id " +
+            "WHERE (:categoryId IS NULL OR (c.id = :categoryId)) AND p.status = true AND (1<>1 " +
+            "OR CAST(p.description AS text) ILIKE CONCAT('%', :keyWord, '%') " +
+            "OR CAST(p.name AS text) ILIKE CONCAT('%', :keyWord, '%')) " +
+            "ORDER BY p.sold_quantity DESC " +
+            "LIMIT :limit", nativeQuery = true)
+    Optional<List<ProductEntity>> getProductsListForCustomerWithCategory(UUID categoryId, int limit, String keyWord);
+
+    @Query(value = "SELECT p.* " +
+            "FROM product p " +
+            "INNER JOIN category c ON p.category_id = c.id " +
+            "WHERE p.status = true AND (1<>1 " +
+            "OR CAST(p.description AS text) ILIKE CONCAT('%', :keyWord, '%') " +
+            "OR CAST(p.name AS text) ILIKE CONCAT('%', :keyWord, '%')) " +
+            "ORDER BY p.sold_quantity DESC " +
+            "LIMIT :limit", nativeQuery = true)
+    Optional<List<ProductEntity>> getProductsListForCustomerWithoutCategory(int limit, String keyWord);
 }

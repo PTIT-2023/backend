@@ -2,7 +2,8 @@ package com.example.AOManager.service.impl;
 
 import com.example.AOManager.common.CheckInput;
 import com.example.AOManager.common.Function;
-import com.example.AOManager.dto.ProductDto;
+import com.example.AOManager.dto.customer.ProductDisplayDto;
+import com.example.AOManager.dto.manager.ProductDto;
 import com.example.AOManager.entity.ProductEntity;
 import com.example.AOManager.entity.ProductImageEntity;
 import com.example.AOManager.repository.*;
@@ -12,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -194,8 +196,31 @@ public class ProductServiceImpl implements ProductService {
                 this.productRepository.delete(productEntity);
                 return new ApiResponse<>(HttpStatus.OK.value(), MSG_DELETE_SUCCESS, null);
             } catch (Exception e) {
+                System.out.println(e);
                 return new ApiResponse<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), MSG_DELETE_FAIL, null);
             }
         }
+    }
+
+    @Override
+    public ApiResponse<?> getProductsListForCustomer(String categoryId, String orderByPrice, int limit, String keyWord) {
+        List<ProductDisplayDto> productDisplayDtoList;
+        try {
+            List<ProductEntity> productEntityList;
+            if (CheckInput.isValidUUID(categoryId)) {
+                productEntityList = this.productRepository.getProductsListForCustomerWithCategory(UUID.fromString(categoryId), limit, keyWord).get();
+            } else productEntityList = this.productRepository.getProductsListForCustomerWithoutCategory(limit, keyWord).get();
+
+            if(orderByPrice.equals("ASC") && productEntityList.size() > 0) {
+                productEntityList.sort(Comparator.comparingLong(ProductEntity::getCurrentPrice));
+            } else if(orderByPrice.equals("DESC") && productEntityList.size() > 0)  {
+                productEntityList.sort((a1, a2) -> -Long.compare(a1.getCurrentPrice(), a2.getCurrentPrice()));
+            }
+            productDisplayDtoList = productEntityList.stream().map(ProductDisplayDto::new).collect(Collectors.toList());
+        } catch (Exception e) {
+            System.out.println(e);
+            return new ApiResponse<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), MSG_GET_PRODUCTS_lIST_FAIL, null);
+        }
+        return new ApiResponse<>(HttpStatus.OK.value(), MSG_GET_PRODUCTS_lIST_SUCCESS, productDisplayDtoList);
     }
 }

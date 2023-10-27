@@ -1,4 +1,4 @@
-package com.example.AOManager.dto;
+package com.example.AOManager.dto.manager;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

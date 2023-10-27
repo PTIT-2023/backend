@@ -1,6 +1,6 @@
-package com.example.AOManager.controller;
+package com.example.AOManager.controller.manager;
 
-import com.example.AOManager.dto.ProductDto;
+import com.example.AOManager.dto.manager.ProductDto;
 import com.example.AOManager.response.ApiResponse;
 import com.example.AOManager.response.ApiResponseForList;
 import com.example.AOManager.service.ProductService;

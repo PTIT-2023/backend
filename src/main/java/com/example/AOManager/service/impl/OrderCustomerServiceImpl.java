@@ -2,7 +2,7 @@ package com.example.AOManager.service.impl;
 
 import com.example.AOManager.common.CheckInput;
 import com.example.AOManager.common.Function;
-import com.example.AOManager.dto.OrderCustomerDisplayDto;
+import com.example.AOManager.dto.manager.OrderCustomerDisplayDto;
 import com.example.AOManager.entity.CartDetailEntity;
 import com.example.AOManager.entity.OrderCustomerEntity;
 import com.example.AOManager.entity.OrderStatusEntity;

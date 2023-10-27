@@ -1,6 +1,6 @@
 package com.example.AOManager.service;
 
-import com.example.AOManager.dto.ProductDto;
+import com.example.AOManager.dto.manager.ProductDto;
 import com.example.AOManager.response.ApiResponse;
 
 import java.util.List;
@@ -18,4 +18,6 @@ public interface ProductService {
     ApiResponse<?> deleteProduct(String id);
 
     long getTotalRecord(String categoryId, String keyWord);
+
+    ApiResponse<?> getProductsListForCustomer(String categoryId, String orderByPrice, int limit, String keyWord);
 }

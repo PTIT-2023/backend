@@ -1,7 +1,7 @@
 package com.example.AOManager.service.impl;
 
 import com.example.AOManager.common.CheckInput;
-import com.example.AOManager.dto.PriceDetailDto;
+import com.example.AOManager.dto.manager.PriceDetailDto;
 import com.example.AOManager.entity.PriceDetailEntity;
 import com.example.AOManager.repository.PriceDetailRepository;
 import com.example.AOManager.repository.ProductRepository;

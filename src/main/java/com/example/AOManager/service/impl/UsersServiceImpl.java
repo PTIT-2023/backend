@@ -1,8 +1,8 @@
 package com.example.AOManager.service.impl;
 
-import com.example.AOManager.dto.CustomerDisplayDto;
-import com.example.AOManager.dto.EmployeeDisplayDto;
-import com.example.AOManager.dto.UsersDto;
+import com.example.AOManager.dto.manager.CustomerDisplayDto;
+import com.example.AOManager.dto.manager.EmployeeDisplayDto;
+import com.example.AOManager.dto.manager.UsersDto;
 import com.example.AOManager.entity.UserRoleEntity;
 import com.example.AOManager.entity.UsersEntity;
 import com.example.AOManager.payload.request.ChangePasswordRequest;
@@ -22,7 +22,6 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 import static com.example.AOManager.common.Message.*;
 

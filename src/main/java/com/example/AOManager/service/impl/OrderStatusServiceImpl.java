@@ -1,6 +1,6 @@
 package com.example.AOManager.service.impl;
 
-import com.example.AOManager.dto.OrderStatusDto;
+import com.example.AOManager.dto.manager.OrderStatusDto;
 import com.example.AOManager.entity.OrderStatusEntity;
 import com.example.AOManager.response.ApiResponse;
 import com.example.AOManager.repository.OrderStatusRepository;

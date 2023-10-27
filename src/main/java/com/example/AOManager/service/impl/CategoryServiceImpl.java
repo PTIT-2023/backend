@@ -1,8 +1,8 @@
 package com.example.AOManager.service.impl;
 
 import com.example.AOManager.common.CheckInput;
-import com.example.AOManager.dto.CategoryDisplayDto;
-import com.example.AOManager.dto.CategoryDto;
+import com.example.AOManager.dto.manager.CategoryDisplayDto;
+import com.example.AOManager.dto.manager.CategoryDto;
 import com.example.AOManager.entity.CategoryEntity;
 import com.example.AOManager.response.ApiResponse;
 import com.example.AOManager.repository.CategoryRepository;
@@ -15,7 +15,6 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 import static com.example.AOManager.common.Message.*;
 

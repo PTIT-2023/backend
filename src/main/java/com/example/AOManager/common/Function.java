@@ -1,7 +1,11 @@
 package com.example.AOManager.common;
 
+import com.example.AOManager.entity.ProductEntity;
+
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class Function {
 
@@ -28,5 +32,11 @@ public class Function {
             name = result.toString().trim();
         }
         return name;
+    }
+
+    public static List<ProductEntity> removeProductWithNoPrice(List<ProductEntity> productEntityList) {
+        return productEntityList.stream()
+                .filter(product -> product.getCurrentPrice() != 0)
+                .collect(Collectors.toList());
     }
 }

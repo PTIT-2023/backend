@@ -2,7 +2,7 @@ package com.example.AOManager.service.impl;
 
 import com.example.AOManager.common.CheckInput;
 import com.example.AOManager.common.Function;
-import com.example.AOManager.dto.OrderSupplierDisplayDto;
+import com.example.AOManager.dto.manager.OrderSupplierDisplayDto;
 import com.example.AOManager.entity.OrderSupplierDetailEntity;
 import com.example.AOManager.entity.OrderSupplierEntity;
 import com.example.AOManager.repository.OrderSupplierDetailRepository;

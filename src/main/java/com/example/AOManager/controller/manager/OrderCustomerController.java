@@ -1,4 +1,4 @@
-package com.example.AOManager.controller;
+package com.example.AOManager.controller.manager;
 
 import com.example.AOManager.response.ApiResponse;
 import com.example.AOManager.service.OrderCustomerService;
