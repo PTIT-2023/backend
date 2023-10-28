@@ -9,4 +9,6 @@ public interface OrderCustomerService {
     ApiResponse<?> getOrderCustomerList(String orderStatusId, int page, int limit, String keyWord);
 
     ApiResponse<?> updateStatusForOrderCustomer(String orderStatusIdTo, String id);
+
+    ApiResponse<?> getOrdersListForCustomerByStatusId(String orderStatusId, int limit);
 }

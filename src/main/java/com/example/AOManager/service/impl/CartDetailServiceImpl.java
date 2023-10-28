@@ -35,10 +35,10 @@ public class CartDetailServiceImpl implements CartDetailService {
             for (CartDetailEntity cartDetailEntity : cartDetailEntityList) {
                 productsList.add(new ProductOfCartDisplayDto(cartDetailEntity));
             }
+            return new ApiResponse<>(HttpStatus.OK.value(), MSG_GET_PRODUCTS_lIST_SUCCESS, productsList);
         } catch (Exception e) {
             System.out.println(e);
             return new ApiResponse<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), MSG_GET_PRODUCTS_lIST_FAIL, null);
         }
-        return new ApiResponse<>(HttpStatus.OK.value(), MSG_GET_PRODUCTS_lIST_SUCCESS, productsList);
     }
 }

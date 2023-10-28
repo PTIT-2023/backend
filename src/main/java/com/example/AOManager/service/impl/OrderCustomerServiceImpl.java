@@ -2,7 +2,9 @@ package com.example.AOManager.service.impl;
 
 import com.example.AOManager.common.CheckInput;
 import com.example.AOManager.common.Function;
+import com.example.AOManager.dto.customer.OneOfOrderListDisplayDto;
 import com.example.AOManager.dto.manager.OrderCustomerDisplayDto;
+import com.example.AOManager.dto.manager.RoleDto;
 import com.example.AOManager.entity.CartDetailEntity;
 import com.example.AOManager.entity.OrderCustomerEntity;
 import com.example.AOManager.entity.OrderStatusEntity;
@@ -18,6 +20,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import static com.example.AOManager.common.Message.*;
 
@@ -172,6 +175,19 @@ public class OrderCustomerServiceImpl implements OrderCustomerService {
         } catch (Exception e) {
             System.out.println(e);
             return new ApiResponse<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), MSG_UPDATE_STATUS_ORDER_CUSTOMER_FAIL, null);
+        }
+    }
+
+    @Override
+    public ApiResponse<?> getOrdersListForCustomerByStatusId(String orderStatusId, int limit) {
+        List<OneOfOrderListDisplayDto> ordersDisplayList;
+        try {
+            List<OrderCustomerEntity> orderCustomerEntityList = this.orderCustomerRepository.getOrdersListForCustomerByStatusId(UUID.fromString(orderStatusId), limit).get();
+            ordersDisplayList = orderCustomerEntityList.stream().map(OneOfOrderListDisplayDto::new).collect(Collectors.toList());
+            return new ApiResponse<>(HttpStatus.OK.value(), MSG_GET_ORDER_CUSTOMER_LIST_SUCCESS, ordersDisplayList);
+        } catch (Exception e) {
+            System.out.println(e);
+            return new ApiResponse<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), MSG_GET_ORDER_CUSTOMER_LIST_FAIL, null);
         }
     }
 }
