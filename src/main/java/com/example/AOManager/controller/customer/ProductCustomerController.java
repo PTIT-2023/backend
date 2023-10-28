@@ -15,4 +15,7 @@ public class ProductCustomerController {
 
     @GetMapping
     ApiResponse<?> getProductsListForCustomer(@RequestParam String categoryId, @RequestParam String orderByPrice, @RequestParam int limit, @RequestParam String keyWord) {return this.productService.getProductsListForCustomer(categoryId, orderByPrice, limit, keyWord);}
+
+    @GetMapping("/{productId}")
+    ApiResponse<?> getProductDetail(@PathVariable String productId) {return this.productService.getProduct(productId);}
 }
