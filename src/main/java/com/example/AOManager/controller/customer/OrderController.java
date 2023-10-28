@@ -15,4 +15,7 @@ public class OrderController {
 
     @GetMapping
     ApiResponse<?> getOrdersListForCustomerByStatusId(@RequestParam String orderStatusId, @RequestParam int limit) {return this.orderCustomerService.getOrdersListForCustomerByStatusId(orderStatusId, limit);}
+
+    @GetMapping("/{orderCustomerId}")
+    ApiResponse<?> getOrderDetail(@PathVariable String orderCustomerId) {return this.orderCustomerService.getOrderCustomer(orderCustomerId);}
 }

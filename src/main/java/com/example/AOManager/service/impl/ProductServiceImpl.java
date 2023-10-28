@@ -89,6 +89,7 @@ public class ProductServiceImpl implements ProductService {
             return new ApiResponse<>(HttpStatus.BAD_REQUEST.value(), MSG_NAME_PRODUCT_EXIST, null);
         }
         ProductEntity productEntity = productDto.toEntity();
+        productEntity.setInventoryQuantity(0);
         productEntity.setStatus(false);
         productEntity.setCategoryId(this.categoryRepository.findById(UUID.fromString(productDto.getCategoryId())).get());
         try {
