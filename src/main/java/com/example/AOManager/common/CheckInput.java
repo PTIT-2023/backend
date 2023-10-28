@@ -1,6 +1,7 @@
 package com.example.AOManager.common;
 
 import com.example.AOManager.dto.manager.ProductDto;
+import com.example.AOManager.entity.CartDetailEntity;
 import com.example.AOManager.entity.ProductEntity;
 
 import java.time.Instant;
@@ -73,5 +74,9 @@ public class CheckInput {
         if (false == productEntity.getStatus() && true == statusTo && 0 >= productEntity.getInventoryQuantity()) {
             return false;
         } else return true;
+    }
+
+    public static boolean checkInventoryQuantityForCart(ProductEntity productEntity, int quantity) {
+        return  quantity > productEntity.getInventoryQuantity() ? false : true;
     }
 }

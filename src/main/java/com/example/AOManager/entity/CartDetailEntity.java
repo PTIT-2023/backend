@@ -37,7 +37,7 @@ public class CartDetailEntity {
     @UpdateTimestamp
     private LocalDateTime updatedAt;
     @JoinColumn(name = "order_customer_id", referencedColumnName = "id")
-    @ManyToOne(optional = false)
+    @ManyToOne
     private OrderCustomerEntity orderCustomerId;
     @JoinColumn(name = "product_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
