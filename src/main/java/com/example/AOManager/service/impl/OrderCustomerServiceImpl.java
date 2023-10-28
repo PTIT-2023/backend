@@ -133,32 +133,32 @@ public class OrderCustomerServiceImpl implements OrderCustomerService {
         }
         String currentStatus = orderCustomerEntity.getOrderStatusId().getName();
         switch (orderStatusEntity.getName()) {
-            case "WAITING_PICKUP": {
-                if (!currentStatus.equals("WAITING_CONFIRM")) {
+            case "Waiting for pick up": {
+                if (!currentStatus.equals("Waiting for confirm")) {
                     return new ApiResponse<>(HttpStatus.BAD_REQUEST.value(), MSG_UPDATE_ORDER_CUSTOMER_TO_WAITING_PICKUP_FAIL, null);
                 } else {
                     orderCustomerEntity.setOrderStatusId(orderStatusEntity);
                 }
                 break;
             }
-            case "DELIVERING": {
-                if (!currentStatus.equals("WAITING_PICKUP")) {
+            case "Delivering": {
+                if (!currentStatus.equals("Waiting for pick up")) {
                     return new ApiResponse<>(HttpStatus.BAD_REQUEST.value(), MSG_NOT_UPDATE_ORDER_CUSTOMER_TO_DELIVERING_FAIL, null);
                 } else {
                     orderCustomerEntity.setOrderStatusId(orderStatusEntity);
                 }
                 break;
             }
-            case "DELIVERED": {
-                if (!currentStatus.equals("DELIVERING")) {
+            case "Delivered": {
+                if (!currentStatus.equals("Delivering")) {
                     return new ApiResponse<>(HttpStatus.BAD_REQUEST.value(), MSG_NOT_UPDATE_ORDER_CUSTOMER_TO_DELIVERED_FAIL, null);
                 } else {
                     orderCustomerEntity.setOrderStatusId(orderStatusEntity);
                 }
                 break;
             }
-            case "CANCELLED": {
-                if (!currentStatus.equals("WAITING_CONFIRM")) {
+            case "Cancelled": {
+                if (!currentStatus.equals("Waiting for confirm")) {
                     return new ApiResponse<>(HttpStatus.BAD_REQUEST.value(), MSG_NOT_UPDATE_ORDER_CUSTOMER_TO_CANCELLED_FAIL, null);
                 } else {
                     orderCustomerEntity.setOrderStatusId(orderStatusEntity);
