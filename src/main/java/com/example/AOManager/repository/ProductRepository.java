@@ -63,7 +63,7 @@ public interface ProductRepository extends JpaRepository<ProductEntity, UUID> {
             "ORDER BY latest_import.max_created_at DESC;", nativeQuery = true)
     Optional<List<ProductEntity>> getNewProductsList();
 
-    @Query(value = "SELECT p.* " +
+    @Query(value = "SELECT * " +
             "FROM product " +
             "WHERE status = true " +
             "ORDER BY sold_quantity DESC " +
