@@ -1,8 +1,6 @@
 package com.example.AOManager.repository;
 
 import com.example.AOManager.entity.ProductEntity;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -54,15 +52,18 @@ public interface ProductRepository extends JpaRepository<ProductEntity, UUID> {
             "OFFSET :page", nativeQuery = true)
     Optional<List<ProductEntity>> getProductsList(int page, int limit, String keyWord);
 
-    @Query(value = "SELECT * " +
+    @Query(value = "SELECT p.* " +
             "FROM product p " +
-            "JOIN import_detail imd ON p.id = imd.product_id " +
+            "INNER JOIN ( " +
+                "SELECT product_id, MAX(created_at) AS max_created_at " +
+                "FROM import_detail " +
+                "GROUP BY product_id " +
+            ") AS latest_import ON p.id = latest_import.product_id " +
             "WHERE p.status = true " +
-            "ORDER BY imd.created_at DESC " +
-            "LIMIT 10", nativeQuery = true)
+            "ORDER BY latest_import.max_created_at DESC;", nativeQuery = true)
     Optional<List<ProductEntity>> getNewProductsList();
 
-    @Query(value = "SELECT * " +
+    @Query(value = "SELECT p.* " +
             "FROM product " +
             "WHERE status = true " +
             "ORDER BY sold_quantity DESC " +

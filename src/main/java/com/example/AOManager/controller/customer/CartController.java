@@ -26,5 +26,5 @@ public class CartController {
     ApiResponse<?> changeQuantity(@RequestBody ChangeQuantityRequest changeQuantityRequest) {return this.cartDetailService.changeQuantity(changeQuantityRequest);}
 
     @DeleteMapping("/{cartDetailId}")
-    ApiResponse<?> deteleCartDetail(@PathVariable String cartDetailId) {return this.cartDetailService.deleteCartDetail(cartDetailId);}
+    ApiResponse<?> deleteCartDetail(@PathVariable String cartDetailId) {return this.cartDetailService.deleteCartDetail(cartDetailId);}
 }
