@@ -8,9 +8,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ApiResponseForList<T> {
-    private long totalResult;
-    private int currentPage;
-    private int totalPage;
-    private int numPerPage;
+    private Long totalResult;
+    private Integer currentPage;
+    private Integer totalPage;
+    private Integer numPerPage;
     private T data;
 }

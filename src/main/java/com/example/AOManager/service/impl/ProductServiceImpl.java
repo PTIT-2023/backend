@@ -8,6 +8,7 @@ import com.example.AOManager.entity.ProductEntity;
 import com.example.AOManager.entity.ProductImageEntity;
 import com.example.AOManager.repository.*;
 import com.example.AOManager.response.ApiResponse;
+import com.example.AOManager.response.ApiResponseForList;
 import com.example.AOManager.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -208,20 +209,24 @@ public class ProductServiceImpl implements ProductService {
         List<ProductDisplayDto> productDisplayDtoList;
         try {
             List<ProductEntity> productEntityList;
+            long total = 0;
             if (CheckInput.isValidUUID(categoryId)) {
+                total = this.productRepository.getProductsListForCustomerWithCategory(UUID.fromString(categoryId), Integer.MAX_VALUE, keyWord).get().size();
                 productEntityList = this.productRepository.getProductsListForCustomerWithCategory(UUID.fromString(categoryId), limit, keyWord).get();
-            } else productEntityList = this.productRepository.getProductsListForCustomerWithoutCategory(limit, keyWord).get();
-
+            } else {
+                total = this.productRepository.getProductsListForCustomerWithCategory(UUID.fromString(categoryId), Integer.MAX_VALUE, keyWord).get().size();
+                productEntityList = this.productRepository.getProductsListForCustomerWithoutCategory(limit, keyWord).get();
+            }
             if(orderByPrice.equals("ASC") && productEntityList.size() > 0) {
                 productEntityList.sort(Comparator.comparingLong(ProductEntity::getCurrentPrice));
             } else if(orderByPrice.equals("DESC") && productEntityList.size() > 0)  {
                 productEntityList.sort((a1, a2) -> -Long.compare(a1.getCurrentPrice(), a2.getCurrentPrice()));
             }
             productDisplayDtoList = productEntityList.stream().map(ProductDisplayDto::new).collect(Collectors.toList());
+            return new ApiResponse<>(HttpStatus.OK.value(), MSG_GET_PRODUCTS_lIST_SUCCESS, new ApiResponseForList<>(total, null, null, null, productDisplayDtoList));
         } catch (Exception e) {
             System.out.println(e);
             return new ApiResponse<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), MSG_GET_PRODUCTS_lIST_FAIL, null);
         }
-        return new ApiResponse<>(HttpStatus.OK.value(), MSG_GET_PRODUCTS_lIST_SUCCESS, productDisplayDtoList);
     }
 }
