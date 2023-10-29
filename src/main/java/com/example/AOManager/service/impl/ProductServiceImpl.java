@@ -214,7 +214,7 @@ public class ProductServiceImpl implements ProductService {
                 total = this.productRepository.getProductsListForCustomerWithCategory(UUID.fromString(categoryId), Integer.MAX_VALUE, keyWord).get().size();
                 productEntityList = this.productRepository.getProductsListForCustomerWithCategory(UUID.fromString(categoryId), limit, keyWord).get();
             } else {
-                total = this.productRepository.getProductsListForCustomerWithCategory(UUID.fromString(categoryId), Integer.MAX_VALUE, keyWord).get().size();
+                total = this.productRepository.getProductsListForCustomerWithoutCategory(Integer.MAX_VALUE, keyWord).get().size();
                 productEntityList = this.productRepository.getProductsListForCustomerWithoutCategory(limit, keyWord).get();
             }
             if(orderByPrice.equals("ASC") && productEntityList.size() > 0) {
