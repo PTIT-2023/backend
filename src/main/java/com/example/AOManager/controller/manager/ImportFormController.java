@@ -22,5 +22,5 @@ public class ImportFormController {
     public ApiResponse<?> getImportFormList(@RequestParam int page, @RequestParam int limit, @RequestParam String keyWord) {return this.importFormService.getImportFormList(page, limit, keyWord);}
 
     @PostMapping
-    public ApiResponse<?> createImportForm(@Validated @RequestBody CreateImportFormRequest createImportFormRequest) {return this.importFormService.createImportForm(createImportFormRequest);}
+    public ApiResponse<?> createImportForm(@RequestBody CreateImportFormRequest createImportFormRequest) {return this.importFormService.createImportForm(createImportFormRequest);}
 }

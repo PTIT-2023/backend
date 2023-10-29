@@ -1,6 +1,7 @@
 package com.example.AOManager.service;
 
 import com.example.AOManager.entity.UsersEntity;
+import com.example.AOManager.payload.request.ChangeInforCustomerRequest;
 import com.example.AOManager.payload.request.ChangePasswordRequest;
 import com.example.AOManager.request.UserRequest;
 import com.example.AOManager.response.ApiResponse;
@@ -24,4 +25,6 @@ public interface UsersService {
     ApiResponse<?> createUser(UserRequest createUserRequest, String role);
 
     ApiResponse<?> updateUser(UserRequest updateUserRequest);
+
+    ApiResponse<?> changeInforCustomer(ChangeInforCustomerRequest changeInforCustomerRequest);
 }

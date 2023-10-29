@@ -24,7 +24,7 @@ public class PriceDetailController {
     ApiResponse<?> getPriceDetailsList(@RequestParam String productId) {return this.priceDetailService.getPriceDetailsList(productId);}
 
     @PostMapping
-    ApiResponse<?> createPriceDetail(@Validated @RequestBody CreatePriceDetailRequest createPriceDetailRequest) {return this.priceDetailService.createPriceDetail(createPriceDetailRequest);}
+    ApiResponse<?> createPriceDetail(@RequestBody CreatePriceDetailRequest createPriceDetailRequest) {return this.priceDetailService.createPriceDetail(createPriceDetailRequest);}
 
     @DeleteMapping("/{id}")
     ApiResponse<?> deletePriceDetail(@PathVariable String id) {return this.priceDetailService.deletePriceDetail(id);}

@@ -20,10 +20,10 @@ public class CartController {
     ApiResponse<?> getCart(@PathVariable String customerId) {return this.cartDetailService.getCart(customerId);}
 
     @PostMapping
-    ApiResponse<?> addToCart(@Validated @RequestBody AddToCartRequest addToCartRequest) {return this.cartDetailService.addToCart(addToCartRequest);}
+    ApiResponse<?> addToCart(@RequestBody AddToCartRequest addToCartRequest) {return this.cartDetailService.addToCart(addToCartRequest);}
 
     @PutMapping
-    ApiResponse<?> changeQuantity(@Validated @RequestBody ChangeQuantityRequest changeQuantityRequest) {return this.cartDetailService.changeQuantity(changeQuantityRequest);}
+    ApiResponse<?> changeQuantity(@RequestBody ChangeQuantityRequest changeQuantityRequest) {return this.cartDetailService.changeQuantity(changeQuantityRequest);}
 
     @DeleteMapping("/{cartDetailId}")
     ApiResponse<?> deteleCartDetail(@PathVariable String cartDetailId) {return this.cartDetailService.deleteCartDetail(cartDetailId);}

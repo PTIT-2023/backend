@@ -22,7 +22,7 @@ public class OrderSupplierController {
     public ApiResponse<?> getOrderSupplierList(@RequestParam String status, @RequestParam int page, @RequestParam int limit, @RequestParam String keyWord) {return this.orderSupplierService.getOrderSupplierList(status, page, limit, keyWord);}
 
     @PostMapping
-    public ApiResponse<?> createOrderSupplier(@Validated @RequestBody CreateOrderSupplierRequest createOrderSupplierRequest) {return this.orderSupplierService.createOrderSupplier(createOrderSupplierRequest);}
+    public ApiResponse<?> createOrderSupplier(@RequestBody CreateOrderSupplierRequest createOrderSupplierRequest) {return this.orderSupplierService.createOrderSupplier(createOrderSupplierRequest);}
 
     @PutMapping("/{id}")
     public ApiResponse<?> cancelOrderSupplier(@PathVariable String id) {return this.orderSupplierService.cancelOrderSupplier(id);}

@@ -47,10 +47,10 @@ public class ProductController {
     }
 
     @PostMapping
-    public ApiResponse<?> createProduct(@Validated @RequestBody ProductDto productDto) {return this.productService.createProduct(productDto);}
+    public ApiResponse<?> createProduct(@RequestBody ProductDto productDto) {return this.productService.createProduct(productDto);}
 
     @PutMapping()
-    public ApiResponse<?> updateProduct(@Validated @RequestBody ProductDto productDto) {return this.productService.updateProduct(productDto);}
+    public ApiResponse<?> updateProduct(@RequestBody ProductDto productDto) {return this.productService.updateProduct(productDto);}
 
     @DeleteMapping("/{id}")
     public ApiResponse<?> deleteProduct(@PathVariable String id) {return this.productService.deleteProduct(id);}

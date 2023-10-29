@@ -36,7 +36,7 @@ public class CheckInput {
         }
     }
 
-    public static boolean isDateValid(long timestamp) {
+    public static boolean isValidDate(long timestamp) {
         try {
             Instant instant = Instant.ofEpochMilli(timestamp);
             LocalDate date = instant.atZone(ZoneId.systemDefault()).toLocalDate();
@@ -78,5 +78,33 @@ public class CheckInput {
 
     public static boolean checkInventoryQuantityForCart(ProductEntity productEntity, int quantity) {
         return  quantity > productEntity.getInventoryQuantity() ? false : true;
+    }
+
+    public static boolean isValidName(String name) {
+        // Tên không được là null
+        if (name == null) {
+            return false;
+        }
+        // Tên không được rỗng
+        if (name.trim().isEmpty()) {
+            return false;
+        }
+        // Tên chỉ chứa các ký tự chữ cái và dấu cách
+        if (!name.matches("^[a-zA-Z ]+$")) {
+            return false;
+        }
+        // Nếu tất cả các điều kiện trên được thỏa mãn, tên được coi là hợp lệ
+        return true;
+    }
+
+    public static boolean isValidPhoneNumber(String phoneNumber) {
+        // Định dạng số điện thoại theo regex
+        String regex = "^(\\+\\d{1,3}[- ]?)?\\d{10}$";
+        // Biên dịch regex
+        Pattern pattern = Pattern.compile(regex);
+        // So khớp số điện thoại với regex
+        Matcher matcher = pattern.matcher(phoneNumber);
+        // Kiểm tra xem số điện thoại có khớp với định dạng không
+        return matcher.matches();
     }
 }

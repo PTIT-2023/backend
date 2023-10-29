@@ -1,10 +1,13 @@
 package com.example.AOManager.service.impl;
 
+import com.example.AOManager.common.CheckInput;
+import com.example.AOManager.common.Function;
 import com.example.AOManager.dto.manager.CustomerDisplayDto;
 import com.example.AOManager.dto.manager.EmployeeDisplayDto;
 import com.example.AOManager.dto.manager.UsersDto;
 import com.example.AOManager.entity.UserRoleEntity;
 import com.example.AOManager.entity.UsersEntity;
+import com.example.AOManager.payload.request.ChangeInforCustomerRequest;
 import com.example.AOManager.payload.request.ChangePasswordRequest;
 import com.example.AOManager.repository.RoleRepository;
 import com.example.AOManager.repository.UserRoleRepository;
@@ -188,6 +191,28 @@ public class UsersServiceImpl implements UsersService {
         } catch (Exception e) {
             System.out.println(e);
             return new ApiResponse<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), MSG_UPDATE_USER_FAIL, null);
+        }
+    }
+
+    @Override
+    public ApiResponse<?> changeInforCustomer(ChangeInforCustomerRequest request) {
+        if (!CheckInput.isValidName(request.getFirstName()) || !CheckInput.isValidName(request.getLastName())
+        || !CheckInput.isValidDate(request.getBirthday()) || !CheckInput.isValidPhoneNumber(request.getPhone())) {
+            return new ApiResponse<>(HttpStatus.BAD_REQUEST.value(), MSG_BAD_REQUEST, null);
+        }
+        try {
+            UsersEntity customer = this.usersRepository.findById(UUID.fromString(request.getCustomerId())).get();
+            customer.setFirstName(Function.normalizeName(request.getFirstName()));
+            customer.setLastName(Function.normalizeName(request.getLastName()));
+            customer.setGender(request.getGender());
+            customer.setBirthday(request.getBirthday());
+            customer.setPhone(request.getPhone());
+            customer.setAddress(request.getAddress());
+            this.usersRepository.save(customer);
+            return new ApiResponse<>(HttpStatus.OK.value(), MSG_UPDATE_SUCCESS, null);
+        } catch (Exception e) {
+            System.out.println(e);
+            return new ApiResponse<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), MSG_UPDATE_FAIL, null);
         }
     }
 }

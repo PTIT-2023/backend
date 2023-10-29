@@ -22,8 +22,8 @@ public class ManagerController {
     public ApiResponse<?> getManagerList(@RequestParam String roleId, @RequestParam int page, @RequestParam int limit, @RequestParam String keyWord) {return this.usersService.getManagerList(roleId, page, limit, keyWord);}
 
     @PostMapping
-    public ApiResponse<?> createManager(@Validated @RequestBody UserRequest createUserRequest) {return this.usersService.createUser(createUserRequest, "ROLE_MANAGER");}
+    public ApiResponse<?> createManager(@RequestBody UserRequest createUserRequest) {return this.usersService.createUser(createUserRequest, "ROLE_MANAGER");}
 
     @PutMapping
-    public ApiResponse<?> updateManager(@Validated @RequestBody UserRequest updateUserRequest) {return this.usersService.updateUser(updateUserRequest);}
+    public ApiResponse<?> updateManager(@RequestBody UserRequest updateUserRequest) {return this.usersService.updateUser(updateUserRequest);}
 }

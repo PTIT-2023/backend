@@ -27,7 +27,7 @@ public class AuthController {
     public ApiResponse authenticateEmployee(@Valid @RequestBody LoginRequest loginRequest) {return this.authService.sigin(loginRequest);}
 
     @PostMapping("/signup")
-    public ApiResponse<?> registEmployee(@Validated @RequestBody UserSignupRequest signupRequest) {return this.authService.signup(signupRequest);}
+    public ApiResponse<?> registEmployee(@RequestBody UserSignupRequest signupRequest) {return this.authService.signup(signupRequest);}
 
     @PutMapping("/change-password")
     ApiResponse<?> changePasswordCustomer(@Valid @RequestBody ChangePasswordRequest changePasswordRequest) {return this.authService.changePassword(changePasswordRequest);}
