@@ -11,4 +11,6 @@ public interface OrderCustomerService {
     ApiResponse<?> updateStatusForOrderCustomer(String orderStatusIdTo, String id);
 
     ApiResponse<?> getOrdersListForCustomerByStatusId(String orderStatusId, int limit);
+
+    ApiResponse<?> cancelOrder(String orderCustomerId);
 }

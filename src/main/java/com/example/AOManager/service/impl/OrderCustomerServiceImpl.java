@@ -8,8 +8,10 @@ import com.example.AOManager.dto.manager.RoleDto;
 import com.example.AOManager.entity.CartDetailEntity;
 import com.example.AOManager.entity.OrderCustomerEntity;
 import com.example.AOManager.entity.OrderStatusEntity;
+import com.example.AOManager.entity.ProductEntity;
 import com.example.AOManager.repository.OrderCustomerRepository;
 import com.example.AOManager.repository.OrderStatusRepository;
+import com.example.AOManager.repository.ProductRepository;
 import com.example.AOManager.response.ApiResponse;
 import com.example.AOManager.response.ApiResponseForList;
 import com.example.AOManager.service.OrderCustomerService;
@@ -32,6 +34,9 @@ public class OrderCustomerServiceImpl implements OrderCustomerService {
 
     @Autowired
     OrderStatusRepository orderStatusRepository;
+
+    @Autowired
+    ProductRepository productRepository;
 
     @Override
     public ApiResponse<?> getOrderCustomer(String id) {
@@ -188,6 +193,26 @@ public class OrderCustomerServiceImpl implements OrderCustomerService {
         } catch (Exception e) {
             System.out.println(e);
             return new ApiResponse<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), MSG_GET_ORDER_CUSTOMER_LIST_FAIL, null);
+        }
+    }
+
+    @Override
+    public ApiResponse<?> cancelOrder(String orderCustomerId) {
+        try {
+            OrderStatusEntity orderStatusEntity = this.orderStatusRepository.findByName("Cancelled").get();
+            OrderCustomerEntity orderCustomerEntity = this.orderCustomerRepository.findById(UUID.fromString(orderCustomerId)).get();
+            orderCustomerEntity.setOrderStatusId(orderStatusEntity);
+            this.orderCustomerRepository.save(orderCustomerEntity);
+            List<CartDetailEntity> cartDetailEntityList = orderCustomerEntity.getCartDetailList();
+            for (CartDetailEntity cartDetailEntity : cartDetailEntityList) {
+                ProductEntity productEntity = cartDetailEntity.getProductId();
+                productEntity.setInventoryQuantity(productEntity.getInventoryQuantity() + cartDetailEntity.getQuantity());
+                this.productRepository.save(productEntity);
+            }
+            return new ApiResponse<>(HttpStatus.OK.value(), MSG_SUCCESS_PROCESSING, null);
+        } catch (Exception e) {
+            System.out.println(e);
+            return new ApiResponse<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), MSG_ERROR_PROCESSING, null);
         }
     }
 }

@@ -18,4 +18,7 @@ public class OrderController {
 
     @GetMapping("/{orderCustomerId}")
     ApiResponse<?> getOrderDetail(@PathVariable String orderCustomerId) {return this.orderCustomerService.getOrderCustomer(orderCustomerId);}
+
+    @PostMapping("/{orderCustomerId}")
+    ApiResponse<?> cancelOrder(@PathVariable String orderCustomerId) {return this.orderCustomerService.cancelOrder(orderCustomerId);}
 }
