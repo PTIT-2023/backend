@@ -192,9 +192,11 @@ public class OrderCustomerServiceImpl implements OrderCustomerService {
     public ApiResponse<?> getOrdersListForCustomerByStatusId(String orderStatusId, int limit) {
         List<OneOfOrderListDisplayDto> ordersDisplayList;
         try {
-            List<OrderCustomerEntity> orderCustomerEntityList = this.orderCustomerRepository.getOrdersListForCustomerByStatusId(UUID.fromString(orderStatusId), limit).get();
+            List<OrderCustomerEntity> orderCustomerEntityList = this.orderCustomerRepository.getOrdersListForCustomerByStatusId(UUID.fromString(orderStatusId)).get();
+            long total = orderCustomerEntityList.size();
+            orderCustomerEntityList = orderCustomerEntityList.subList(0, Math.min(limit, orderCustomerEntityList.size()));
             ordersDisplayList = orderCustomerEntityList.stream().map(OneOfOrderListDisplayDto::new).collect(Collectors.toList());
-            return new ApiResponse<>(HttpStatus.OK.value(), MSG_GET_ORDER_CUSTOMER_LIST_SUCCESS, ordersDisplayList);
+            return new ApiResponse<>(HttpStatus.OK.value(), MSG_GET_ORDER_CUSTOMER_LIST_SUCCESS, new ApiResponseForList<>(total, null, null, null, ordersDisplayList));
         } catch (Exception e) {
             System.out.println(e);
             return new ApiResponse<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), MSG_GET_ORDER_CUSTOMER_LIST_FAIL, null);

@@ -16,8 +16,8 @@ public class CartController {
     @Autowired
     CartDetailService cartDetailService;
 
-    @GetMapping("/{customerId}")
-    ApiResponse<?> getCart(@PathVariable String customerId) {return this.cartDetailService.getCart(customerId);}
+    @GetMapping
+    ApiResponse<?> getCart(@RequestParam String customerId) {return this.cartDetailService.getCart(customerId);}
 
     @PostMapping
     ApiResponse<?> addToCart(@RequestBody AddToCartRequest addToCartRequest) {return this.cartDetailService.addToCart(addToCartRequest);}

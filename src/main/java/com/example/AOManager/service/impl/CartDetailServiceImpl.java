@@ -11,8 +11,10 @@ import com.example.AOManager.repository.CartDetailRepository;
 import com.example.AOManager.repository.ProductRepository;
 import com.example.AOManager.repository.UsersRepository;
 import com.example.AOManager.response.ApiResponse;
+import com.example.AOManager.response.ApiResponseForList;
 import com.example.AOManager.service.CartDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -39,7 +41,7 @@ public class CartDetailServiceImpl implements CartDetailService {
     public ApiResponse<?> getCart(String customerId) {
         List<ProductOfCartDisplayDto> productsList = new ArrayList<>();
         try {
-            List<CartDetailEntity> cartDetailEntityList = this.cartDetailRepository.findByCustomerId_Id(UUID.fromString(customerId)).get();
+            List<CartDetailEntity> cartDetailEntityList  = this.cartDetailRepository.findByCustomerId_Id(UUID.fromString(customerId)).get();
             cartDetailEntityList = cartDetailEntityList.stream()
                     .filter(cartDetail -> cartDetail.getOrderCustomerId() == null)
                     .collect(Collectors.toList());

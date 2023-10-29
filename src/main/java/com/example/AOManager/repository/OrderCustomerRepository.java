@@ -43,7 +43,6 @@ public interface OrderCustomerRepository extends JpaRepository<OrderCustomerEnti
             "FROM order_customer oc " +
             "JOIN order_status os ON oc.order_status_id = os.id " +
             "WHERE os.id = :orderStatusId " +
-            "ORDER BY order_date DESC " +
-            "LIMIT :limit", nativeQuery = true)
-    Optional<List<OrderCustomerEntity>> getOrdersListForCustomerByStatusId(UUID orderStatusId, int limit);
+            "ORDER BY order_date DESC", nativeQuery = true)
+    Optional<List<OrderCustomerEntity>> getOrdersListForCustomerByStatusId(UUID orderStatusId);
 }

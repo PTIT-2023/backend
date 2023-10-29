@@ -209,19 +209,20 @@ public class ProductServiceImpl implements ProductService {
         List<ProductDisplayDto> productDisplayDtoList;
         try {
             List<ProductEntity> productEntityList;
-            long total = 0;
+            long total;
             if (CheckInput.isValidUUID(categoryId)) {
-                total = this.productRepository.getProductsListForCustomerWithCategory(UUID.fromString(categoryId), Integer.MAX_VALUE, keyWord).get().size();
-                productEntityList = this.productRepository.getProductsListForCustomerWithCategory(UUID.fromString(categoryId), limit, keyWord).get();
+                productEntityList = this.productRepository.getProductsListForCustomerWithCategory(UUID.fromString(categoryId), keyWord).get();
             } else {
-                total = this.productRepository.getProductsListForCustomerWithoutCategory(Integer.MAX_VALUE, keyWord).get().size();
-                productEntityList = this.productRepository.getProductsListForCustomerWithoutCategory(limit, keyWord).get();
+                productEntityList = this.productRepository.getProductsListForCustomerWithoutCategory(keyWord).get();
             }
+            productEntityList = Function.removeProductWithNoPrice(productEntityList);
             if(orderByPrice.equals("ASC") && productEntityList.size() > 0) {
                 productEntityList.sort(Comparator.comparingLong(ProductEntity::getCurrentPrice));
             } else if(orderByPrice.equals("DESC") && productEntityList.size() > 0)  {
                 productEntityList.sort((a1, a2) -> -Long.compare(a1.getCurrentPrice(), a2.getCurrentPrice()));
             }
+            total = productEntityList.size();
+            productEntityList = productEntityList.subList(0, Math.min(limit, productEntityList.size()));
             productDisplayDtoList = productEntityList.stream().map(ProductDisplayDto::new).collect(Collectors.toList());
             return new ApiResponse<>(HttpStatus.OK.value(), MSG_GET_PRODUCTS_lIST_SUCCESS, new ApiResponseForList<>(total, null, null, null, productDisplayDtoList));
         } catch (Exception e) {

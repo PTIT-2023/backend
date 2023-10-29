@@ -76,9 +76,8 @@ public interface ProductRepository extends JpaRepository<ProductEntity, UUID> {
             "WHERE (:categoryId IS NULL OR (c.id = :categoryId)) AND p.status = true AND (1<>1 " +
             "OR CAST(p.description AS text) ILIKE CONCAT('%', :keyWord, '%') " +
             "OR CAST(p.name AS text) ILIKE CONCAT('%', :keyWord, '%')) " +
-            "ORDER BY p.sold_quantity DESC " +
-            "LIMIT :limit", nativeQuery = true)
-    Optional<List<ProductEntity>> getProductsListForCustomerWithCategory(UUID categoryId, int limit, String keyWord);
+            "ORDER BY p.sold_quantity DESC ", nativeQuery = true)
+    Optional<List<ProductEntity>> getProductsListForCustomerWithCategory(UUID categoryId, String keyWord);
 
     @Query(value = "SELECT p.* " +
             "FROM product p " +
@@ -86,7 +85,6 @@ public interface ProductRepository extends JpaRepository<ProductEntity, UUID> {
             "WHERE p.status = true AND (1<>1 " +
             "OR CAST(p.description AS text) ILIKE CONCAT('%', :keyWord, '%') " +
             "OR CAST(p.name AS text) ILIKE CONCAT('%', :keyWord, '%')) " +
-            "ORDER BY p.sold_quantity DESC " +
-            "LIMIT :limit", nativeQuery = true)
-    Optional<List<ProductEntity>> getProductsListForCustomerWithoutCategory(int limit, String keyWord);
+            "ORDER BY p.sold_quantity DESC ", nativeQuery = true)
+    Optional<List<ProductEntity>> getProductsListForCustomerWithoutCategory(String keyWord);
 }
