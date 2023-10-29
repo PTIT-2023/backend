@@ -1,5 +1,6 @@
 package com.example.AOManager.controller.customer;
 
+import com.example.AOManager.payload.request.DoOrderRequest;
 import com.example.AOManager.response.ApiResponse;
 import com.example.AOManager.service.OrderCustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,9 @@ public class OrderController {
     @GetMapping("/{orderCustomerId}")
     ApiResponse<?> getOrderDetail(@PathVariable String orderCustomerId) {return this.orderCustomerService.getOrderCustomer(orderCustomerId);}
 
-    @PostMapping("/{orderCustomerId}")
+    @PostMapping
+    ApiResponse<?> doOrder(@RequestBody DoOrderRequest doOrderRequest) {return this.orderCustomerService.doOrder(doOrderRequest);}
+
+    @PutMapping("/{orderCustomerId}")
     ApiResponse<?> cancelOrder(@PathVariable String orderCustomerId) {return this.orderCustomerService.cancelOrder(orderCustomerId);}
 }

@@ -13,16 +13,16 @@ import java.util.regex.Pattern;
 
 public class CheckInput {
 
-    private static final String EMAIL_PATTERN =
-            "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
-                    + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
-
-    private static final Pattern pattern = Pattern.compile(EMAIL_PATTERN);
     public static boolean stringIsNullOrEmpty (String string) {
         return null == string || string.equals("");
     }
 
-    public static boolean isEmail(String string) {
+    public static boolean isValidEmail(String string) {
+        String EMAIL_PATTERN =
+                "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
+                        + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
+
+        Pattern pattern = Pattern.compile(EMAIL_PATTERN);
         Matcher matcher = pattern.matcher(string);
         return matcher.matches();
     }

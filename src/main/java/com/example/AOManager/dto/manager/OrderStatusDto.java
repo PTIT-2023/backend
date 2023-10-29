@@ -19,8 +19,4 @@ public class OrderStatusDto {
         this.id = orderStatusEntity.getId().toString();
         this.name = orderStatusEntity.getName();
     }
-
-    public OrderStatusEntity toEntity() {
-        return new OrderStatusEntity(UUID.fromString(this.getId()), this.getName(), null);
-    }
 }

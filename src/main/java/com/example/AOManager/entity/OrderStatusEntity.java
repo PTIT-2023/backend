@@ -24,6 +24,9 @@ public class OrderStatusEntity {
     @Basic(optional = false)
     @Column(name = "name")
     private String name;
+    @Basic(optional = false)
+    @Column(name = "num_order")
+    private String numOrder;
     @OneToMany(cascade = CascadeType.REFRESH, mappedBy = "orderStatusId")
     private List<OrderCustomerEntity> orderCustomerList;
 }

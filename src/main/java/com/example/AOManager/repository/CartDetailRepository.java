@@ -22,5 +22,13 @@ public interface CartDetailRepository extends JpaRepository<CartDetailEntity, UU
             "WHERE order_customer_id IS NULL " +
             "AND u.id = :customerId " +
             "AND p.id = :productId", nativeQuery = true)
-    Optional<List<CartDetailEntity>> findCartDetailsList(UUID customerId, UUID productId);
+    Optional<List<CartDetailEntity>> getCartDetailsListToAddToCart(UUID customerId, UUID productId);
+
+    @Query(value = "SELECT cd.* " +
+            "FROM cart_detail cd " +
+            "JOIN users u ON cd.customer_id = u.id " +
+            "JOIN product p ON cd.product_id = p.id " +
+            "WHERE order_customer_id IS NULL " +
+            "AND u.id = :customerId", nativeQuery = true)
+    Optional<List<CartDetailEntity>> getCartDetailsListToOrder(UUID customerId);
 }

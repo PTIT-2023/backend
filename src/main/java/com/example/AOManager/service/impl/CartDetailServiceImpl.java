@@ -69,7 +69,7 @@ public class CartDetailServiceImpl implements CartDetailService {
     @Override
     public ApiResponse<?> addToCart(AddToCartRequest addToCartRequest) {
         try {
-            List<CartDetailEntity> cartDetailEntityList = this.cartDetailRepository.findCartDetailsList(UUID.fromString(addToCartRequest.getCustomerId()), UUID.fromString(addToCartRequest.getProductId())).get();
+            List<CartDetailEntity> cartDetailEntityList = this.cartDetailRepository.getCartDetailsListToAddToCart(UUID.fromString(addToCartRequest.getCustomerId()), UUID.fromString(addToCartRequest.getProductId())).get();
             if(cartDetailEntityList.size() == 0) {
                 UsersEntity customer = this.usersRepository.findById(UUID.fromString(addToCartRequest.getCustomerId())).get();
                 ProductEntity product = this.productRepository.findById(UUID.fromString(addToCartRequest.getProductId())).get();

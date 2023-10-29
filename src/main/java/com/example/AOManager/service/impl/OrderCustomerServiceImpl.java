@@ -9,9 +9,8 @@ import com.example.AOManager.entity.CartDetailEntity;
 import com.example.AOManager.entity.OrderCustomerEntity;
 import com.example.AOManager.entity.OrderStatusEntity;
 import com.example.AOManager.entity.ProductEntity;
-import com.example.AOManager.repository.OrderCustomerRepository;
-import com.example.AOManager.repository.OrderStatusRepository;
-import com.example.AOManager.repository.ProductRepository;
+import com.example.AOManager.payload.request.DoOrderRequest;
+import com.example.AOManager.repository.*;
 import com.example.AOManager.response.ApiResponse;
 import com.example.AOManager.response.ApiResponseForList;
 import com.example.AOManager.service.OrderCustomerService;
@@ -37,6 +36,12 @@ public class OrderCustomerServiceImpl implements OrderCustomerService {
 
     @Autowired
     ProductRepository productRepository;
+
+    @Autowired
+    UsersRepository usersRepository;
+
+    @Autowired
+    CartDetailRepository cartDetailRepository;
 
     @Override
     public ApiResponse<?> getOrderCustomer(String id) {
@@ -193,6 +198,40 @@ public class OrderCustomerServiceImpl implements OrderCustomerService {
         } catch (Exception e) {
             System.out.println(e);
             return new ApiResponse<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), MSG_GET_ORDER_CUSTOMER_LIST_FAIL, null);
+        }
+    }
+
+    @Override
+    public ApiResponse<?> doOrder(DoOrderRequest request) {
+        if (!CheckInput.isValidName(request.getDeliveryName())
+        || !CheckInput.isValidEmail(request.getDeliveryEmail())
+        || !CheckInput.isValidPhoneNumber(request.getDeliveryPhone())) {
+            return new ApiResponse<>(HttpStatus.BAD_REQUEST.value(), MSG_BAD_REQUEST, null);
+        }
+        try {
+            OrderCustomerEntity orderCustomerEntity = new OrderCustomerEntity();
+            orderCustomerEntity.setDeliveryAddress(request.getDeliveryAddress());
+            orderCustomerEntity.setDeliveryDate(request.getDeliveryDate());
+            orderCustomerEntity.setDeliveryEmail(request.getDeliveryEmail());
+            orderCustomerEntity.setDeliveryName(Function.normalizeName(request.getDeliveryName()));
+            orderCustomerEntity.setDeliveryPhone(request.getDeliveryPhone());
+            orderCustomerEntity.setOrderDate(request.getOrderDate());
+            orderCustomerEntity.setTotalPrice(request.getTotalPrice());
+            orderCustomerEntity.setApproveEmployeeId(null);
+            orderCustomerEntity.setDeliveryEmployeeId(null);
+            orderCustomerEntity.setCancelEmployeeId(null);
+            orderCustomerEntity.setCustomerId(this.usersRepository.findById(UUID.fromString(request.getCustomerId())).get());
+            orderCustomerEntity.setOrderStatusId(this.orderStatusRepository.findByName("Waiting for confirm").get());
+            OrderCustomerEntity orderCustomerSaved = this.orderCustomerRepository.save(orderCustomerEntity);
+            List<CartDetailEntity> cartDetailEntityList = this.cartDetailRepository.getCartDetailsListToOrder(UUID.fromString(request.getCustomerId())).get();
+            for (CartDetailEntity cartDetailEntity : cartDetailEntityList) {
+                cartDetailEntity.setOrderCustomerId(orderCustomerSaved);
+                this.cartDetailRepository.save(cartDetailEntity);
+            }
+            return new ApiResponse<>(HttpStatus.OK.value(), MSG_DO_ORDER_SUCCESS, null);
+        } catch (Exception e) {
+            System.out.println(e);
+            return new ApiResponse<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), MSG_DO_ORDER_FAIL, null);
         }
     }
 

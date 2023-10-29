@@ -100,4 +100,6 @@ public final class Message {
     public static final String MSG_ADD_TO_CART_SUCCESS = "Adding product to card successfully!";
     public static final String MSG_INVENTORY_NOT_ENOUGH = "Inventory quantity is not enough, ";
     public static final String MSG_CAN_NOT_ADD_TO_CART_BECAUSE_QUANTITY = "Cannot add to cart because inventory is not enough!";
+    public static final String MSG_DO_ORDER_FAIL = "There was an error while ordering!";
+    public static final String MSG_DO_ORDER_SUCCESS = "Ordering successfully!";
 }
