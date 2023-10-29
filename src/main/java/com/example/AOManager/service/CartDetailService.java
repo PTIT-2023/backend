@@ -10,4 +10,6 @@ public interface CartDetailService {
     ApiResponse<?> changeQuantity(ChangeQuantityRequest changeQuantityRequest);
 
     ApiResponse<?> addToCart(AddToCartRequest addToCartRequest);
+
+    ApiResponse<?> deleteCartDetail(String cartDetailId);
 }

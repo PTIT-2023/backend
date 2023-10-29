@@ -97,4 +97,15 @@ public class CartDetailServiceImpl implements CartDetailService {
             return new ApiResponse<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), MSG_ADD_TO_CART_FAIL, null);
         }
     }
+
+    @Override
+    public ApiResponse<?> deleteCartDetail(String cartDetailId) {
+        try {
+            this.cartDetailRepository.deleteById(UUID.fromString(cartDetailId));
+            return new ApiResponse<>(HttpStatus.OK.value(), MSG_SUCCESS_PROCESSING, null);
+        } catch (Exception e) {
+            System.out.println(e);
+            return new ApiResponse<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), MSG_ERROR_PROCESSING, null);
+        }
+    }
 }
