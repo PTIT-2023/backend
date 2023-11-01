@@ -201,7 +201,7 @@ public class UsersServiceImpl implements UsersService {
             return new ApiResponse<>(HttpStatus.BAD_REQUEST.value(), MSG_BAD_REQUEST, null);
         }
         try {
-            UsersEntity customer = this.usersRepository.findById(UUID.fromString(request.getCustomerId())).get();
+            UsersEntity customer = this.usersRepository.findById(UUID.fromString(request.getId())).get();
             customer.setFirstName(Function.normalizeName(request.getFirstName()));
             customer.setLastName(Function.normalizeName(request.getLastName()));
             customer.setGender(request.getGender());

@@ -11,7 +11,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class ChangeInforCustomerRequest {
 
-    private String customerId;
+    private String id;
     private String firstName;
     private String lastName;
     private String gender;
