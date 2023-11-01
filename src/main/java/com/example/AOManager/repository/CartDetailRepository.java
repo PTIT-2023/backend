@@ -5,6 +5,7 @@ import com.example.AOManager.entity.ProductEntity;
 import com.example.AOManager.entity.UsersEntity;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -16,7 +17,7 @@ import java.util.UUID;
 public interface CartDetailRepository extends JpaRepository<CartDetailEntity, UUID> {
 
     boolean existsByProductId_Id(UUID id);
-    Optional<List<CartDetailEntity>> findByCustomerId_Id(UUID id);
+    Optional<List<CartDetailEntity>> findByCustomerId_Id(UUID id, Sort sort);
     @Query(value = "SELECT cd.* " +
             "FROM cart_detail cd " +
             "JOIN users u ON cd.customer_id = u.id " +

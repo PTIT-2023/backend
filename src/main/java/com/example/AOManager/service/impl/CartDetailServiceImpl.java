@@ -15,6 +15,7 @@ import com.example.AOManager.response.ApiResponseForList;
 import com.example.AOManager.service.CartDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -41,12 +42,21 @@ public class CartDetailServiceImpl implements CartDetailService {
     public ApiResponse<?> getCart(String customerId) {
         List<ProductOfCartDisplayDto> productsList = new ArrayList<>();
         try {
-            List<CartDetailEntity> cartDetailEntityList  = this.cartDetailRepository.findByCustomerId_Id(UUID.fromString(customerId)).get();
+            List<CartDetailEntity> cartDetailEntityList  = this.cartDetailRepository.findByCustomerId_Id(UUID.fromString(customerId), Sort.by(Sort.Order.desc("createdAt"))).get();
             cartDetailEntityList = cartDetailEntityList.stream()
                     .filter(cartDetail -> cartDetail.getOrderCustomerId() == null)
                     .collect(Collectors.toList());
             for (CartDetailEntity cartDetailEntity : cartDetailEntityList) {
-                productsList.add(new ProductOfCartDisplayDto(cartDetailEntity));
+                if (false == cartDetailEntity.getProductId().getStatus()) {
+                    this.cartDetailRepository.delete(cartDetailEntity);
+                } else {
+                    long currentPrice = cartDetailEntity.getProductId().getCurrentPrice();
+                    if (cartDetailEntity.getPrice() != currentPrice) {
+                        cartDetailEntity.setPrice(currentPrice);
+                        this.cartDetailRepository.save(cartDetailEntity);
+                    }
+                    productsList.add(new ProductOfCartDisplayDto(cartDetailEntity));
+                }
             }
             return new ApiResponse<>(HttpStatus.OK.value(), MSG_GET_PRODUCTS_lIST_SUCCESS, productsList);
         } catch (Exception e) {

@@ -96,8 +96,8 @@ public final class Message {
     public static final String MSG_TOKEN_EXPIRED = "Fail to reset password because Token has expired!";
     public static final String MSG_RESET_PASSWORD_SUCCESS = "Reset password successfully!";
     public static final String MSG_CANT_NOT_IMPORT_ZERO_QUANTITY = "Cannot import goods with a product quantity of 0!";
-    public static final String MSG_ADD_TO_CART_FAIL = "Fail to add product to card!";
-    public static final String MSG_ADD_TO_CART_SUCCESS = "Adding product to card successfully!";
+    public static final String MSG_ADD_TO_CART_FAIL = "Fail to add product to cart!";
+    public static final String MSG_ADD_TO_CART_SUCCESS = "Adding product to cart successfully!";
     public static final String MSG_INVENTORY_NOT_ENOUGH = "Inventory quantity is not enough, ";
     public static final String MSG_CAN_NOT_ADD_TO_CART_BECAUSE_QUANTITY = "Cannot add to cart because inventory is not enough!";
     public static final String MSG_DO_ORDER_FAIL = "There was an error while ordering!";
