@@ -86,7 +86,7 @@ public class CartDetailServiceImpl implements CartDetailService {
                 UsersEntity customer = this.usersRepository.findById(UUID.fromString(addToCartRequest.getCustomerId())).get();
                 ProductEntity product = this.productRepository.findById(UUID.fromString(addToCartRequest.getProductId())).get();
                 if (!CheckInput.checkInventoryQuantityForCart(product, addToCartRequest.getQuantity())) {
-                    return new ApiResponse<>(HttpStatus.BAD_REQUEST.value(), MSG_CAN_NOT_ADD_TO_CART_BECAUSE_QUANTITY, null);
+                    return new ApiResponse<>(HttpStatus.BAD_REQUEST.value(), MSG_CAN_NOT_ADD_TO_CART_BECAUSE_QUANTITY_1, null);
                 }
                 CartDetailEntity newCartDetailEntity = new CartDetailEntity();
                 newCartDetailEntity.setQuantity(addToCartRequest.getQuantity());
@@ -98,7 +98,7 @@ public class CartDetailServiceImpl implements CartDetailService {
                 CartDetailEntity cartDetailEntity = cartDetailEntityList.get(0);
                 int quantity = cartDetailEntity.getQuantity() + addToCartRequest.getQuantity();
                 if (!CheckInput.checkInventoryQuantityForCart(cartDetailEntity.getProductId(), quantity)) {
-                    return new ApiResponse<>(HttpStatus.BAD_REQUEST.value(), MSG_CAN_NOT_ADD_TO_CART_BECAUSE_QUANTITY, null);
+                    return new ApiResponse<>(HttpStatus.BAD_REQUEST.value(), MSG_CAN_NOT_ADD_TO_CART_BECAUSE_QUANTITY_2 + cartDetailEntity.getQuantity(), null);
                 }
                 cartDetailEntity.setQuantity(quantity);
                 this.cartDetailRepository.save(cartDetailEntity);
