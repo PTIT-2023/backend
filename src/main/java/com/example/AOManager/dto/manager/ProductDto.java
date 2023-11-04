@@ -25,8 +25,8 @@ public class ProductDto {
     private String reproductionMethod;
     private String foodType;
     private Double maxSize;
-    private Integer inventoryQuantity;
-    private Integer soldQuantity;
+    private int inventoryQuantity;
+    private int soldQuantity;
     private Boolean status;
     private String categoryId;
     private String categoryName;
@@ -46,8 +46,8 @@ public class ProductDto {
         this.reproductionMethod = productEntity.getReproductionMethod();
         this.foodType = productEntity.getFoodType();
         this.maxSize = productEntity.getMaxSize();
-        this.inventoryQuantity = productEntity.getInventoryQuantity();
-        this.soldQuantity = productEntity.getSoldQuantity();
+        this.inventoryQuantity = productEntity.getInventoryQuantity() != null ? productEntity.getInventoryQuantity() : 0;
+        this.soldQuantity = productEntity.getSoldQuantity() != null ? productEntity.getSoldQuantity() : 0;
         this.status = productEntity.getStatus();
         this.categoryId = productEntity.getCategoryId().getId().toString();
         this.categoryName = productEntity.getCategoryId().getName();
