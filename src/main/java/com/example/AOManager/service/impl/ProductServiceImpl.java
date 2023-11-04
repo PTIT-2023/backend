@@ -137,21 +137,22 @@ public class ProductServiceImpl implements ProductService {
             }
             productEntityAft.setStatus(productDto.getStatus());
             productEntityAft.setCategoryId(this.categoryRepository.findById(UUID.fromString(productDto.getCategoryId())).get());
-            ProductEntity productEntityUpdated = this.productRepository.save(productEntityAft);
-            List<ProductImageEntity> listDelete = this.productImageRepository.findByProductId_Id(productEntityUpdated.getId()).get();
-            this.productImageRepository.deleteAll(listDelete);
-            System.out.println(listDelete);
-            for (String productImage : productDto.getImageList()) {
-                ProductImageEntity productImageEntity = new ProductImageEntity();
-                productImageEntity.setUrl(productImage);
-                productImageEntity.setProductId(productEntityUpdated);
-                try {
-                    this.productImageRepository.save(productImageEntity);
-                } catch (Exception e) {
-                    System.out.println(e);
-                    return new ApiResponse<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), MSG_UPDATE_PICTURE_PRODUCT_FAIL, null);
-                }
-            }
+            this.productRepository.save(productEntityAft);
+//            ProductEntity productEntityUpdated = this.productRepository.save(productEntityAft);
+//            List<ProductImageEntity> listDelete = this.productImageRepository.findByProductId_Id(productEntityUpdated.getId()).get();
+//            this.productImageRepository.deleteAll(listDelete);
+//            System.out.println(listDelete);
+//            for (String productImage : productDto.getImageList()) {
+//                ProductImageEntity productImageEntity = new ProductImageEntity();
+//                productImageEntity.setUrl(productImage);
+//                productImageEntity.setProductId(productEntityUpdated);
+//                try {
+//                    this.productImageRepository.save(productImageEntity);
+//                } catch (Exception e) {
+//                    System.out.println(e);
+//                    return new ApiResponse<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), MSG_UPDATE_PICTURE_PRODUCT_FAIL, null);
+//                }
+//            }
             return new ApiResponse<>(HttpStatus.OK.value(), MSG_UPDATE_SUCCESS, null);
         } catch (Exception e) {
             System.out.println(e);
