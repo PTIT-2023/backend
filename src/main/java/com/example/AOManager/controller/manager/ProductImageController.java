@@ -14,6 +14,9 @@ public class ProductImageController {
     @Autowired
     ProductImageService productImageService;
 
+    @GetMapping
+    ApiResponse<?> getProductImages(@RequestParam String productId) {return this.productImageService.getProductImages(productId);}
+
     @PostMapping
     ApiResponse<?> addImage(@RequestBody AddImageRequest addImageRequest) {return this.productImageService.addImage(addImageRequest);}
 
