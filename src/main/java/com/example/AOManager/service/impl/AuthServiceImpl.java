@@ -145,7 +145,13 @@ public class AuthServiceImpl implements AuthService {
         MimeMessage mimeMailMessage = javaMailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(mimeMailMessage, true);
         String response = forgotPassword(email);
-        String link = "http://localhost:4200/reset-password/" + response;
+        String link;
+        String roleName = this.usersRepository.findByEmail(email).get().getUserRoleList().get(0).getRoleId().getName();
+        if (roleName.equals("ROLE_CUSTOMER")) {
+            link = "http://localhost:3000/reset-password/" + response;
+        } else {
+            link = "http://localhost:5173/reset-password/" + response;
+        }
         String content = "<p>Xin chào,</p>"
                 + "<p>Click vào đường dẫn sau để đặt lại mật khẩu cho tài khoản của bạn: </p>"
                 + "<p><a href=\"" + link + "\">Reset password</a></p>"
