@@ -62,9 +62,9 @@ public class PriceDetailServiceImpl implements PriceDetailService {
 
     @Override
     public ApiResponse<?> createPriceDetail(CreatePriceDetailRequest createPriceDetailRequest) {
-//        if (null == createPriceDetailRequest || 0 >= createPriceDetailRequest.getPrice() || !CheckInput.isValidDateForPriceDetail(createPriceDetailRequest.getApplyDate())) {
-//            return new ApiResponse<>(HttpStatus.BAD_REQUEST.value(), MSG_BAD_REQUEST_FOR_PRICE_DETAIL, null);
-//        }
+        if (null == createPriceDetailRequest || 0 >= createPriceDetailRequest.getPrice() || !CheckInput.isValidDateForPriceDetail(createPriceDetailRequest.getApplyDate())) {
+            return new ApiResponse<>(HttpStatus.BAD_REQUEST.value(), MSG_BAD_REQUEST_FOR_PRICE_DETAIL, null);
+        }
         List<PriceDetailEntity> priceDetailEntityList = this.priceDetailRepository.getPriceDetailsListWithProductId(UUID.fromString(createPriceDetailRequest.getProductId())).get();
         if (priceDetailEntityList.stream().anyMatch(priceDetail -> priceDetail.getApplyDate() == createPriceDetailRequest.getApplyDate())) {
             return new ApiResponse<>(HttpStatus.BAD_REQUEST.value(), MSG_PRICE_DETAIL_EXISTED, null);

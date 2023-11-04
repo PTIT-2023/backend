@@ -22,6 +22,6 @@ public class ProductDisplayDto {
         this.setAvatar(productEntity.getImageListString().size() > 0 ? productEntity.getImageListString().get(0) : null);
         this.setName(productEntity.getName());
         this.setPrice(productEntity.getCurrentPrice());
-        this.setSoldQuantity(productEntity.getSoldQuantity());
+        this.setSoldQuantity(productEntity.getSoldQuantity() == null ? 0 : productEntity.getSoldQuantity());
     }
 }
