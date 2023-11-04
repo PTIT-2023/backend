@@ -33,7 +33,7 @@ public class AuthController {
     ApiResponse<?> changePasswordCustomer(@Valid @RequestBody ChangePasswordRequest changePasswordRequest) {return this.authService.changePassword(changePasswordRequest);}
 
     @PostMapping("/forgot-password/send-email")
-    ApiResponse<?> sendEmail(@Valid @RequestBody String email) throws MessagingException {return this.authService.sendEmail(email);}
+    ApiResponse<?> sendEmail(@Valid @RequestBody LoginRequest request) throws MessagingException {return this.authService.sendEmail(request.getEmail());}
 
     @PutMapping("/forgot-password/reset")
     ApiResponse<?> resetPassword(@Valid @RequestBody ResetPasswordRequest request) {return this.authService.resetPassword(request);}
