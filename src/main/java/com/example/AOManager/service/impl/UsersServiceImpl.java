@@ -81,12 +81,14 @@ public class UsersServiceImpl implements UsersService {
 
     @Override
     public List<UsersEntity> getUsersList(String roleId, int page, int limit, String keyWord) {
+        keyWord = Function.formatKeyWord(keyWord);
         List<UsersEntity> managerList = this.usersRepository.getUsersList(UUID.fromString(roleId), (page - 1) * limit, limit, keyWord);
         return managerList;
     }
 
     @Override
     public ApiResponse<?> getCustomerList(String roleName, int page, int limit, String keyWord) {
+        keyWord = Function.formatKeyWord(keyWord);
         try {
             String roleId = this.roleRepository.findByName(roleName).get().getId().toString();
             long totalResult = this.userRoleRepository.getCountRecord(UUID.fromString(roleId), keyWord).get().size();
@@ -108,6 +110,7 @@ public class UsersServiceImpl implements UsersService {
 
     @Override
     public ApiResponse<?> getEmployeeList(String roleId, int page, int limit, String keyWord) {
+        keyWord = Function.formatKeyWord(keyWord);
         try {
             long totalResult = this.userRoleRepository.getCountRecord(UUID.fromString(roleId), keyWord).get().size();
             int totalPage = (int) Math.ceil((float) totalResult / limit);
@@ -128,6 +131,7 @@ public class UsersServiceImpl implements UsersService {
 
     @Override
     public ApiResponse<?> getManagerList(String roleId, int page, int limit, String keyWord) {
+        keyWord = Function.formatKeyWord(keyWord);
         try {
             long totalResult = this.userRoleRepository.getCountRecord(UUID.fromString(roleId), keyWord).get().size();
             int totalPage = (int) Math.ceil((float) totalResult / limit);

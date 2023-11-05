@@ -82,6 +82,7 @@ public class ImportFormServiceImpl implements ImportFormService {
 
     @Override
     public ApiResponse<?> getImportFormList(int page, int limit, String keyWord) {
+        keyWord = Function.formatKeyWord(keyWord);
         if (0 >= page || 0 >= limit) {
             return new ApiResponse<>(HttpStatus.BAD_REQUEST.value(), MSG_BAD_REQUEST, null);
         }

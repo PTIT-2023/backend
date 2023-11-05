@@ -50,6 +50,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public long getTotalRecord(String categoryId, String keyWord) {
+        keyWord = Function.formatKeyWord(keyWord);
         if (CheckInput.isValidUUID(categoryId)) {
             return this.productRepository.getCountRecordWithCategory(UUID.fromString(categoryId), keyWord).get().size();
         } else {
@@ -59,6 +60,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<ProductDto> getProductsList(String categoryId, int page, int limit, String keyWord) {
+        keyWord = Function.formatKeyWord(keyWord);
         List<ProductEntity> productsList;
         if (CheckInput.isValidUUID(categoryId)) {
             productsList = this.productRepository.getProductsListWithCategory(UUID.fromString(categoryId), (page - 1) * limit, limit, keyWord).get();
@@ -207,6 +209,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public ApiResponse<?> getProductsListForCustomer(String categoryId, String orderByPrice, int limit, String keyWord) {
+        keyWord = Function.formatKeyWord(keyWord);
         List<ProductDisplayDto> productDisplayDtoList;
         try {
             List<ProductEntity> productEntityList;

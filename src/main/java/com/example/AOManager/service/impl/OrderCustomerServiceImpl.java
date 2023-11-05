@@ -57,6 +57,7 @@ public class OrderCustomerServiceImpl implements OrderCustomerService {
             orderCustomerDisplayDto.setDeliveryAddress(orderCustomerEntity.getDeliveryAddress());
             orderCustomerDisplayDto.setDeliveryEmail(orderCustomerEntity.getDeliveryEmail());
             orderCustomerDisplayDto.setDeliveryPhone(orderCustomerEntity.getDeliveryPhone());
+            orderCustomerDisplayDto.setDeliveryDate(orderCustomerEntity.getDeliveryDate());
             List<OrderCustomerDisplayDto.Product> productList = new ArrayList<>();
             for (CartDetailEntity cartDetail : orderCustomerEntity.getCartDetailList()) {
                 OrderCustomerDisplayDto.Product product = new OrderCustomerDisplayDto.Product();
@@ -88,6 +89,7 @@ public class OrderCustomerServiceImpl implements OrderCustomerService {
 
     @Override
     public ApiResponse<?> getOrderCustomerList(String orderStatusId, int page, int limit, String keyWord) {
+        keyWord = Function.formatKeyWord(keyWord);
         if (CheckInput.stringIsNullOrEmpty(orderStatusId) || !CheckInput.isValidUUID(orderStatusId) || 0 >= page || 0 >= limit) {
             return new ApiResponse<>(HttpStatus.BAD_REQUEST.value(), MSG_BAD_REQUEST, null);
         }

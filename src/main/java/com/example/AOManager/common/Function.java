@@ -39,4 +39,10 @@ public class Function {
                 .filter(product -> product.getCurrentPrice() != 0)
                 .collect(Collectors.toList());
     }
+
+    public static String formatKeyWord(String input) {
+        // Loại bỏ khoảng trống thừa ở giữa và chuyển đổi thành chữ thường
+        String cleanedAndLowercased = input.trim().replaceAll("\\s+", " ").toLowerCase();
+        return cleanedAndLowercased;
+    }
 }

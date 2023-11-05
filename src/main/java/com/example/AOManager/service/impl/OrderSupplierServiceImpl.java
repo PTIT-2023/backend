@@ -91,6 +91,7 @@ public class OrderSupplierServiceImpl implements OrderSupplierService {
 
     @Override
     public ApiResponse<?> getOrderSupplierList(String status, int page, int limit, String keyWord) {
+        keyWord = Function.formatKeyWord(keyWord);
         if (CheckInput.stringIsNullOrEmpty(status) || 0 >= page || 0 >= limit) {
             return new ApiResponse<>(HttpStatus.BAD_REQUEST.value(), MSG_BAD_REQUEST, null);
         }

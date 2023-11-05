@@ -28,6 +28,7 @@ public class OrderCustomerDisplayDto {
     private String deliveryAddress;
     private String deliveryEmail;
     private String deliveryPhone;
+    private long deliveryDate;
     private long totalPriceOrder;
     private String orderStatusId;
     private String orderStatusName;
