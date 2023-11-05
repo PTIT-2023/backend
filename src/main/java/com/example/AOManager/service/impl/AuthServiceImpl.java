@@ -6,12 +6,12 @@ import com.example.AOManager.entity.UsersEntity;
 import com.example.AOManager.payload.request.ChangePasswordRequest;
 import com.example.AOManager.payload.request.LoginRequest;
 import com.example.AOManager.payload.request.UserSignupRequest;
-import com.example.AOManager.request.ResetPasswordRequest;
-import com.example.AOManager.response.ApiResponse;
 import com.example.AOManager.payload.response.JwtResponse;
 import com.example.AOManager.repository.RoleRepository;
 import com.example.AOManager.repository.UserRoleRepository;
 import com.example.AOManager.repository.UsersRepository;
+import com.example.AOManager.request.ResetPasswordRequest;
+import com.example.AOManager.response.ApiResponse;
 import com.example.AOManager.security.jwt.JwtUtils;
 import com.example.AOManager.security.services.UserDetailsImpl;
 import com.example.AOManager.service.AuthService;
@@ -34,14 +34,20 @@ import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
 import static com.example.AOManager.common.CheckInput.stringIsNullOrEmpty;
-import static com.example.AOManager.common.Message.*;
+import static com.example.AOManager.common.Message.MSG_BAD_REQUEST;
+import static com.example.AOManager.common.Message.MSG_EMAIL_EXIST;
+import static com.example.AOManager.common.Message.MSG_LOGIN_SUCCESS;
+import static com.example.AOManager.common.Message.MSG_REGISTRY_FAIL;
+import static com.example.AOManager.common.Message.MSG_REGISTRY_SUCCESS;
+import static com.example.AOManager.common.Message.MSG_RESET_PASSWORD_SUCCESS;
+import static com.example.AOManager.common.Message.MSG_SENT_MAIL_SUCCESS;
+import static com.example.AOManager.common.Message.MSG_TOKEN_EXPIRED;
 
 @Service
 public class AuthServiceImpl implements AuthService {
@@ -88,7 +94,7 @@ public class AuthServiceImpl implements AuthService {
         List<String> roles = employeeDetails.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.toList());
-        return new ApiResponse(HttpStatus.OK.value(), MSG_LOGIN_SUCCESS, new JwtResponse(jwt, employeeDetails.getUsername(), roles));
+        return new ApiResponse(HttpStatus.OK.value(), MSG_LOGIN_SUCCESS, new JwtResponse(jwt, employeeDetails.getId(), employeeDetails.getUsername(), roles));
     }
 
     @Override

@@ -3,6 +3,7 @@ package com.example.AOManager.security.services;
 import com.example.AOManager.entity.UsersEntity;
 import com.example.AOManager.entity.UserRoleEntity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -13,13 +14,19 @@ import java.util.Objects;
 
 public class UserDetailsImpl implements UserDetails {
     private static final long serialVersionUID = 1L;
+
+    @Getter
+    private String id;
+
     private String email;
+
     @JsonIgnore
     private String password;
 
     private Collection<? extends GrantedAuthority> authorities;
 
-    public UserDetailsImpl(String email, String password, Collection<? extends GrantedAuthority> authorities) {
+    public UserDetailsImpl(String id, String email, String password, Collection<? extends GrantedAuthority> authorities) {
+        this.id = id;
         this.email = email;
         this.password = password;
         this.authorities = authorities;
@@ -31,7 +38,7 @@ public class UserDetailsImpl implements UserDetails {
             GrantedAuthority role = new SimpleGrantedAuthority(userRole.getRoleId().getName());
             authorities.add(role);
         }
-        return new UserDetailsImpl(user.getEmail(), user.getPassword(), authorities);
+        return new UserDetailsImpl(user.getId().toString(), user.getEmail(), user.getPassword(), authorities);
     }
 
 
