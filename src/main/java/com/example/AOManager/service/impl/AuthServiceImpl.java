@@ -134,7 +134,7 @@ public class AuthServiceImpl implements AuthService {
 
     public String forgotPassword(String email) {
         UsersEntity userOptional = this.usersRepository.findByEmail(email)
-                .orElseThrow(() -> new UsernameNotFoundException("Không tìm thấy tài khoản tương ứng với emai này: " + email));
+                .orElseThrow(() -> new UsernameNotFoundException("Can't find any user with this email!: " + email));
         userOptional.setToken(generateToken());
         userOptional.setTokenCreationDate(LocalDateTime.now());
         userOptional = this.usersRepository.save(userOptional);

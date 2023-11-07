@@ -22,7 +22,7 @@ public interface UsersService {
 
     ApiResponse<?> getManagerList(String roleId, int page, int limit, String keyWord);
 
-    ApiResponse<?> createUser(UserRequest createUserRequest, String role);
+    ApiResponse<?> createUser(UserRequest createUserRequest);
 
     ApiResponse<?> updateUser(UserRequest updateUserRequest);
 

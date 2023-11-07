@@ -103,9 +103,12 @@ public final class Message {
     public static final String MSG_CAN_NOT_ADD_TO_CART_BECAUSE_QUANTITY_2 = "Can not add to cart because inventory is not enough, the quantity of this product in your cart is ";
     public static final String MSG_DO_ORDER_FAIL = "There was an error while ordering!";
     public static final String MSG_DO_ORDER_SUCCESS = "Ordering successfully!";
-
     public static final String MSG_GET_PRODUCT_IMAGE_LIST_SUCCESS = "Get product images successfully!";
     public static final String MSG_GET_PRODUCT_IMAGE_LIST_FAIL = "Fail to get product images!";
     public static final String MSG_ADD_IMAGE_SUCCESS = "Added an image for this product!";
     public static final String MSG_ADD_IMAGE_FAIL = "Fail to add an image for this product!";
+    public static final String MSG_NAME_INCORRECT = "Name is incorrect!";
+    public static final String MSG_DOB_INCORRECT = "Date of birth is incorrect!";
+    public static final String MSG_PHONE_INCORRECT = "Phone number is incorrect!";
+    public static final String MSG_REQUIRED_ADDRESS = "Address is required!";
 }

@@ -151,7 +151,7 @@ public class UsersServiceImpl implements UsersService {
     }
 
     @Override
-    public ApiResponse<?> createUser(UserRequest createUserRequest, String role) {
+    public ApiResponse<?> createUser(UserRequest createUserRequest) {
         if (this.usersRepository.existsByEmail(createUserRequest.getEmail())) {
             return new ApiResponse<>(HttpStatus.BAD_REQUEST.value(), MSG_EMAIL_EXIST, null);
         }
@@ -164,7 +164,7 @@ public class UsersServiceImpl implements UsersService {
             UsersEntity usersEntityCreated = this.usersRepository.save(usersEntity);
             UserRoleEntity userRoleEntity = new UserRoleEntity();
             userRoleEntity.setUserId(usersEntityCreated);
-            userRoleEntity.setRoleId(this.roleRepository.findByName(role).get());
+            userRoleEntity.setRoleId(this.roleRepository.findById(UUID.fromString(createUserRequest.getRoleId())).get());
             this.userRoleRepository.save(userRoleEntity);
             return new ApiResponse<>(HttpStatus.OK.value(), MSG_CREATE_USER_SUCCESS, null);
         } catch (Exception e) {
@@ -200,9 +200,14 @@ public class UsersServiceImpl implements UsersService {
 
     @Override
     public ApiResponse<?> changeInforCustomer(ChangeInforCustomerRequest request) {
-        if (!CheckInput.isValidName(request.getFirstName()) || !CheckInput.isValidName(request.getLastName())
-        || !CheckInput.isValidDate(request.getBirthday()) || !CheckInput.isValidPhoneNumber(request.getPhone())) {
-            return new ApiResponse<>(HttpStatus.BAD_REQUEST.value(), MSG_BAD_REQUEST, null);
+        if (!CheckInput.isValidName(request.getFirstName()) || !CheckInput.isValidName(request.getLastName())) {
+            return new ApiResponse<>(HttpStatus.BAD_REQUEST.value(), MSG_NAME_INCORRECT, null);
+        } else if (!CheckInput.isValidDate(request.getBirthday())) {
+            return new ApiResponse<>(HttpStatus.BAD_REQUEST.value(), MSG_DOB_INCORRECT, null);
+        } else if (!CheckInput.isValidPhoneNumber(request.getPhone())) {
+            return new ApiResponse<>(HttpStatus.BAD_REQUEST.value(), MSG_PHONE_INCORRECT, null);
+        } else if (CheckInput.stringIsNullOrEmpty(request.getAddress())) {
+            return new ApiResponse<>(HttpStatus.BAD_REQUEST.value(), MSG_REQUIRED_ADDRESS, null);
         }
         try {
             UsersEntity customer = this.usersRepository.findById(UUID.fromString(request.getId())).get();
