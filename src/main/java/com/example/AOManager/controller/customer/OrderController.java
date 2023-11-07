@@ -15,7 +15,7 @@ public class OrderController {
     OrderCustomerService orderCustomerService;
 
     @GetMapping
-    ApiResponse<?> getOrdersListForCustomerByStatusId(@RequestParam String orderStatusId, @RequestParam int limit) {return this.orderCustomerService.getOrdersListForCustomerByStatusId(orderStatusId, limit);}
+    ApiResponse<?> getOrdersListForCustomerByStatusId(@RequestParam String customerId, @RequestParam String orderStatusId, @RequestParam int limit) {return this.orderCustomerService.getOrdersListForCustomer(customerId, orderStatusId, limit);}
 
     @GetMapping("/{orderCustomerId}")
     ApiResponse<?> getOrderDetail(@PathVariable String orderCustomerId) {return this.orderCustomerService.getOrderCustomer(orderCustomerId);}

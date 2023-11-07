@@ -11,7 +11,7 @@ public interface OrderCustomerService {
 
     ApiResponse<?> updateStatusForOrderCustomer(String orderStatusIdTo, String id);
 
-    ApiResponse<?> getOrdersListForCustomerByStatusId(String orderStatusId, int limit);
+    ApiResponse<?> getOrdersListForCustomer(String customerId, String orderStatusId, int limit);
 
     ApiResponse<?> doOrder(DoOrderRequest doOrderRequest);
 

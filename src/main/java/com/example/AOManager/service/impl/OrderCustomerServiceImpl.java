@@ -191,10 +191,10 @@ public class OrderCustomerServiceImpl implements OrderCustomerService {
     }
 
     @Override
-    public ApiResponse<?> getOrdersListForCustomerByStatusId(String orderStatusId, int limit) {
+    public ApiResponse<?> getOrdersListForCustomer(String customerId, String orderStatusId, int limit) {
         List<OneOfOrderListDisplayDto> ordersDisplayList;
         try {
-            List<OrderCustomerEntity> orderCustomerEntityList = this.orderCustomerRepository.getOrdersListForCustomerByStatusId(UUID.fromString(orderStatusId)).get();
+            List<OrderCustomerEntity> orderCustomerEntityList = this.orderCustomerRepository.getOrdersListForCustomer(UUID.fromString(customerId), UUID.fromString(orderStatusId)).get();
             long total = orderCustomerEntityList.size();
             orderCustomerEntityList = orderCustomerEntityList.subList(0, Math.min(limit, orderCustomerEntityList.size()));
             ordersDisplayList = orderCustomerEntityList.stream().map(OneOfOrderListDisplayDto::new).collect(Collectors.toList());
