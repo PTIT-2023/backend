@@ -3,16 +3,12 @@ package com.example.AOManager.common;
 public final class Message {
     public static final String MSG_ERROR_PROCESSING = "An error occurred during processing";
     public static final String MSG_SUCCESS_PROCESSING = "processed successfully";
-    public static final String MSG_REQUIRED_EMAIL = "Please enter your email!";
-    public static final String MSG_REQUIRED_PASSWORD = "Please enter your password!";
-    public static final String MSG_EMAIL_NOT_TRUE = "Invalid email!";
     public static final String MSG_LOGIN_SUCCESS = "Login successful!";
-    public static final String MSG_LOGIN_FAILD = "Login failed, please check your email and password!";
     public static final String MSG_NOT_FOUND_BY_ID = "No item was found with this ID!";
     public static final String MSG_CREATE_FAIL = "create failed!";
     public static final String MSG_CREATE_SUCCESS = "create successful!";
     public static final String MSG_UPDATE_FAIL = "Update failed!";
-    public static final String MSG_UPDATE_SUCCESS = "Update successful!";
+    public static final String MSG_UPDATE_SUCCESS = "Updated!";
     public static final String MSG_DELETE_FAIL = "Delete failed!";
     public static final String MSG_DELETE_SUCCESS = "Deleted!";
     public static final String MSG_BAD_REQUEST = "Processing failed, please check your request!";
