@@ -39,15 +39,9 @@ import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+import static com.example.AOManager.common.CheckInput.isValidEmail;
 import static com.example.AOManager.common.CheckInput.stringIsNullOrEmpty;
-import static com.example.AOManager.common.Message.MSG_BAD_REQUEST;
-import static com.example.AOManager.common.Message.MSG_EMAIL_EXIST;
-import static com.example.AOManager.common.Message.MSG_LOGIN_SUCCESS;
-import static com.example.AOManager.common.Message.MSG_REGISTRY_FAIL;
-import static com.example.AOManager.common.Message.MSG_REGISTRY_SUCCESS;
-import static com.example.AOManager.common.Message.MSG_RESET_PASSWORD_SUCCESS;
-import static com.example.AOManager.common.Message.MSG_SENT_MAIL_SUCCESS;
-import static com.example.AOManager.common.Message.MSG_TOKEN_EXPIRED;
+import static com.example.AOManager.common.Message.*;
 
 @Service
 public class AuthServiceImpl implements AuthService {
@@ -84,17 +78,23 @@ public class AuthServiceImpl implements AuthService {
         if (stringIsNullOrEmpty(loginRequest.getEmail()) || stringIsNullOrEmpty(loginRequest.getPassword())) {
             return new ApiResponse(HttpStatus.BAD_REQUEST.value(), MSG_BAD_REQUEST, null);
         }
+        if (!isValidEmail(loginRequest.getEmail())) {
+            return new ApiResponse(HttpStatus.BAD_REQUEST.value(), MSG_EMAIL_NOT_TRUE, null);
+        }
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword())
         );
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-        String jwt = jwtUtils.generateJwtToken(authentication);
-
-        UserDetailsImpl employeeDetails = (UserDetailsImpl) authentication.getPrincipal();
-        List<String> roles = employeeDetails.getAuthorities().stream()
-                .map(GrantedAuthority::getAuthority)
-                .collect(Collectors.toList());
-        return new ApiResponse(HttpStatus.OK.value(), MSG_LOGIN_SUCCESS, new JwtResponse(jwt, employeeDetails.getId(), employeeDetails.getUsername(), roles));
+        try {
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+            String jwt = jwtUtils.generateJwtToken(authentication);
+            UserDetailsImpl employeeDetails = (UserDetailsImpl) authentication.getPrincipal();
+            List<String> roles = employeeDetails.getAuthorities().stream()
+                    .map(GrantedAuthority::getAuthority)
+                    .collect(Collectors.toList());
+            return new ApiResponse(HttpStatus.OK.value(), MSG_LOGIN_SUCCESS, new JwtResponse(jwt, employeeDetails.getId(), employeeDetails.getUsername(), roles));
+        } catch (Exception e) {
+            return new ApiResponse(HttpStatus.UNAUTHORIZED.value(), MSG_LOGIN_FAILD, null);
+        }
     }
 
     @Override

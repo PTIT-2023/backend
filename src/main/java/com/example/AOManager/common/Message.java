@@ -1,9 +1,11 @@
 package com.example.AOManager.common;
 
 public final class Message {
+    public static final String MSG_EMAIL_NOT_TRUE = "Email is incorrect!";
     public static final String MSG_ERROR_PROCESSING = "An error occurred during processing";
     public static final String MSG_SUCCESS_PROCESSING = "processed successfully";
     public static final String MSG_LOGIN_SUCCESS = "Login successful!";
+    public static final String MSG_LOGIN_FAILD = "Login fail!";
     public static final String MSG_NOT_FOUND_BY_ID = "No item was found with this ID!";
     public static final String MSG_CREATE_FAIL = "create failed!";
     public static final String MSG_CREATE_SUCCESS = "create successful!";
