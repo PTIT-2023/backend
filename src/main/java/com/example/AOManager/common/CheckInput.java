@@ -91,7 +91,7 @@ public class CheckInput {
             return false;
         }
         // Tên chỉ chứa các ký tự chữ cái và dấu cách
-        if (!name.matches("^[a-zA-Z ]+$")) {
+        if (!name.matches("^[a-zA-Z\\p{L} ]+$")) {
             return false;
         }
         // Nếu tất cả các điều kiện trên được thỏa mãn, tên được coi là hợp lệ

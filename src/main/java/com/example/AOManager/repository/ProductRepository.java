@@ -65,7 +65,7 @@ public interface ProductRepository extends JpaRepository<ProductEntity, UUID> {
 
     @Query(value = "SELECT * " +
             "FROM product " +
-            "WHERE status = true " +
+            "WHERE status = true AND sold_quantity is not NULL " +
             "ORDER BY sold_quantity DESC " +
             "LIMIT 10 ", nativeQuery = true)
     Optional<List<ProductEntity>> getBestSellingProductsList();
