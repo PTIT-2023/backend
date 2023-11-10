@@ -54,13 +54,26 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.cors().and().csrf().disable()
                 .exceptionHandling().authenticationEntryPoint(unAuthEntryPointJwt).and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-                .authorizeRequests().antMatchers("/**").permitAll()
+                .authorizeRequests().antMatchers("/*").permitAll()
+                .antMatchers("/api/master/**").permitAll()
                 .antMatchers("/api/auth/**").permitAll()
-                .antMatchers("/api/test/**").permitAll()
-                .antMatchers("/api/customers/**").permitAll()
+                .antMatchers("/api/customer/cart/**").hasRole("CUSTOMER")
+                .antMatchers("/api/customer/home/**").hasRole("CUSTOMER")
+                .antMatchers("/api/customer/order/**").hasRole("CUSTOMER")
+                .antMatchers("/api/customer/products/**").hasRole("CUSTOMER")
+                .antMatchers("/api/customer/user-infor/**").hasRole("CUSTOMER")
+                .antMatchers("/api/categories/**").hasAnyRole("MANAGER", "EMPLOYEE")
+                .antMatchers("/api/customers/**").hasAnyRole("MANAGER", "EMPLOYEE")
+                .antMatchers("/api/employees/**").hasAnyRole("MANAGER", "EMPLOYEE")
+                .antMatchers("/api/import-forms/**").hasAnyRole("MANAGER", "EMPLOYEE")
                 .antMatchers("/api/managers/**").hasRole("MANAGER")
+                .antMatchers("/api/master/**").hasAnyRole("MANAGER", "EMPLOYEE")
+                .antMatchers("/api/order-customers/**").hasAnyRole("MANAGER", "EMPLOYEE")
+                .antMatchers("/api/order-suppliers/**").hasAnyRole("MANAGER", "EMPLOYEE")
+                .antMatchers("/api/price-details/**").hasAnyRole("MANAGER", "EMPLOYEE")
+                .antMatchers("/api/products/**").hasAnyRole("MANAGER", "EMPLOYEE")
+                .antMatchers("/api/product-image/**").hasAnyRole("MANAGER", "EMPLOYEE")
                 .anyRequest().authenticated();
-
         http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
     }
 }
