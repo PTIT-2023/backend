@@ -4,6 +4,7 @@ import com.example.AOManager.common.CheckInput;
 import com.example.AOManager.common.Function;
 import com.example.AOManager.dto.customer.ProductDisplayDto;
 import com.example.AOManager.dto.manager.ProductDto;
+import com.example.AOManager.entity.CategoryEntity;
 import com.example.AOManager.entity.ProductEntity;
 import com.example.AOManager.entity.ProductImageEntity;
 import com.example.AOManager.repository.*;
@@ -94,7 +95,17 @@ public class ProductServiceImpl implements ProductService {
         ProductEntity productEntity = productDto.toEntity();
         productEntity.setInventoryQuantity(0);
         productEntity.setStatus(false);
-        productEntity.setCategoryId(this.categoryRepository.findById(UUID.fromString(productDto.getCategoryId())).get());
+        CategoryEntity categoryEntity = this.categoryRepository.findById(UUID.fromString(productDto.getCategoryId())).get();
+        productEntity.setCategoryId(categoryEntity);
+        if (!categoryEntity.getName().equals("ANIMAL") && !categoryEntity.getName().equals("PLANT")) {
+            productEntity.setPh(null);
+            productEntity.setTemperature(null);
+            productEntity.setFoodType(null);
+            productEntity.setHabitat(null);
+            productEntity.setPosition(null);
+            productEntity.setReproductionMethod(null);
+            productEntity.setMaxSize(null);
+        }
         try {
             ProductEntity productEntityCreate = this.productRepository.save(productEntity);
             for (String productImage : productDto.getImageList()) {
