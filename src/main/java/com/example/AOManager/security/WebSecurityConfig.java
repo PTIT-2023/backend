@@ -55,12 +55,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .exceptionHandling().authenticationEntryPoint(unAuthEntryPointJwt).and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .authorizeRequests().antMatchers("/*").permitAll()
-                .antMatchers("/api/master/**").permitAll()
                 .antMatchers("/api/auth/**").permitAll()
+                .antMatchers("/api/customer/products/**").permitAll()
                 .antMatchers("/api/customer/home/**").permitAll()
                 .antMatchers("/api/customer/cart/**").hasRole("CUSTOMER")
                 .antMatchers("/api/customer/order/**").hasRole("CUSTOMER")
-                .antMatchers("/api/customer/products/**").hasRole("CUSTOMER")
                 .antMatchers("/api/customer/user-infor/**").hasRole("CUSTOMER")
                 .antMatchers("/api/categories/**").hasAnyRole("MANAGER", "EMPLOYEE")
                 .antMatchers("/api/employees/**").hasAnyRole("MANAGER", "EMPLOYEE")
@@ -72,7 +71,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/price-details/**").hasAnyRole("MANAGER", "EMPLOYEE")
                 .antMatchers("/api/products/**").hasAnyRole("MANAGER", "EMPLOYEE")
                 .antMatchers("/api/product-image/**").hasAnyRole("MANAGER", "EMPLOYEE")
-                .anyRequest().authenticated();
+                .antMatchers("/api/master/**").permitAll()
+                .anyRequest().authenticated().and()
+                .httpBasic();
         http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
     }
 }
